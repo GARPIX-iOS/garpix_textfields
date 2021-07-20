@@ -25,6 +25,7 @@ struct TextFieldStyleComponents<TrailingButtons: View> {
     var onChangeOfIsEditing: (Bool) -> Void
     var deleteTapped: () -> Void
     var hideKeyboard: () -> Void
+    
 }
 
 struct TextFieldStyle<TrailingButtons: View>: ViewModifier {

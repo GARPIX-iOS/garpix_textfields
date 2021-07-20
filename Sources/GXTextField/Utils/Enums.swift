@@ -7,8 +7,4 @@
 
 import Foundation
 
-public enum BorderStyles {
-    case standart
-    case selected
-    case error
-}
+
