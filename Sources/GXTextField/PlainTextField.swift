@@ -85,10 +85,10 @@ public struct PlainTextField<TrailingButtons: View>: View, PlainTextFieldProtoco
                 hideKeyboard()
             }
         )
+        
         CustomTextField(
             placeholder: placeholder,
             text: $text,
-            trailingButtons: trailingButtons,
             editingChanged: { isEdit in
                 if !isEdit {
                     withAnimation(.spring()) {

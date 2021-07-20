@@ -14,7 +14,7 @@ struct ClearTextButton: View {
             clearingText = ""
         }) {
             Image(systemName: "xmark")
-                .resizable()
+//                .resizable()
                 .renderingMode(.template)
                 .foregroundColor(.black)
                 .frame(width: 15, height: 15, alignment: .center)

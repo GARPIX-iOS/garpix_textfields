@@ -61,6 +61,7 @@ extension TextFieldPropertiesProtocol {
 extension TextFieldPropertiesProtocol {
     func limitTextLength(text: String, validSymbolsAmount: Int?, onlyNumbers: Bool) -> String {
         let symbol: String.Element = "X"
+        guard validSymbolsAmount != nil else { return text }
         return text.formatText(with: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
                                                     symbol: symbol),
                                symbol: symbol,
