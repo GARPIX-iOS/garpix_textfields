@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 protocol CustomTFProtocol {
-    var text: String { get set }
     var isEditing: Bool { get set }
     var placeholder: String { get set }
     var width: CGFloat { get set }
@@ -27,14 +26,14 @@ protocol CustomTFProtocol {
 }
 
 protocol CustomTFButtonsProtocol {
-    associatedtype SideContent: View
+    associatedtype LeadingContent: View
+    associatedtype TrailingContent: View
     
-    var leadingButtons: () -> SideContent? { get set }
-    var trailingButtons: () -> SideContent? { get set }
+    var leadingContent: () -> LeadingContent? { get set }
+    var trailingContent: () -> TrailingContent? { get set }
 }
 
-struct CustomTFComponents: CustomTFProtocol {
-    var text: String
+public struct CustomTFComponents: CustomTFProtocol {
     var isEditing: Bool
     var placeholder: String
     var width: CGFloat
@@ -49,64 +48,127 @@ struct CustomTFComponents: CustomTFProtocol {
     var onChangeOfText: (String) -> Void
     var onChangeOfIsEditing: (Bool) -> Void
     var hideKeyboard: () -> Void
+    
+    public init(
+        isEditing: Bool = false,
+        placeholder: String = "",
+        width: CGFloat = Display.width * 0.9,
+        height: CGFloat = 60,
+        keyboardType: UIKeyboardType = .default,
+        isShowSecureField: Bool = false,
+        isShowLeadingButtons: Bool = false,
+        isShowTrailingButtons: Bool = false,
+        commit: @escaping () -> Void = {},
+        onTap: @escaping () -> Void = {},
+        onChangeOfText: @escaping (String) -> Void = {_ in},
+        onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
+        hideKeyboard: @escaping () -> Void = {}
+    ) {
+        self.isEditing = isEditing
+        self.placeholder = placeholder
+        self.width = width
+        self.height = height
+        self.keyboardType = keyboardType
+        self.isShowSecureField = isShowSecureField
+        self.isShowLeadingButtons = isShowLeadingButtons
+        self.isShowTrailingButtons = isShowTrailingButtons
+        self.commit = commit
+        self.onTap = onTap
+        self.onChangeOfText = onChangeOfText
+        self.onChangeOfIsEditing = onChangeOfIsEditing
+        self.hideKeyboard = hideKeyboard
+    }
 }
 
-struct CustomTF<SideContent>: View, CustomTFButtonsProtocol where SideContent: View {
-    @Binding var components: CustomTFComponents
-    var leadingButtons: () -> SideContent?
-    var trailingButtons: () -> SideContent?
+public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
+    @Binding var text: String
+    var components: CustomTFComponents
+    var leadingContent: () -> LeadingContent?
+    var trailingContent: () -> TrailingContent?
     
-    init(
-        components: Binding<CustomTFComponents>,
-        @ViewBuilder leadingButtons: @escaping () -> SideContent? = { nil },
-        @ViewBuilder trailingButtons: @escaping () -> SideContent? = { nil }
+    public init(
+        text: Binding<String>,
+        components: CustomTFComponents,
+        @ViewBuilder leadingContent: @escaping () -> LeadingContent? = { nil },
+        @ViewBuilder trailingContent: @escaping () -> TrailingContent? = { nil }
     ) {
-        _components = components
-        self.leadingButtons = leadingButtons
-        self.trailingButtons = trailingButtons
+        _text = text
+        self.components = components
+        self.leadingContent = leadingContent
+        self.trailingContent = trailingContent
     }
     
-    var body: some View {
+    public var body: some View {
         textfield
-            .customTFActions(textfield: components,
-                             leadingButtons: leadingButtons,
-                             trailingButtons: trailingButtons)
+            .customTFActions(text: $text,
+                             textfield: components,
+                             leadingContent: leadingContent,
+                             trailingContent: trailingContent)
     }
     
     var textfield: some View {
         ZStack(alignment: .leading) {
-            if components.text.isEmpty {
+            if text.isEmpty {
                 Text(components.placeholder)
             }
             
             if components.isShowSecureField {
-                SecureField("", text: $components.text, onCommit: components.commit)
+                SecureField("", text: $text, onCommit: components.commit)
                 
             } else {
-                TextField("", text: $components.text, onEditingChanged: components.onChangeOfIsEditing, onCommit: components.commit)
+                TextField("", text: $text, onEditingChanged: components.onChangeOfIsEditing, onCommit: components.commit)
             }
         }
     }
 }
 
-extension CustomTF {
-    init(components: Binding<CustomTFComponents>) where SideContent == Color {
+public extension CustomTF {
+    init(text: Binding<String>,
+         components: CustomTFComponents) where LeadingContent == EmptyView, TrailingContent == EmptyView {
         self.init(
+            text: text,
             components: components,
-            leadingButtons: {
-                Color.primary
+            leadingContent: {
+                EmptyView()
             },
-            trailingButtons: {
-                Color.primary
+            trailingContent: {
+                EmptyView()
+            }
+        )
+    }
+    
+    init(text: Binding<String>,
+         components: CustomTFComponents,
+         @ViewBuilder trailingContent: @escaping () -> TrailingContent? ) where LeadingContent == EmptyView {
+        self.init(
+            text: text,
+            components: components,
+            leadingContent: {
+                EmptyView()
+            },
+            trailingContent: trailingContent
+        )
+    }
+
+    init(text: Binding<String>,
+         components: CustomTFComponents,
+         @ViewBuilder leadingContent: @escaping () -> LeadingContent?) where TrailingContent == EmptyView {
+        self.init(
+            text: text,
+            components: components,
+            leadingContent: leadingContent,
+            trailingContent: {
+                EmptyView()
             }
         )
     }
 }
 
-struct CustomTFActions<SideContent>: ViewModifier, CustomTFButtonsProtocol where SideContent: View{
+struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
+    @Binding var text: String
     var textfield: CustomTFComponents
-    var leadingButtons: () -> SideContent?
-    var trailingButtons: () -> SideContent?
+    var leadingContent: () -> LeadingContent?
+    var trailingContent: () -> TrailingContent?
     
     func body(content: Content) -> some View {
         HStack(spacing: 10) {
@@ -120,7 +182,7 @@ struct CustomTFActions<SideContent>: ViewModifier, CustomTFButtonsProtocol where
                     }
                 }
                 .font(.callout)
-                .onChange(of: textfield.text, perform: { value in
+                .onChange(of: text, perform: { value in
                     textfield.onChangeOfText(value)
                 })
                 .onChange(of: textfield.isEditing, perform: { value in
@@ -140,28 +202,30 @@ struct CustomTFActions<SideContent>: ViewModifier, CustomTFButtonsProtocol where
     }
     
     @ViewBuilder
-    var trailingButtonsView: some View {
-        if textfield.isShowTrailingButtons {
-            trailingButtons()
-                .padding(.trailing, 16)
+    var leadingButtonsView: some View {
+        if textfield.isShowLeadingButtons {
+            leadingContent()
+                .padding(.leading, 16)
         }
     }
     
     @ViewBuilder
-    var leadingButtonsView: some View {
-        if textfield.isShowLeadingButtons {
-            leadingButtons()
-                .padding(.leading, 16)
+    var trailingButtonsView: some View {
+        if textfield.isShowTrailingButtons {
+            trailingContent()
+                .padding(.trailing, 16)
         }
     }
 }
 
 extension View {
-    func customTFActions<SideContent: View>(textfield: CustomTFComponents,
-                                            leadingButtons: @escaping () -> SideContent?,
-                                            trailingButtons: @escaping () -> SideContent?) -> some View {
-        modifier(CustomTFActions(textfield: textfield,
-                                 leadingButtons: leadingButtons,
-                                 trailingButtons: trailingButtons))
+    func customTFActions<LeadingContent: View, TrailingContent: View>(text: Binding<String>,
+                                                                      textfield: CustomTFComponents,
+                                                                      leadingContent: @escaping () -> LeadingContent?,
+                                                                      trailingContent: @escaping () -> TrailingContent?) -> some View  {
+        modifier(CustomTFActions(text: text,
+                                 textfield: textfield,
+                                 leadingContent: leadingContent,
+                                 trailingContent: trailingContent))
     }
 }

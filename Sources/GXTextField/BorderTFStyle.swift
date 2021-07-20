@@ -1,22 +1,23 @@
 //
-//  TextFieldBorderStyle.swift
-//  Red
+//  File.swift
+//  
 //
-//  Created by Danil Lomaev on 26.03.2021.
+//  Created by Anton Vlezko on 20.07.2021.
 //
 
 import Foundation
 import SwiftUI
 
-//public enum BorderStyles {
-//    case standart
-//    case selected
-//    case error
-//}
+public enum BorderStyles {
+    case standart
+    case selected
+    case error
+}
 
-protocol TextFieldBorderStyleProtocol {
+protocol BorderTFStyleProtocol {
     var title: String { get set }
     var image: String { get set }
+    var type: BorderStyles { get set }
     var font: Font { get set }
     var textColor: Color { get set }
     var strokeWidth: CGFloat { get set }
@@ -27,29 +28,12 @@ protocol TextFieldBorderStyleProtocol {
     var offsetX: CGFloat { get set }
     var offsetY: CGFloat { get set }
     var backgroundColor: Color { get set }
-    var type: BorderStyles { get set }
+    var showLabelAfterEnteringText: Bool { get set }
     
-    // MARK: - All properties init
-    
-    init(
-        title: String,
-        image: String,
-        type: BorderStyles,
-        font: Font,
-        textColor: Color,
-        strokeWidth: CGFloat,
-        strokeStandartColor: Color,
-        strokeSelectedColor: Color,
-        strokeErrorColor: Color,
-        cornerRadius: CGFloat,
-        offsetX: CGFloat,
-        offsetY: CGFloat,
-        backgroundColor: Color
-    )
 }
 
 // MARK: - Helper Functions
-extension TextFieldBorderStyleProtocol {
+extension BorderTFStyleProtocol {
     func strokeColorCalculator() -> Color {
         switch type {
         case .standart: return strokeStandartColor
@@ -59,9 +43,11 @@ extension TextFieldBorderStyleProtocol {
     }
 }
 
-struct TextFieldBorderStyle: ViewModifier, TextFieldBorderStyleProtocol {
+public struct BorderTFStyleComponents: BorderTFStyleProtocol {
+    var text: String
     var title: String
     var image: String
+    var type: BorderStyles
     var font: Font
     var textColor: Color
     var strokeWidth: CGFloat
@@ -69,12 +55,13 @@ struct TextFieldBorderStyle: ViewModifier, TextFieldBorderStyleProtocol {
     var strokeSelectedColor: Color
     var strokeErrorColor: Color
     var cornerRadius: CGFloat
-    var backgroundColor: Color
     var offsetX: CGFloat
     var offsetY: CGFloat
-    var type: BorderStyles
+    var backgroundColor: Color
+    var showLabelAfterEnteringText: Bool
     
-    init(
+    public init(
+        text: String,
         title: String,
         image: String,
         type: BorderStyles,
@@ -87,8 +74,10 @@ struct TextFieldBorderStyle: ViewModifier, TextFieldBorderStyleProtocol {
         cornerRadius: CGFloat = 10,
         offsetX: CGFloat = 10,
         offsetY: CGFloat = -8,
-        backgroundColor: Color = Color(.systemBackground)
+        backgroundColor: Color = Color(.systemBackground),
+        showLabelAfterEnteringText: Bool = true
     ) {
+        self.text = text
         self.title = title
         self.image = image
         self.type = type
@@ -102,44 +91,56 @@ struct TextFieldBorderStyle: ViewModifier, TextFieldBorderStyleProtocol {
         self.offsetX = offsetX
         self.offsetY = offsetY
         self.backgroundColor = backgroundColor
+        self.showLabelAfterEnteringText = showLabelAfterEnteringText
     }
+}
+
+public struct BorderTFStyle: ViewModifier {
+    var components: BorderTFStyleComponents
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         content
             .overlay(
                 ZStack(alignment: .topLeading) {
                     Group {
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(strokeColorCalculator(),
-                                    lineWidth: strokeWidth)
-                        if !title.isEmpty {
+                        RoundedRectangle(cornerRadius: components.cornerRadius)
+                            .stroke(components.strokeColorCalculator(),
+                                    lineWidth: components.strokeWidth)
                             HStack {
-                                Text(title)
-                                    .font(font)
-                                if !image.isEmpty {
-                                    Image(systemName: image)
+                                Text(labelCalculator(text: components.text))
+                                    .font(components.font)
+                                if !components.image.isEmpty, !components.text.isEmpty {
+                                    Image(systemName: components.image)
                                 }
                             }
-                            .font(font)
-                            .foregroundColor(textColor)
-                            .padding(2)
-                            .background(backgroundColor)
-                            .offset(x: offsetX, y: offsetY)
-                        }
+                            .font(components.font)
+                            .foregroundColor(components.textColor)
+                            .padding(paddingCalc())
+                            .background(components.backgroundColor)
+                            .offset(x: components.offsetX, y: components.offsetY)
                     }
                 }
             )
     }
 }
 
-extension View {
-    func textFieldBorderStyle(type: BorderStyles,
-                              title: String,
-                              image: String) -> some View {
-        modifier(TextFieldBorderStyle(
-            title: title,
-            image: image,
-            type: type
-        ))
+// MARK: - Helper Functions
+extension BorderTFStyle {
+    func labelCalculator(text: String) -> String {
+        withAnimation(.easeOut(duration: 0.3)) {
+            components.showLabelAfterEnteringText ? (text == "" ? "" : components.title) : components.title
+        }
+    }
+    
+    func paddingCalc() -> CGFloat {
+        withAnimation(.easeOut(duration: 0.3)) {
+            components.text.isEmpty ? 0 : 2
+        }
+    }
+}
+
+public extension View {
+    func borderTFStyle(components: BorderTFStyleComponents) -> some View {
+        modifier(BorderTFStyle(components: components))
     }
 }
