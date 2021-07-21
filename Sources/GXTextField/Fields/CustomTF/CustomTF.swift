@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
+    
+//    var inputType: CustomTFType
+    
     @Binding var text: String
     var components: CustomTFComponents
     var leadingContent: () -> LeadingContent?

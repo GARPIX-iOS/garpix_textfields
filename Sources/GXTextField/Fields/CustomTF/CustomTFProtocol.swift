@@ -13,6 +13,17 @@ public enum CustomTFFormat {
     case formatText(mask: String, symbol: String.Element)
 }
 
+public enum CustomTFType {
+    case standart(text: Binding<String>)
+    case decimal(totalInput: Binding<Double?>, currencySymbol: String?)
+    case dateString(totalInput: Binding<String?>, dateFormat: DateFormats)
+    case date(totalInput: Binding<Date?>)
+}
+
+protocol CustomTFInputProtocol {
+    var inputType: CustomTFType { get set }
+}
+
 protocol CustomTFProtocol {
     var textColor: Color { get set }
     var isEditing: Bool { get set }
