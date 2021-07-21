@@ -17,12 +17,38 @@ protocol CustomTFProtocol {
     var isShowSecureField: Bool { get set }
     var isShowLeadingButtons: Bool { get set }
     var isShowTrailingButtons: Bool { get set }
+    var onlyNumbers: Bool { get set }
+    var validSymbolsAmount: Int? { get set }
     
     var onTap: () -> Void { get set }
     var onChangeOfText: (String) -> Void { get set }
     var onChangeOfIsEditing: (Bool) -> Void { get set }
     var commit: () -> Void { get set }
     var hideKeyboard: () -> Void { get set }
+}
+
+// MARK: - SymbolsLimiter
+
+extension CustomTFProtocol {
+    func limitTextLength(text: String, validSymbolsAmount: Int?, onlyNumbers: Bool) -> String {
+        let symbol: String.Element = "X"
+        guard validSymbolsAmount != nil else { return text }
+        return text.formatText(with: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
+                                                    symbol: symbol),
+                               symbol: symbol,
+                               onlyNumbers: onlyNumbers)
+    }
+
+    private func symbolsLimiter(validSymbolsAmount: Int?, symbol: String.Element) -> String {
+        var result = ""
+        guard let symbolsLimit = validSymbolsAmount else { return result }
+        guard symbolsLimit >= 1 else { return result }
+
+        for _ in 0 ... symbolsLimit - 1 {
+            result.append(symbol)
+        }
+        return result
+    }
 }
 
 protocol CustomTFButtonsProtocol {
@@ -42,6 +68,8 @@ public struct CustomTFComponents: CustomTFProtocol {
     var isShowSecureField: Bool
     var isShowLeadingButtons: Bool
     var isShowTrailingButtons: Bool
+    var onlyNumbers: Bool
+    var validSymbolsAmount: Int?
     
     var commit: () -> Void
     var onTap: () -> Void
@@ -58,6 +86,8 @@ public struct CustomTFComponents: CustomTFProtocol {
         isShowSecureField: Bool = false,
         isShowLeadingButtons: Bool = false,
         isShowTrailingButtons: Bool = false,
+        onlyNumbers: Bool = false,
+        validSymbolsAmount: Int? = nil,
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
         onChangeOfText: @escaping (String) -> Void = {_ in},
@@ -72,6 +102,8 @@ public struct CustomTFComponents: CustomTFProtocol {
         self.isShowSecureField = isShowSecureField
         self.isShowLeadingButtons = isShowLeadingButtons
         self.isShowTrailingButtons = isShowTrailingButtons
+        self.onlyNumbers = onlyNumbers
+        self.validSymbolsAmount = validSymbolsAmount
         self.commit = commit
         self.onTap = onTap
         self.onChangeOfText = onChangeOfText
@@ -175,7 +207,7 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
             leadingButtonsView
             
             content
-                .keyboardType(textfield.keyboardType)
+                .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
                 .onTapGesture {
                     withAnimation(.spring()) {
                         textfield.onTap()
@@ -183,6 +215,9 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
                 }
                 .font(.callout)
                 .onChange(of: text, perform: { value in
+                    textfield.limitTextLength(text: text,
+                                              validSymbolsAmount: textfield.validSymbolsAmount,
+                                              onlyNumbers: textfield.onlyNumbers)
                     textfield.onChangeOfText(value)
                 })
                 .onChange(of: textfield.isEditing, perform: { value in

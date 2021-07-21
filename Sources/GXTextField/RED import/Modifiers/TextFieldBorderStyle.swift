@@ -8,12 +8,6 @@
 import Foundation
 import SwiftUI
 
-//public enum BorderStyles {
-//    case standart
-//    case selected
-//    case error
-//}
-
 protocol TextFieldBorderStyleProtocol {
     var title: String { get set }
     var image: String { get set }

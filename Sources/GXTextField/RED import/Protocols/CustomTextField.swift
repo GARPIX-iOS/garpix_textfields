@@ -16,12 +16,6 @@ protocol CustomTextFieldProtocol: View {
     var isShowPassword: Bool { get set }
 }
 
-//extension CustomTextFieldProtocol {
-//    func textFieldStyle(components: TextFieldStyleComponents<TrailingButtons>) -> some View {
-//        return modifier(TextFieldStyle(components: components))
-//    }
-//}
-
 extension View {
     func textFieldStyle<TrailingButtons: View>(components: TextFieldStyleComponents<TrailingButtons>) -> some View {
         return modifier(TextFieldStyle<TrailingButtons>(components: components))
