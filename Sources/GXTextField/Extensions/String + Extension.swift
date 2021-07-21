@@ -27,17 +27,18 @@ extension String {
 // MARK: - Format Mask
 
 extension String {
-    func formatGosnumber() -> String {
-        let mask: String = "X 111 XX 111"
+    func formatGosnumber(with mask: String = "X 111 XX 111",
+                         letterSymbol: String.Element = "X",
+                         numberSymbol: String.Element = "1") -> String {
         var result = ""
         let value = replacingOccurrences(of: " ", with: "")
         var index = value.startIndex
 
         for ch in mask where index < value.endIndex {
-            if ch == "X" {
+            if ch == letterSymbol {
                 result.append(String(value[index]).replacingOccurrences(of: "[^АВЕКМНОРСТУХABEKMHOPCTYX]", with: "", options: .regularExpression))
                 index = value.index(after: index)
-            } else if ch == "1" {
+            } else if ch == numberSymbol {
                 result.append(String(value[index]).replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression))
                 index = value.index(after: index)
             } else {

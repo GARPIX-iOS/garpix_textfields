@@ -26,9 +26,11 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
                 }
                 .font(.callout)
                 .onChange(of: text, perform: { value in
-                    textfield.limitTextLength(text: text,
-                                              validSymbolsAmount: textfield.validSymbolsAmount,
-                                              onlyNumbers: textfield.onlyNumbers)
+                    text = textfield.formatText(text: text,
+                                                textFormat: textfield.textFormat,
+                                                validSymbolsAmount: textfield.validSymbolsAmount,
+                                                onlyNumbers: textfield.onlyNumbers)
+                    
                     textfield.onChangeOfText(value)
                 })
                 .onChange(of: textfield.isEditing, perform: { value in
@@ -37,6 +39,7 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
                 .padding(.vertical)
                 .padding(.trailing)
                 .padding(.leading, 12)
+                .foregroundColor(textfield.textColor)
             
             trailingButtonsView
             

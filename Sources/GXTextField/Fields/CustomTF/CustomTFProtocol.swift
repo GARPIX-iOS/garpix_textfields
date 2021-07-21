@@ -7,7 +7,14 @@
 
 import SwiftUI
 
+public enum CustomTFFormat {
+    case formatPhone
+    case formatGosNumber(mask: String, letterSymbol: String.Element, numberSymbol: String.Element)
+    case formatText(mask: String, symbol: String.Element)
+}
+
 protocol CustomTFProtocol {
+    var textColor: Color { get set }
     var isEditing: Bool { get set }
     var placeholder: String { get set }
     var width: CGFloat { get set }
@@ -18,6 +25,7 @@ protocol CustomTFProtocol {
     var isShowTrailingButtons: Bool { get set }
     var onlyNumbers: Bool { get set }
     var validSymbolsAmount: Int? { get set }
+    var textFormat: CustomTFFormat? { get set }
     
     var onTap: () -> Void { get set }
     var onChangeOfText: (String) -> Void { get set }
@@ -47,5 +55,24 @@ extension CustomTFProtocol {
             result.append(symbol)
         }
         return result
+    }
+}
+
+// MARK: - Text Formatter
+
+extension CustomTFProtocol {
+    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, onlyNumbers: Bool) -> String {
+        guard let format = textFormat else {
+            return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, onlyNumbers: onlyNumbers)
+        }
+        
+        switch format {
+        case .formatPhone:
+            return text.formatPhone()
+        case .formatGosNumber(mask: let mask, letterSymbol: let letterSymbol, numberSymbol: let numberSymbol):
+            return text.formatGosnumber(with: mask, letterSymbol: letterSymbol, numberSymbol: numberSymbol)
+        case .formatText(mask: let mask, symbol: let symbol):
+            return text.formatText(with: mask, symbol: symbol, onlyNumbers: onlyNumbers)
+        }
     }
 }

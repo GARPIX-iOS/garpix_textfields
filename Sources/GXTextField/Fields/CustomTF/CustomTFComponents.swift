@@ -8,6 +8,7 @@
 import SwiftUI
 
 public struct CustomTFComponents: CustomTFProtocol {
+    var textColor: Color
     var isEditing: Bool
     var placeholder: String
     var width: CGFloat
@@ -18,6 +19,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var isShowTrailingButtons: Bool
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
+    var textFormat: CustomTFFormat?
     
     var commit: () -> Void
     var onTap: () -> Void
@@ -26,6 +28,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var hideKeyboard: () -> Void
     
     public init(
+        textColor: Color = .primary,
         isEditing: Bool = false,
         placeholder: String = "",
         width: CGFloat = Display.width * 0.9,
@@ -36,12 +39,15 @@ public struct CustomTFComponents: CustomTFProtocol {
         isShowTrailingButtons: Bool = false,
         onlyNumbers: Bool = false,
         validSymbolsAmount: Int? = nil,
+        textFormat: CustomTFFormat? = nil,
+        
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
         onChangeOfText: @escaping (String) -> Void = {_ in},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
         hideKeyboard: @escaping () -> Void = {}
     ) {
+        self.textColor = textColor
         self.isEditing = isEditing
         self.placeholder = placeholder
         self.width = width
@@ -52,6 +58,8 @@ public struct CustomTFComponents: CustomTFProtocol {
         self.isShowTrailingButtons = isShowTrailingButtons
         self.onlyNumbers = onlyNumbers
         self.validSymbolsAmount = validSymbolsAmount
+        self.textFormat = textFormat
+        
         self.commit = commit
         self.onTap = onTap
         self.onChangeOfText = onChangeOfText
