@@ -14,3 +14,11 @@ protocol CustomTFButtonsProtocol {
     var leadingContent: () -> LeadingContent? { get set }
     var trailingContent: () -> TrailingContent? { get set }
 }
+
+public protocol AnyOptional {
+    var isNil: Bool { get }
+}
+
+extension Optional: AnyOptional {
+    public var isNil: Bool { self == nil }
+}

@@ -16,8 +16,7 @@ public enum CustomTFFormat {
 public enum CustomTFType {
     case standart(text: Binding<String>)
     case decimal(totalInput: Binding<Double?>, currencySymbol: String?)
-    case dateString(totalInput: Binding<String?>, dateFormat: DateFormats)
-    case date(totalInput: Binding<Date?>)
+    case date(date: Binding<Date?>, formatter: DateFormatter?)
 }
 
 protocol CustomTFInputProtocol {
@@ -37,6 +36,7 @@ protocol CustomTFProtocol {
     var onlyNumbers: Bool { get set }
     var validSymbolsAmount: Int? { get set }
     var textFormat: CustomTFFormat? { get set }
+    var alwaysShowFractions: Bool { get set }
     
     var onTap: () -> Void { get set }
     var onChangeOfText: (String) -> Void { get set }

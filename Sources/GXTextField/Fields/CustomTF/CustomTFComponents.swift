@@ -20,6 +20,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
     var textFormat: CustomTFFormat?
+    var alwaysShowFractions: Bool
     
     var commit: () -> Void
     var onTap: () -> Void
@@ -40,6 +41,7 @@ public struct CustomTFComponents: CustomTFProtocol {
         onlyNumbers: Bool = false,
         validSymbolsAmount: Int? = nil,
         textFormat: CustomTFFormat? = nil,
+        alwaysShowFractions: Bool = false,
         
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
@@ -59,6 +61,7 @@ public struct CustomTFComponents: CustomTFProtocol {
         self.onlyNumbers = onlyNumbers
         self.validSymbolsAmount = validSymbolsAmount
         self.textFormat = textFormat
+        self.alwaysShowFractions = alwaysShowFractions
         
         self.commit = commit
         self.onTap = onTap

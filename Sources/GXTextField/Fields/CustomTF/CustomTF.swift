@@ -8,22 +8,22 @@
 import Foundation
 import SwiftUI
 
-public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
+public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol, CustomTFInputProtocol where LeadingContent: View, TrailingContent: View {
     
-//    var inputType: CustomTFType
+    var inputType: CustomTFType
     
-    @Binding var text: String
+    //    @Binding var text: String
     var components: CustomTFComponents
     var leadingContent: () -> LeadingContent?
     var trailingContent: () -> TrailingContent?
     
     public init(
-        text: Binding<String>,
+        inputType: CustomTFType,
         components: CustomTFComponents,
         @ViewBuilder leadingContent: @escaping () -> LeadingContent? = { nil },
         @ViewBuilder trailingContent: @escaping () -> TrailingContent? = { nil }
     ) {
-        _text = text
+        self.inputType = inputType
         self.components = components
         self.leadingContent = leadingContent
         self.trailingContent = trailingContent
@@ -31,34 +31,79 @@ public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsPr
     
     public var body: some View {
         textfield
-            .customTFActions(text: $text,
-                             textfield: components,
-                             leadingContent: leadingContent,
-                             trailingContent: trailingContent)
     }
     
     var textfield: some View {
+        Group {
+            switch inputType {
+            case .standart(text: let text):
+                standartField(text: text)
+                    .customTFActions(text: text,
+                                     textfield: components,
+                                     leadingContent: leadingContent,
+                                     trailingContent: trailingContent)
+            case .decimal(totalInput: let totalInput, currencySymbol: let currencySymbol):
+                decimalField(totalInput: totalInput, currencySymbol: currencySymbol)
+            case .date(date: let date, formatter: let formatter):
+                dateField(date: date, formatter: formatter)
+            }
+        }
+    }
+    
+    func standartField(text: Binding<String>) -> some View {
         ZStack(alignment: .leading) {
-            if text.isEmpty {
+            if text.wrappedValue.isEmpty {
                 Text(components.placeholder)
             }
             
             if components.isShowSecureField {
-                SecureField("", text: $text, onCommit: components.commit)
+                SecureField("",
+                            text: text,
+                            onCommit: components.commit)
                 
             } else {
-                TextField("", text: $text, onEditingChanged: components.onChangeOfIsEditing, onCommit: components.commit)
+                TextField("",
+                          text: text,
+                          onEditingChanged: components.onChangeOfIsEditing,
+                          onCommit: components.commit)
             }
+        }
+    }
+    
+    func decimalField(totalInput: Binding<Double?>, currencySymbol: String?) -> some View {
+        ZStack(alignment: .leading) {
+            if totalInput.wrappedValue.isNil {
+                Text(components.placeholder)
+            }
+            DecimalTextField("",
+                             value: totalInput,
+                             alwaysShowFractions: components.alwaysShowFractions,
+                             currencySymbol: currencySymbol,
+                             onEditingChanged: components.onChangeOfIsEditing)
+        }
+    }
+    
+    func dateField(date: Binding<Date?>, formatter: DateFormatter?) -> some View {
+        VStack {
+            let format = formatter ?? .ddMMyyyy
+            
+            DateField(
+                components.placeholder,
+                date: date,
+                formatter: format,
+                minAge: 0,
+                color: UIColor(components.textColor)
+            )
         }
     }
 }
 
 // MARK: - Init
 public extension CustomTF {
-    init(text: Binding<String>,
+    init(inputType: CustomTFType,
          components: CustomTFComponents) where LeadingContent == EmptyView, TrailingContent == EmptyView {
         self.init(
-            text: text,
+            inputType: inputType,
             components: components,
             leadingContent: {
                 EmptyView()
@@ -69,11 +114,11 @@ public extension CustomTF {
         )
     }
     
-    init(text: Binding<String>,
+    init(inputType: CustomTFType,
          components: CustomTFComponents,
          @ViewBuilder trailingContent: @escaping () -> TrailingContent? ) where LeadingContent == EmptyView {
         self.init(
-            text: text,
+            inputType: inputType,
             components: components,
             leadingContent: {
                 EmptyView()
@@ -81,12 +126,12 @@ public extension CustomTF {
             trailingContent: trailingContent
         )
     }
-
-    init(text: Binding<String>,
+    
+    init(inputType: CustomTFType,
          components: CustomTFComponents,
          @ViewBuilder leadingContent: @escaping () -> LeadingContent?) where TrailingContent == EmptyView {
         self.init(
-            text: text,
+            inputType: inputType,
             components: components,
             leadingContent: leadingContent,
             trailingContent: {
