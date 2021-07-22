@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
-    @Binding var text: String
+struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFButtonsProtocol, CustomTFInputProtocol where LeadingContent: View, TrailingContent: View {
+    var inputType: CustomTFType
     var textfield: CustomTFComponents
     var leadingContent: () -> LeadingContent?
     var trailingContent: () -> TrailingContent?
@@ -16,8 +16,8 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
     func body(content: Content) -> some View {
         HStack(spacing: 10) {
             leadingButtonsView
-            
-            content
+        
+            textFieldView(content: content)
                 .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
                 .onTapGesture {
                     withAnimation(.spring()) {
@@ -25,14 +25,6 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
                     }
                 }
                 .font(.callout)
-                .onChange(of: text, perform: { value in
-                    text = textfield.formatText(text: text,
-                                                textFormat: textfield.textFormat,
-                                                validSymbolsAmount: textfield.validSymbolsAmount,
-                                                onlyNumbers: textfield.onlyNumbers)
-                    
-                    textfield.onChangeOfText(value)
-                })
                 .onChange(of: textfield.isEditing, perform: { value in
                     textfield.onChangeOfIsEditing(value)
                 })
@@ -48,6 +40,20 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
         .gesture(DragGesture().onChanged { _ in
             textfield.hideKeyboard()
         })
+    }
+    
+    func textFieldView(content: Content) -> some View {
+        Group {
+            switch inputType {
+            case .standart(text: let text):
+                content
+                    .onChangeOfText(text: text, textfield: textfield)
+            case .decimal(totalInput: let totalInput, currencySymbol: let currencySymbol):
+                content
+            case .date(date: let date, formatter: let formatter):
+                content
+            }
+        }
     }
     
     @ViewBuilder
@@ -68,13 +74,36 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
 }
 
 extension View {
-    func customTFActions<LeadingContent: View, TrailingContent: View>(text: Binding<String>,
+    func customTFActions<LeadingContent: View, TrailingContent: View>(inputType: CustomTFType,
                                                                       textfield: CustomTFComponents,
                                                                       leadingContent: @escaping () -> LeadingContent?,
                                                                       trailingContent: @escaping () -> TrailingContent?) -> some View  {
-        modifier(CustomTFActions(text: text,
+        modifier(CustomTFActions(inputType: inputType,
                                  textfield: textfield,
                                  leadingContent: leadingContent,
                                  trailingContent: trailingContent))
+    }
+}
+
+struct OnChangeOfText: ViewModifier {
+    @Binding var text: String
+    var textfield: CustomTFComponents
+    
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: text, perform: { value in
+                text = textfield.formatText(text: text,
+                                            textFormat: textfield.textFormat,
+                                            validSymbolsAmount: textfield.validSymbolsAmount,
+                                            onlyNumbers: textfield.onlyNumbers)
+                textfield.onChangeOfText(value)
+            })
+    }
+}
+
+extension View {
+    func onChangeOfText(text: Binding<String>, textfield: CustomTFComponents) -> some View {
+        modifier(OnChangeOfText(text: text,
+                                textfield: textfield))
     }
 }
