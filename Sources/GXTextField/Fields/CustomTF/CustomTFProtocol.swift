@@ -13,7 +13,7 @@ public enum CustomTFFormat {
     case formatText(mask: String, symbol: String.Element)
 }
 
-public enum CustomTFType {
+enum CustomTFType {
     case standart(text: Binding<String>)
     case decimal(totalInput: Binding<Double?>, currencySymbol: String?)
     case date(date: Binding<Date?>, formatter: DateFormatter?)

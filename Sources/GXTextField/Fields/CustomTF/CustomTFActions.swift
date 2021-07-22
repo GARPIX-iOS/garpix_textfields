@@ -18,7 +18,6 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
             leadingButtonsView
         
             textFieldView(content: content)
-                .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
                 .onTapGesture {
                     withAnimation(.spring()) {
                         textfield.onTap()
@@ -48,8 +47,10 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
             case .standart(text: let text):
                 content
                     .onChangeOfText(text: text, textfield: textfield)
+                    .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
             case .decimal(totalInput: let totalInput, currencySymbol: let currencySymbol):
                 content
+                    .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
             case .date(date: let date, formatter: let formatter):
                 content
             }

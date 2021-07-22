@@ -8,19 +8,16 @@
 import Foundation
 import SwiftUI
 
-public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol, CustomTFInputProtocol where LeadingContent: View, TrailingContent: View {
-    var inputType: CustomTFType
+public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
     var components: CustomTFComponents
     var leadingContent: () -> LeadingContent?
     var trailingContent: () -> TrailingContent?
     
     public init(
-        inputType: CustomTFType,
         components: CustomTFComponents,
         @ViewBuilder leadingContent: @escaping () -> LeadingContent? = { nil },
         @ViewBuilder trailingContent: @escaping () -> TrailingContent? = { nil }
     ) {
-        self.inputType = inputType
         self.components = components
         self.leadingContent = leadingContent
         self.trailingContent = trailingContent
@@ -28,7 +25,7 @@ public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsPr
     
     public var body: some View {
         textfield
-            .customTFActions(inputType: inputType,
+            .customTFActions(inputType: components.inputType,
                              textfield: components,
                              leadingContent: leadingContent,
                              trailingContent: trailingContent)
@@ -36,7 +33,7 @@ public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsPr
     
     var textfield: some View {
         Group {
-            switch inputType {
+            switch components.inputType {
             case .standart(text: let text):
                 standartField(text: text)
             case .decimal(totalInput: let totalInput,
@@ -54,10 +51,8 @@ public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsPr
 
 // MARK: - Init
 public extension CustomTF {
-    init(inputType: CustomTFType,
-         components: CustomTFComponents) where LeadingContent == EmptyView, TrailingContent == EmptyView {
+    init(components: CustomTFComponents) where LeadingContent == EmptyView, TrailingContent == EmptyView {
         self.init(
-            inputType: inputType,
             components: components,
             leadingContent: {
                 EmptyView()
@@ -68,11 +63,9 @@ public extension CustomTF {
         )
     }
     
-    init(inputType: CustomTFType,
-         components: CustomTFComponents,
+    init(components: CustomTFComponents,
          @ViewBuilder trailingContent: @escaping () -> TrailingContent? ) where LeadingContent == EmptyView {
         self.init(
-            inputType: inputType,
             components: components,
             leadingContent: {
                 EmptyView()
@@ -81,11 +74,9 @@ public extension CustomTF {
         )
     }
     
-    init(inputType: CustomTFType,
-         components: CustomTFComponents,
+    init(components: CustomTFComponents,
          @ViewBuilder leadingContent: @escaping () -> LeadingContent?) where TrailingContent == EmptyView {
         self.init(
-            inputType: inputType,
             components: components,
             leadingContent: leadingContent,
             trailingContent: {
