@@ -13,6 +13,7 @@ struct DateField: UIViewRepresentable {
     // MARK: - Public properties
 
     @Binding var date: Date?
+    @Binding var isEdit: Bool
     var color: UIColor
     let formatter: DateFormatter
     var minAge: Int
@@ -28,6 +29,7 @@ struct DateField: UIViewRepresentable {
 
     init<S>(_ title: S,
             date: Binding<Date?>,
+            isEdit: Binding<Bool>,
             formatter: DateFormatter = .ddMMyyyy,
             minAge: Int,
             minDate: Date? = nil,
@@ -36,13 +38,14 @@ struct DateField: UIViewRepresentable {
     {
         placeholder = String(title)
         _date = date
+        _isEdit = isEdit
         self.color = color
         self.formatter = formatter
         self.minAge = minAge
         self.minDate = minDate
         self.maxDate = maxDate
 
-        textField = KeyboardWithDatePicker(date: date, color: color, minAge: minAge, minDate: minDate, maxDate: maxDate)
+        textField = KeyboardWithDatePicker(date: date, isEdit: isEdit, color: color, minAge: minAge, minDate: minDate, maxDate: maxDate)
     }
 
     // MARK: - Public methods

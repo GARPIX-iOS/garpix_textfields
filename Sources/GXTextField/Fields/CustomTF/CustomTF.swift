@@ -102,7 +102,9 @@ extension CustomTF {
             } else {
                 TextField("",
                           text: text,
-                          onEditingChanged: components.onChangeOfIsEditing,
+                          onEditingChanged: { isEdit in
+                            onEditingChanged(isEdit: isEdit)
+                          },
                           onCommit: components.commit)
             }
         }
@@ -117,7 +119,9 @@ extension CustomTF {
                              value: totalInput,
                              alwaysShowFractions: components.alwaysShowFractions,
                              currencySymbol: currencySymbol,
-                             onEditingChanged: components.onChangeOfIsEditing)
+                             onEditingChanged: { isEdit in
+                               onEditingChanged(isEdit: isEdit)
+                             })
         }
     }
     
@@ -128,10 +132,22 @@ extension CustomTF {
             DateField(
                 components.placeholder,
                 date: date,
+                isEdit: components.$isEditing,
                 formatter: format,
                 minAge: 0,
                 color: UIColor(components.textColor)
             )
+        }
+    }
+}
+
+// MARK: - Helper Functions
+extension CustomTF {
+    func onEditingChanged(isEdit: Bool) {
+        if !isEdit {
+            withAnimation(.spring()) {
+                components.isEditing = false
+            }
         }
     }
 }

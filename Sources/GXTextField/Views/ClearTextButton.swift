@@ -20,7 +20,7 @@ public struct ClearTextButton: View {
         }) {
             Image(systemName: "xmark")
                 .renderingMode(.template)
-                .foregroundColor(.black)
+                .foregroundColor(Color(.label))
                 .frame(width: 15, height: 15, alignment: .center)
         }
     }

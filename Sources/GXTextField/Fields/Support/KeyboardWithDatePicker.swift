@@ -11,12 +11,14 @@ import UIKit
 
 class KeyboardWithDatePicker: UITextField {
     @Binding var date: Date?
+    @Binding var isEdit: Bool
     var color: UIColor
     var minAge: Int
     var minDate: Date?
     var maxDate: Date?
 
     init(date: Binding<Date?>,
+         isEdit: Binding<Bool>,
          color: UIColor,
          minAge: Int,
          minDate: Date?,
@@ -24,6 +26,7 @@ class KeyboardWithDatePicker: UITextField {
     {
         self.color = color
         _date = date
+        _isEdit = isEdit
         self.minAge = minAge
         self.minDate = minDate
         self.maxDate = maxDate
@@ -63,6 +66,7 @@ class KeyboardWithDatePicker: UITextField {
     }
 
     @objc func resetTapped(_: UITextField) {
+        isEdit = false
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
