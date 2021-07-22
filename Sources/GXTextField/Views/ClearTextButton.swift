@@ -7,14 +7,18 @@
 
 import SwiftUI
 
-struct ClearTextButton: View {
+public struct ClearTextButton: View {
     @Binding var clearingText: String
-    var body: some View {
+    
+    public init(clearingText: Binding<String>) {
+        _clearingText = clearingText
+    }
+    
+    public var body: some View {
         Button(action: {
             clearingText = ""
         }) {
             Image(systemName: "xmark")
-//                .resizable()
                 .renderingMode(.template)
                 .foregroundColor(.black)
                 .frame(width: 15, height: 15, alignment: .center)

@@ -20,10 +20,12 @@ public struct BorderTFStyle: ViewModifier {
                             .stroke(components.strokeColorCalculator(),
                                     lineWidth: components.strokeWidth)
                             HStack {
-                                Text(labelCalculator(text: components.text))
-                                    .font(components.font)
-                                if !components.image.isEmpty, !components.text.isEmpty {
-                                    Image(systemName: components.image)
+                                if components.showLabel {
+                                    Text(components.title)
+                                        .font(components.font)
+                                    if !components.image.isEmpty {
+                                        Image(systemName: components.image)
+                                    }
                                 }
                             }
                             .font(components.font)
@@ -39,15 +41,9 @@ public struct BorderTFStyle: ViewModifier {
 
 // MARK: - Helper Functions
 extension BorderTFStyle {
-    func labelCalculator(text: String) -> String {
-        withAnimation(.easeOut(duration: 0.3)) {
-            components.showLabelAfterEnteringText ? (text == "" ? "" : components.title) : components.title
-        }
-    }
-    
     func paddingCalc() -> CGFloat {
         withAnimation(.easeOut(duration: 0.3)) {
-            components.text.isEmpty ? 0 : 2
+            components.showLabel ? 2 : 0
         }
     }
 }

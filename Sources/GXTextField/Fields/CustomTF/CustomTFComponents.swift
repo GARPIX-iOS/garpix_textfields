@@ -11,7 +11,7 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
     var inputType: CustomTFType
 
     var textColor: Color
-    var isEditing: Bool
+    @Binding var isEditing: Bool
     var placeholder: String
     var width: CGFloat
     var height: CGFloat
@@ -35,7 +35,7 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
     public init(
         text: Binding<String>,
         textColor: Color = .primary,
-        isEditing: Bool = false,
+        isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
         width: CGFloat = Display.width * 0.9,
         height: CGFloat = 60,
@@ -56,7 +56,7 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
         self.inputType = .standart(text: text)
         
         self.textColor = textColor
-        self.isEditing = isEditing
+        _isEditing = isEditing
         self.placeholder = placeholder
         self.width = width
         self.height = height
@@ -81,14 +81,12 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
         totalInput: Binding<Double?>,
         currencySymbol: String?,
         textColor: Color = .primary,
-        isEditing: Bool = false,
+        isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
         width: CGFloat = Display.width * 0.9,
         height: CGFloat = 60,
-        keyboardType: UIKeyboardType = .numberPad,
         isShowLeadingButtons: Bool = false,
         isShowTrailingButtons: Bool = false,
-        onlyNumbers: Bool = true,
         alwaysShowFractions: Bool = false,
         
         onTap: @escaping () -> Void = {},
@@ -99,15 +97,15 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
                                   currencySymbol: currencySymbol)
 
         self.textColor = textColor
-        self.isEditing = isEditing
+        _isEditing = isEditing
         self.placeholder = placeholder
         self.width = width
         self.height = height
-        self.keyboardType = keyboardType
+        self.keyboardType = .numberPad
         self.isShowSecureField = false
         self.isShowLeadingButtons = isShowLeadingButtons
         self.isShowTrailingButtons = isShowTrailingButtons
-        self.onlyNumbers = onlyNumbers
+        self.onlyNumbers = true
         self.validSymbolsAmount = nil
         self.textFormat = nil
         self.alwaysShowFractions = alwaysShowFractions
@@ -124,7 +122,7 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
         date: Binding<Date?>,
         formatter: DateFormatter?,
         textColor: Color = .primary,
-        isEditing: Bool = false,
+        isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
         width: CGFloat = Display.width * 0.9,
         height: CGFloat = 60,
@@ -140,7 +138,7 @@ public struct CustomTFComponents: CustomTFProtocol, CustomTFInputProtocol {
                                formatter: formatter)
         
         self.textColor = textColor
-        self.isEditing = isEditing
+        _isEditing = isEditing
         self.placeholder = placeholder
         self.width = width
         self.height = height

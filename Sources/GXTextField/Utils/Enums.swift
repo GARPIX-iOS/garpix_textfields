@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     func stringToDate(dateFormat: DateFormats = .yearMonthDayWithDots) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat.rawValue
@@ -40,7 +40,7 @@ extension String {
     }
 }
 
-extension Date {
+public extension Date {
     func dateToString(dateFormat: DateFormats) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat.rawValue
@@ -65,7 +65,7 @@ public enum DateFormats: String {
     case yearMonthDayWithLineAndTime = "yyyy-MM-dd HH:mm:ss"
 }
 
-extension DateFormatter {
+public extension DateFormatter {
     static var dd_MMMM_yyyy: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = DateFormats.dayMonthLetterYear.rawValue

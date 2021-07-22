@@ -8,10 +8,10 @@
 import SwiftUI
 
 public struct BorderTFStyleComponents: BorderTFStyleProtocol {
-    var text: String
+    @Binding var borderStyle: BorderStyles
+    @Binding var showLabel: Bool
     var title: String
     var image: String
-    var type: BorderStyles
     var font: Font
     var textColor: Color
     var strokeWidth: CGFloat
@@ -22,13 +22,12 @@ public struct BorderTFStyleComponents: BorderTFStyleProtocol {
     var offsetX: CGFloat
     var offsetY: CGFloat
     var backgroundColor: Color
-    var showLabelAfterEnteringText: Bool
     
     public init(
-        text: String,
+        borderStyle: Binding<BorderStyles>,
+        showLabel: Binding<Bool>,
         title: String,
         image: String,
-        type: BorderStyles,
         font: Font = .caption2,
         textColor: Color = Color(.label),
         strokeWidth: CGFloat = 1,
@@ -38,13 +37,12 @@ public struct BorderTFStyleComponents: BorderTFStyleProtocol {
         cornerRadius: CGFloat = 10,
         offsetX: CGFloat = 10,
         offsetY: CGFloat = -8,
-        backgroundColor: Color = Color(.systemBackground),
-        showLabelAfterEnteringText: Bool = true
+        backgroundColor: Color = Color(.systemBackground)
     ) {
-        self.text = text
+        _borderStyle = borderStyle
+        _showLabel = showLabel
         self.title = title
         self.image = image
-        self.type = type
         self.font = font
         self.textColor = textColor
         self.strokeWidth = strokeWidth
@@ -55,6 +53,5 @@ public struct BorderTFStyleComponents: BorderTFStyleProtocol {
         self.offsetX = offsetX
         self.offsetY = offsetY
         self.backgroundColor = backgroundColor
-        self.showLabelAfterEnteringText = showLabelAfterEnteringText
     }
 }

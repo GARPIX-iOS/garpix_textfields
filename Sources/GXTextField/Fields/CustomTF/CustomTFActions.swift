@@ -20,6 +20,7 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
             textFieldView(content: content)
                 .onTapGesture {
                     withAnimation(.spring()) {
+                        textfield.isEditing = true
                         textfield.onTap()
                     }
                 }

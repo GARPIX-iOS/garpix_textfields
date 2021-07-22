@@ -14,9 +14,10 @@ public enum BorderStyles {
 }
 
 protocol BorderTFStyleProtocol {
+    var borderStyle: BorderStyles { get set }
+    var showLabel: Bool { get set }
     var title: String { get set }
     var image: String { get set }
-    var type: BorderStyles { get set }
     var font: Font { get set }
     var textColor: Color { get set }
     var strokeWidth: CGFloat { get set }
@@ -27,14 +28,12 @@ protocol BorderTFStyleProtocol {
     var offsetX: CGFloat { get set }
     var offsetY: CGFloat { get set }
     var backgroundColor: Color { get set }
-    var showLabelAfterEnteringText: Bool { get set }
-    
 }
 
 // MARK: - Helper Functions
 extension BorderTFStyleProtocol {
     func strokeColorCalculator() -> Color {
-        switch type {
+        switch borderStyle {
         case .standart: return strokeStandartColor
         case .selected: return strokeSelectedColor
         case .error: return strokeErrorColor
