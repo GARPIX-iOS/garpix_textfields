@@ -64,7 +64,7 @@ public extension CustomTF {
     }
     
     init(components: CustomTFComponents,
-         @ViewBuilder trailingContent: @escaping () -> TrailingContent? ) where LeadingContent == EmptyView {
+         @ViewBuilder trailingContent: @escaping () -> TrailingContent?) where LeadingContent == EmptyView {
         self.init(
             components: components,
             leadingContent: {
