@@ -7,18 +7,7 @@
 
 import SwiftUI
 
-enum CustomTFContentOptions {
-    case none
-    case leading
-    case trailing
-    case horizontal
-}
-
-protocol DecoratorTFPtorocol: CustomTFProtocol, CustomTFInputProtocol, CustomTFButtonsProtocol {}
-
-public struct DateTextField<LeadingContent, TrailingContent>: View, DecoratorTFPtorocol where LeadingContent: View, TrailingContent: View {
-    var contentOptions: CustomTFContentOptions
-    
+public struct DateTextField<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
     var inputType: CustomTFType
     
     var textColor: Color
@@ -28,68 +17,22 @@ public struct DateTextField<LeadingContent, TrailingContent>: View, DecoratorTFP
     var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
-    var isShowLeadingButtons: Bool
-    var isShowTrailingButtons: Bool
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
     var textFormat: CustomTFFormat?
     var alwaysShowFractions: Bool
+    
     var onTap: () -> Void
-    var onChangeOfText: (String) -> Void
     var onChangeOfIsEditing: (Bool) -> Void
+    var onChangeOfText: (String) -> Void
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
+    var isShowLeadingButtons: Bool
+    var isShowTrailingButtons: Bool
     var leadingContent: () -> LeadingContent?
     var trailingContent: () -> TrailingContent?
-    
-    public init(
-        date: Binding<Date?>,
-        formatter: DateFormatter?,
-        textColor: Color = .primary,
-        isEditing: Binding<Bool> = .constant(false),
-        placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
-        isShowLeadingButtons: Bool = false,
-        isShowTrailingButtons: Bool = false,
-        
-        onTap: @escaping () -> Void = {},
-        onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
-        hideKeyboard: @escaping () -> Void = {},
-        @ViewBuilder leadingContent: @escaping () -> LeadingContent? = { nil },
-        @ViewBuilder trailingContent: @escaping () -> TrailingContent? = { nil }
-    )
-    {
-        self.contentOptions = .horizontal
-        self.inputType = .date(date: date,
-                               formatter: formatter)
-        
-        self.textColor = textColor
-        _isEditing = isEditing
-        self.placeholder = placeholder
-        self.width = width
-        self.height = height
-        self.keyboardType = .default
-        self.isShowSecureField = false
-        self.isShowLeadingButtons = isShowLeadingButtons
-        self.isShowTrailingButtons = isShowTrailingButtons
-        self.onlyNumbers = false
-        self.validSymbolsAmount = nil
-        self.textFormat = nil
-        self.alwaysShowFractions = false
-        
-        self.commit = {}
-        self.onTap = onTap
-        self.onChangeOfText = {_ in}
-        self.onChangeOfIsEditing = onChangeOfIsEditing
-        self.hideKeyboard = hideKeyboard
-        
-        self.leadingContent = leadingContent
-        self.trailingContent = trailingContent
-        
-    }
-    
+
     public var body: some View {
         let components = CustomTFComponents(
             inputType: inputType,
@@ -100,8 +43,6 @@ public struct DateTextField<LeadingContent, TrailingContent>: View, DecoratorTFP
             height: height,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
-            isShowLeadingButtons: isShowLeadingButtons,
-            isShowTrailingButtons: isShowTrailingButtons,
             onlyNumbers: onlyNumbers,
             validSymbolsAmount: validSymbolsAmount,
             textFormat: textFormat,
@@ -110,22 +51,34 @@ public struct DateTextField<LeadingContent, TrailingContent>: View, DecoratorTFP
             onTap: onTap,
             onChangeOfText: onChangeOfText,
             onChangeOfIsEditing: onChangeOfIsEditing,
-            hideKeyboard: hideKeyboard
-        )
-        switch contentOptions {
-        case .none:
+            hideKeyboard: hideKeyboard)
+        
+        HStack(spacing: 10) {
+            leadingButtonsView
             CustomTF(components: components)
-        case .leading:
-            VStack{}
-        case .trailing:
-            VStack{}
-        case .horizontal:
-            CustomTF(components: components, leadingContent: leadingContent, trailingContent: trailingContent)
+            trailingButtonsView
+        }
+        .frame(width: width, height: height, alignment: .center)
+    }
+    
+    @ViewBuilder
+    var leadingButtonsView: some View {
+        if isShowLeadingButtons {
+            leadingContent()
+                .padding(.leading, 16)
         }
     }
     
+    @ViewBuilder
+    var trailingButtonsView: some View {
+        if isShowTrailingButtons {
+            trailingContent()
+                .padding(.trailing, 16)
+        }
+    }
 }
 
+// MARK: - Init
 public extension DateTextField {
     init(
         date: Binding<Date?>,
@@ -135,13 +88,56 @@ public extension DateTextField {
         placeholder: String = "",
         width: CGFloat = UIScreen.main.bounds.width * 0.9,
         height: CGFloat = 60,
-        isShowLeadingButtons: Bool = false,
-        isShowTrailingButtons: Bool = false,
-        
         onTap: @escaping () -> Void = {},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
-        hideKeyboard: @escaping () -> Void = {}
-    ) where LeadingContent == EmptyView, TrailingContent == EmptyView {
+        hideKeyboard: @escaping () -> Void = {},
+        isShowLeadingButtons: Bool = false,
+        isShowTrailingButtons: Bool = false,
+        @ViewBuilder leadingContent: @escaping () -> LeadingContent?,
+        @ViewBuilder trailingContent: @escaping () -> TrailingContent?
+    )
+    {
+        self.inputType = .date(date: date,
+                               formatter: formatter)
+        
+        self.textColor = textColor
+        _isEditing = isEditing
+        self.placeholder = placeholder
+        self.width = width
+        self.height = height
+        self.keyboardType = .default
+        self.isShowSecureField = false
+        self.onlyNumbers = false
+        self.validSymbolsAmount = nil
+        self.textFormat = nil
+        self.alwaysShowFractions = false
+        
+        self.commit = {}
+        self.onTap = onTap
+        self.onChangeOfText = {_ in}
+        self.onChangeOfIsEditing = onChangeOfIsEditing
+        self.hideKeyboard = hideKeyboard
+        self.isShowLeadingButtons = isShowLeadingButtons
+        self.isShowTrailingButtons = isShowTrailingButtons
+        self.trailingContent = trailingContent
+        self.leadingContent = leadingContent
+    }
+    
+    init(
+        date: Binding<Date?>,
+        formatter: DateFormatter?,
+        textColor: Color = .primary,
+        isEditing: Binding<Bool> = .constant(false),
+        placeholder: String = "",
+        width: CGFloat = UIScreen.main.bounds.width * 0.9,
+        height: CGFloat = 60,
+        onTap: @escaping () -> Void = {},
+        onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
+        hideKeyboard: @escaping () -> Void = {},
+        isShowLeadingButtons: Bool = false,
+        isShowTrailingButtons: Bool = false
+    ) where LeadingContent == EmptyView, TrailingContent == EmptyView
+    {
         self.init(
             date: date,
             formatter: formatter,
@@ -150,6 +146,9 @@ public extension DateTextField {
             placeholder: placeholder,
             width: width,
             height: height,
+            onTap: onTap,
+            onChangeOfIsEditing: onChangeOfIsEditing,
+            hideKeyboard: hideKeyboard,
             isShowLeadingButtons: isShowLeadingButtons,
             isShowTrailingButtons: isShowTrailingButtons,
             leadingContent: {
@@ -159,21 +158,143 @@ public extension DateTextField {
                 EmptyView()
             }
         )
-        self.contentOptions = .none
-        
         self.inputType = .date(date: date,
                                formatter: formatter)
         
+        self.textColor = textColor
+        _isEditing = isEditing
+        self.placeholder = placeholder
+        self.width = width
+        self.height = height
         self.keyboardType = .default
         self.isShowSecureField = false
-
         self.onlyNumbers = false
         self.validSymbolsAmount = nil
         self.textFormat = nil
         self.alwaysShowFractions = false
         
         self.commit = {}
+        self.onTap = onTap
         self.onChangeOfText = {_ in}
-
+        self.onChangeOfIsEditing = onChangeOfIsEditing
+        self.hideKeyboard = hideKeyboard
+        self.isShowLeadingButtons = isShowLeadingButtons
+        self.isShowTrailingButtons = isShowTrailingButtons
+    }
+    
+    init(
+        date: Binding<Date?>,
+        formatter: DateFormatter?,
+        textColor: Color = .primary,
+        isEditing: Binding<Bool> = .constant(false),
+        placeholder: String = "",
+        width: CGFloat = UIScreen.main.bounds.width * 0.9,
+        height: CGFloat = 60,
+        onTap: @escaping () -> Void = {},
+        onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
+        hideKeyboard: @escaping () -> Void = {},
+        isShowLeadingButtons: Bool = false,
+        isShowTrailingButtons: Bool = false,
+        @ViewBuilder trailingContent: @escaping () -> TrailingContent?
+    ) where LeadingContent == EmptyView {
+        self.init(
+            date: date,
+            formatter: formatter,
+            textColor: textColor,
+            isEditing: isEditing,
+            placeholder: placeholder,
+            width: width,
+            height: height,
+            onTap: onTap,
+            onChangeOfIsEditing: onChangeOfIsEditing,
+            hideKeyboard: hideKeyboard,
+            isShowLeadingButtons: isShowLeadingButtons,
+            isShowTrailingButtons: isShowTrailingButtons,
+            leadingContent: {
+                EmptyView()
+            },
+            trailingContent: trailingContent
+        )
+        self.inputType = .date(date: date,
+                               formatter: formatter)
+        
+        self.textColor = textColor
+        _isEditing = isEditing
+        self.placeholder = placeholder
+        self.width = width
+        self.height = height
+        self.keyboardType = .default
+        self.isShowSecureField = false
+        self.onlyNumbers = false
+        self.validSymbolsAmount = nil
+        self.textFormat = nil
+        self.alwaysShowFractions = false
+        
+        self.commit = {}
+        self.onTap = onTap
+        self.onChangeOfText = {_ in}
+        self.onChangeOfIsEditing = onChangeOfIsEditing
+        self.hideKeyboard = hideKeyboard
+        self.isShowLeadingButtons = isShowLeadingButtons
+        self.isShowTrailingButtons = isShowTrailingButtons
+        self.trailingContent = trailingContent
+    }
+    
+    init(
+        date: Binding<Date?>,
+        formatter: DateFormatter?,
+        textColor: Color = .primary,
+        isEditing: Binding<Bool> = .constant(false),
+        placeholder: String = "",
+        width: CGFloat = UIScreen.main.bounds.width * 0.9,
+        height: CGFloat = 60,
+        onTap: @escaping () -> Void = {},
+        onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
+        hideKeyboard: @escaping () -> Void = {},
+        isShowLeadingButtons: Bool = false,
+        isShowTrailingButtons: Bool = false,
+        @ViewBuilder leadingContent: @escaping () -> LeadingContent?
+    ) where TrailingContent == EmptyView {
+        self.init(
+            date: date,
+            formatter: formatter,
+            textColor: textColor,
+            isEditing: isEditing,
+            placeholder: placeholder,
+            width: width,
+            height: height,
+            onTap: onTap,
+            onChangeOfIsEditing: onChangeOfIsEditing,
+            hideKeyboard: hideKeyboard,
+            isShowLeadingButtons: isShowLeadingButtons,
+            isShowTrailingButtons: isShowTrailingButtons,
+            leadingContent: leadingContent,
+            trailingContent: {
+                EmptyView()
+            }
+        )
+        self.inputType = .date(date: date,
+                               formatter: formatter)
+        
+        self.textColor = textColor
+        _isEditing = isEditing
+        self.placeholder = placeholder
+        self.width = width
+        self.height = height
+        self.keyboardType = .default
+        self.isShowSecureField = false
+        self.onlyNumbers = false
+        self.validSymbolsAmount = nil
+        self.textFormat = nil
+        self.alwaysShowFractions = false
+        
+        self.commit = {}
+        self.onTap = onTap
+        self.onChangeOfText = {_ in}
+        self.onChangeOfIsEditing = onChangeOfIsEditing
+        self.hideKeyboard = hideKeyboard
+        self.isShowLeadingButtons = isShowLeadingButtons
+        self.isShowTrailingButtons = isShowTrailingButtons
+        self.leadingContent = leadingContent
     }
 }

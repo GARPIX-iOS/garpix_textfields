@@ -7,44 +7,33 @@
 
 import SwiftUI
 
-struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFButtonsProtocol, CustomTFInputProtocol where LeadingContent: View, TrailingContent: View {
-    var inputType: CustomTFType
+struct CustomTFActions: ViewModifier {
     var textfield: CustomTFComponents
-    var leadingContent: () -> LeadingContent?
-    var trailingContent: () -> TrailingContent?
     
     func body(content: Content) -> some View {
-        HStack(spacing: 10) {
-            leadingButtonsView
-        
-            textFieldView(content: content)
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        textfield.isEditing = true
-                        textfield.onTap()
-                    }
+        textFieldView(content: content)
+            .onTapGesture {
+                withAnimation(.spring()) {
+                    textfield.isEditing = true
+                    textfield.onTap()
                 }
-                .font(.callout)
-                .onChange(of: textfield.isEditing, perform: { value in
-                    textfield.onChangeOfIsEditing(value)
-                })
-                .padding(.vertical)
-                .padding(.trailing)
-                .padding(.leading, 12)
-                .foregroundColor(textfield.textColor)
-            
-            trailingButtonsView
-            
-        }
-        .frame(width: textfield.width, height: textfield.height, alignment: .center)
-        .gesture(DragGesture().onChanged { _ in
-            textfield.hideKeyboard()
-        })
+            }
+            .font(.callout)
+            .onChange(of: textfield.isEditing, perform: { value in
+                textfield.onChangeOfIsEditing(value)
+            })
+            .padding(.vertical)
+            .padding(.trailing)
+            .padding(.leading, 12)
+            .foregroundColor(textfield.textColor)
+            .gesture(DragGesture().onChanged { _ in
+                textfield.hideKeyboard()
+            })
     }
     
     func textFieldView(content: Content) -> some View {
         Group {
-            switch inputType {
+            switch textfield.inputType {
             case .standart(text: let text):
                 content
                     .onChangeOfText(text: text, textfield: textfield)
@@ -57,33 +46,11 @@ struct CustomTFActions<LeadingContent, TrailingContent>: ViewModifier, CustomTFB
             }
         }
     }
-    
-    @ViewBuilder
-    var leadingButtonsView: some View {
-        if textfield.isShowLeadingButtons {
-            leadingContent()
-                .padding(.leading, 16)
-        }
-    }
-    
-    @ViewBuilder
-    var trailingButtonsView: some View {
-        if textfield.isShowTrailingButtons {
-            trailingContent()
-                .padding(.trailing, 16)
-        }
-    }
 }
 
 extension View {
-    func customTFActions<LeadingContent: View, TrailingContent: View>(inputType: CustomTFType,
-                                                                      textfield: CustomTFComponents,
-                                                                      leadingContent: @escaping () -> LeadingContent?,
-                                                                      trailingContent: @escaping () -> TrailingContent?) -> some View  {
-        modifier(CustomTFActions(inputType: inputType,
-                                 textfield: textfield,
-                                 leadingContent: leadingContent,
-                                 trailingContent: trailingContent))
+    func customTFActions(textfield: CustomTFComponents) -> some View  {
+        modifier(CustomTFActions(textfield: textfield))
     }
 }
 

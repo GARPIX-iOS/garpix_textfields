@@ -8,27 +8,12 @@
 import Foundation
 import SwiftUI
 
-public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsProtocol where LeadingContent: View, TrailingContent: View {
+struct CustomTF: View {
     var components: CustomTFComponents
-    var leadingContent: () -> LeadingContent?
-    var trailingContent: () -> TrailingContent?
-    
-    public init(
-        components: CustomTFComponents,
-        @ViewBuilder leadingContent: @escaping () -> LeadingContent? = { nil },
-        @ViewBuilder trailingContent: @escaping () -> TrailingContent? = { nil }
-    ) {
-        self.components = components
-        self.leadingContent = leadingContent
-        self.trailingContent = trailingContent
-    }
-    
-    public var body: some View {
+        
+    var body: some View {
         textfield
-            .customTFActions(inputType: components.inputType,
-                             textfield: components,
-                             leadingContent: leadingContent,
-                             trailingContent: trailingContent)
+            .customTFActions(textfield: components)
     }
     
     var textfield: some View {
@@ -46,43 +31,6 @@ public struct CustomTF<LeadingContent, TrailingContent>: View, CustomTFButtonsPr
                           formatter: formatter)
             }
         }
-    }
-}
-
-// MARK: - Init
-public extension CustomTF {
-    init(components: CustomTFComponents) where LeadingContent == EmptyView, TrailingContent == EmptyView {
-        self.init(
-            components: components,
-            leadingContent: {
-                EmptyView()
-            },
-            trailingContent: {
-                EmptyView()
-            }
-        )
-    }
-    
-    init(components: CustomTFComponents,
-         @ViewBuilder trailingContent: @escaping () -> TrailingContent?) where LeadingContent == EmptyView {
-        self.init(
-            components: components,
-            leadingContent: {
-                EmptyView()
-            },
-            trailingContent: trailingContent
-        )
-    }
-    
-    init(components: CustomTFComponents,
-         @ViewBuilder leadingContent: @escaping () -> LeadingContent?) where TrailingContent == EmptyView {
-        self.init(
-            components: components,
-            leadingContent: leadingContent,
-            trailingContent: {
-                EmptyView()
-            }
-        )
     }
 }
 

@@ -13,7 +13,7 @@ public enum CustomTFFormat {
     case formatText(mask: String, symbol: String.Element)
 }
 
-protocol CustomTFProtocol {
+protocol CustomTFProtocol: CustomTFInputProtocol {
     var textColor: Color { get set }
     var isEditing: Bool { get set }
     var placeholder: String { get set }
@@ -21,8 +21,6 @@ protocol CustomTFProtocol {
     var height: CGFloat { get set }
     var keyboardType: UIKeyboardType { get set }
     var isShowSecureField: Bool { get set }
-    var isShowLeadingButtons: Bool { get set }
-    var isShowTrailingButtons: Bool { get set }
     var onlyNumbers: Bool { get set }
     var validSymbolsAmount: Int? { get set }
     var textFormat: CustomTFFormat? { get set }

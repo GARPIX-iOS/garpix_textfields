@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+extension Optional: AnyOptional {
+    public var isNil: Bool { self == nil }
+}
+
 public extension Optional where Wrapped == Int {
     func optIntToOptDouble() -> Double? {
         if let unwrapInt = self {
