@@ -8,22 +8,6 @@
 import Foundation
 import UIKit
 
-extension String {
-    var validKbmValue: String {
-        if let value = Double(self) {
-            switch value {
-            case ...0.5:
-                return "0.5"
-            case 2.45...:
-                return "2.45"
-            default:
-                return String(format: "%.2f", value)
-            }
-        }
-        return ""
-    }
-}
-
 // MARK: - Format Mask
 
 extension String {
@@ -162,43 +146,39 @@ extension String {
         // no complaints, string is valid email address
         return true
     }
-
-    // MARK: - isValidCar
-
-    var isValidGosNumber: Bool {
-        return count == 11 || count == 12
-    }
 }
 
-// MARK: - Helper Properties
+// MARK: - StringToDate extensions
 
-extension String {
-    var isStringContainsOnlyNumbers: Bool {
-        return rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
-    }
-}
-
-// MARK: - Helper Functions
-
-extension String {
-    func addComma() -> String {
-        return self == "" ? "" : ", "
+public extension String {
+    func stringToDate(dateFormat: DateFormats = .yearMonthDayWithDots) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = dateFormat.rawValue
+        return formatter.date(from: self)
     }
 
-    var words: [String] {
-        return components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }
+    func convertToDayMonthLetterYear() -> String? {
+        let tempDate = stringToDate(dateFormat: .yearMonthDayWithLine)
+        return tempDate?.dateToString(dateFormat: .dayMonthLetterYear)
     }
-}
 
-// MARK: - getHeight and getWidth methods
+    func convertFromServerTime() -> String? {
+        let tempTime = stringToDate(dateFormat: .serverTime)
+        return tempTime?.dateToString(dateFormat: .yearMonthDayWithLine)
+    }
 
-extension String {
-    func textSize(font: UIFont, text: String, width: CGFloat = .greatestFiniteMagnitude, height: CGFloat = .greatestFiniteMagnitude) -> CGSize {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        label.numberOfLines = 0
-        label.font = font
-        label.text = text
-        label.sizeToFit()
-        return label.frame.size
+    func convertToDayMonthDigitsYear() -> String? {
+        let tempDate = stringToDate(dateFormat: .yearMonthDayWithLine)
+        return tempDate?.dateToString(dateFormat: .dayMonthDigitsYear)
+    }
+
+    func convertFromServerTimeToUserTime() -> String? {
+        let tempTime = stringToDate(dateFormat: .yearMonthDayWithLineAndTime)
+        return tempTime?.dateToString(dateFormat: .dayMonthLetterYearAndTime)
+    }
+
+    func convertDateFormat(from: DateFormats, to: DateFormats) -> String? {
+        let tempDate = stringToDate(dateFormat: from)
+        return tempDate?.dateToString(dateFormat: to)
     }
 }
