@@ -28,10 +28,10 @@ public struct DateTextField<LeadingContent, TrailingContent>: View, CustomTFButt
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
-    var isShowLeadingButtons: Bool
-    var isShowTrailingButtons: Bool
-    var leadingContent: () -> LeadingContent?
-    var trailingContent: () -> TrailingContent?
+    public var isShowLeadingButtons: Bool
+    public var isShowTrailingButtons: Bool
+    public var leadingContent: () -> LeadingContent?
+    public var trailingContent: () -> TrailingContent?
 
     public var body: some View {
         let components = CustomTFComponents(

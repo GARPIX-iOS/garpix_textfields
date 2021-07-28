@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol CustomTFButtonsProtocol {
+public protocol CustomTFButtonsProtocol {
     associatedtype LeadingContent: View
     associatedtype TrailingContent: View
 
