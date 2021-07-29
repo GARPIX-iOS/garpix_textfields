@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// MARK:- Struct
+
+/// This struct is used to decrease amount of code when CustomTF is init
 public struct CustomTFComponents: CustomTFProtocol {
     var inputType: CustomTFType
 

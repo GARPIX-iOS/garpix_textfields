@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+// MARK: - Struct
+
+/// Those ViewModifier provides functionality to track changes of input added to text field and pass it back in completion block to work with them from constructor
 struct CustomTFActions: ViewModifier {
     var textfield: CustomTFComponents
     
@@ -31,6 +34,8 @@ struct CustomTFActions: ViewModifier {
             })
     }
     
+    
+    /// Service func works with different input types. Mostly needed to track changes of text and pass them back. I left other input types becouse we will add some functionality to them later i guess
     func textFieldView(content: Content) -> some View {
         Group {
             switch textfield.inputType {
@@ -38,22 +43,18 @@ struct CustomTFActions: ViewModifier {
                 content
                     .onChangeOfText(text: text, textfield: textfield)
                     .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
-            case .decimal(totalInput: let totalInput, currencySymbol: let currencySymbol):
+            case .decimal(totalInput: _, currencySymbol: _):
                 content
                     .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
-            case .date(date: let date, formatter: let formatter):
+            case .date(date: _, formatter: _):
                 content
             }
         }
     }
 }
 
-extension View {
-    func customTFActions(textfield: CustomTFComponents) -> some View  {
-        modifier(CustomTFActions(textfield: textfield))
-    }
-}
 
+/// Those ViewModifier needed to track onChange of text when StandartTextField with String input is chosen
 struct OnChangeOfText: ViewModifier {
     @Binding var text: String
     var textfield: CustomTFComponents
@@ -70,14 +71,10 @@ struct OnChangeOfText: ViewModifier {
     }
 }
 
-extension View {
-    func onChangeOfText(text: Binding<String>, textfield: CustomTFComponents) -> some View {
-        modifier(OnChangeOfText(text: text,
-                                textfield: textfield))
-    }
-}
+// MARK: - View extension for onHideKeyboard
 
 public extension View {
+    /// This method provide simular functionality as hideKeyboard() method it needs when you whant to do smth in completion after keyboard hides
     func onHideKeyboard(_ completion: @escaping () -> Void) -> some View {
         self
             .gesture(DragGesture().onChanged { _ in
@@ -85,3 +82,24 @@ public extension View {
             })
     }
 }
+
+// MARK: - View extension for customTFActions
+
+extension View {
+    /// This method is needed to apply all tracking functionality on CustomTF
+    func customTFActions(textfield: CustomTFComponents) -> some View  {
+        modifier(CustomTFActions(textfield: textfield))
+    }
+}
+
+// MARK: - View extension for onChangeOfText
+
+extension View {
+    /// This method needed to pass tracking data about changed text up to constructor
+    func onChangeOfText(text: Binding<String>, textfield: CustomTFComponents) -> some View {
+        modifier(OnChangeOfText(text: text,
+                                textfield: textfield))
+    }
+}
+
+

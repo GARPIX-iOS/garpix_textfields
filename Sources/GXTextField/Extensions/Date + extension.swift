@@ -7,14 +7,28 @@
 
 import Foundation
 
+// MARK: - Date extension with Helper Functions
 public extension Date {
+    /// That function transform Date to String
+    /// - Parameter dateFormat: select case from provided values by enum
+    /// - Returns: Returns String from Date
     func dateToString(dateFormat: DateFormats) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat.rawValue
         return formatter.string(from: self)
     }
+    
+    /// That function transform Date to String
+    /// - Parameter formatedBy: add your format string but if sth will goes wrong it will be your fault)
+    /// - Returns: Returns string from Date
+    func dateToString(formatedBy: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = formatedBy
+        return formatter.string(from: self)
+    }
 }
 
+// MARK: - DateFormatter extension with variables from DateFormats
 public extension DateFormatter {
     static var dd_MMMM_yyyy: DateFormatter {
         let formatter = DateFormatter()

@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+// MARK:- Struct
+
+/// Those ViewModifier provides functionality to add to separate Views from CustomTFContentProtocol
 public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: ViewModifier, CustomTFContentProtocol {
     public var width: CGFloat?
     public var height: CGFloat?
-    public var isShowLeadingContent: Bool
-    public var isShowTrailingContent: Bool
+    @Binding public var isShowLeadingContent: Bool
+    @Binding public var isShowTrailingContent: Bool
     public var leadingContent: () -> LeadingContent?
     public var trailingContent: () -> TrailingContent?
     
@@ -41,12 +44,15 @@ public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: View
     }
 }
 
+// MARK:- View extension for customTFContent
+
 public extension View {
+    /// Use this function to add Content on both sides of textField
     func customTFContent<LeadingContent: View, TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
-        isShowLeadingContent: Bool,
-        isShowTrailingContent: Bool,
+        isShowLeadingContent: Binding<Bool>,
+        isShowTrailingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?,
         trailingContent: @escaping () -> TrailingContent?
     ) -> some View  {
@@ -63,10 +69,11 @@ public extension View {
         )
     }
     
+    /// Use this function to add Content on leading side of textField
     func customTFContent<LeadingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
-        isShowLeadingContent: Bool,
+        isShowLeadingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?
     ) -> some View  {
         
@@ -75,7 +82,7 @@ public extension View {
                 width: width,
                 height: height,
                 isShowLeadingContent: isShowLeadingContent,
-                isShowTrailingContent: false,
+                isShowTrailingContent: .constant(false),
                 leadingContent: leadingContent,
                 trailingContent: {
                     EmptyView()
@@ -84,10 +91,11 @@ public extension View {
         )
     }
     
+    /// Use this function to add Content on trailing side of textField
     func customTFContent<TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
-        isShowTrailingContent: Bool,
+        isShowTrailingContent: Binding<Bool>,
         trailingContent: @escaping () -> TrailingContent?
     ) -> some View {
         
@@ -95,7 +103,7 @@ public extension View {
             CustomTFContent(
                 width: width,
                 height: height,
-                isShowLeadingContent: false,
+                isShowLeadingContent: .constant(false),
                 isShowTrailingContent: isShowTrailingContent,
                 leadingContent: {
                     EmptyView()
