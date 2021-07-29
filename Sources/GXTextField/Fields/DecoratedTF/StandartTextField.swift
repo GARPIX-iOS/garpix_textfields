@@ -7,7 +7,11 @@
 
 import SwiftUI
 
+/// This textfield is used to input string values. You can easily use mask in onChangeOfText completion or use our values in textFormat, moreover if you will add validSymbolsAmount you will get field with that amount of symbols for more check TextFieldSample file
 public struct StandartTextField: View, CustomTFProtocol {
+    // MARK: - Properties
+    
+    /// This value helps CustomTF recognize what input type you whant to pass
     var inputType: CustomTFType
     
     var textColor: Color
@@ -16,9 +20,14 @@ public struct StandartTextField: View, CustomTFProtocol {
     var width: CGFloat
     var height: CGFloat
     var keyboardType: UIKeyboardType
+    
+    /// This variable used only for StandartTextField if you whant to make this field secured for password
     var isShowSecureField: Bool
+    /// This variable should be turned to true if you would like to use string with only numbers in formatText extension replacing occurancies will be switched to numbers and keyboard type in CustomTFAction will be switched to .numpad
     var onlyNumbers: Bool
+    /// This variable will limit number of string symbols works only with StandartTextField
     var validSymbolsAmount: Int?
+    /// This variable will format text in CustomTF onChangeText block works only with StandartTextField
     var textFormat: CustomTFFormat?
     var alwaysShowFractions: Bool
     
@@ -28,39 +37,13 @@ public struct StandartTextField: View, CustomTFProtocol {
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
-    public var body: some View {
-        let components = CustomTFComponents(
-            inputType: inputType,
-            textColor: textColor,
-            isEditing: $isEditing,
-            placeholder: placeholder,
-            width: width,
-            height: height,
-            keyboardType: keyboardType,
-            isShowSecureField: isShowSecureField,
-            onlyNumbers: onlyNumbers,
-            validSymbolsAmount: validSymbolsAmount,
-            textFormat: textFormat,
-            alwaysShowFractions: alwaysShowFractions,
-            commit: commit,
-            onTap: onTap,
-            onChangeOfText: onChangeOfText,
-            onChangeOfIsEditing: onChangeOfIsEditing,
-            hideKeyboard: hideKeyboard)
-        
-        CustomTF(components: components)
-            .frame(width: width, height: height, alignment: .center)
-    }
-}
-
-// MARK: - Init
-public extension StandartTextField {
-    init(
+    // MARK: - Init
+    public init(
         text: Binding<String>,
         textColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = .infinity,
+        width: CGFloat = UIScreen.main.bounds.width * 0.9,
         height: CGFloat = 60,
         keyboardType: UIKeyboardType = .default,
         isShowSecureField: Bool = false,
@@ -93,5 +76,30 @@ public extension StandartTextField {
         self.onChangeOfText = onChangeOfText
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
+    }
+    
+    // MARK: - View
+    public var body: some View {
+        let components = CustomTFComponents(
+            inputType: inputType,
+            textColor: textColor,
+            isEditing: $isEditing,
+            placeholder: placeholder,
+            width: width,
+            height: height,
+            keyboardType: keyboardType,
+            isShowSecureField: isShowSecureField,
+            onlyNumbers: onlyNumbers,
+            validSymbolsAmount: validSymbolsAmount,
+            textFormat: textFormat,
+            alwaysShowFractions: alwaysShowFractions,
+            commit: commit,
+            onTap: onTap,
+            onChangeOfText: onChangeOfText,
+            onChangeOfIsEditing: onChangeOfIsEditing,
+            hideKeyboard: hideKeyboard)
+        
+        CustomTF(components: components)
+            .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - Struct
 
-/// This View takes as variable CustomTFComponents as object and provide mostly all functionality to textfield.
+/// This View takes as variable CustomTFComponents and provide mostly all functionality to textfield.
 struct CustomTF: View {
     var components: CustomTFComponents
         

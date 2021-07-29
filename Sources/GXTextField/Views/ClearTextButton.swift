@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// MARK: - Struct
+
+
+/// This View is preset clear button which erase text passing to it
 public struct ClearTextButton: View {
     @Binding var clearingText: String
     

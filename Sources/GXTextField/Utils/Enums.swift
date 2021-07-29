@@ -7,6 +7,9 @@
 
 import Foundation
 
+// MARK: - Enum
+
+/// This enum helps you to FormatDates with our provided methods like stringToDate or dateToString
 public enum DateFormats: String {
     case yearMonthDayWithDots = "yyyy.MM.dd"
     case yearMonthDayWithLine = "yyyy-MM-dd"
