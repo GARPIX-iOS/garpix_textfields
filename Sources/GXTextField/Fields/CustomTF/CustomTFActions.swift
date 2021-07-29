@@ -76,3 +76,12 @@ extension View {
                                 textfield: textfield))
     }
 }
+
+public extension View {
+    func onHideKeyboard(_ completion: @escaping () -> Void) -> some View {
+        self
+            .gesture(DragGesture().onChanged { _ in
+                completion()
+            })
+    }
+}

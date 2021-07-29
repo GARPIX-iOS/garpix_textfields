@@ -22,36 +22,4 @@ public struct BorderTFStyleComponents: BorderTFStyleProtocol {
     var offsetX: CGFloat
     var offsetY: CGFloat
     var backgroundColor: Color
-    
-    public init(
-        borderStyle: Binding<BorderStyles>,
-        showLabel: Binding<Bool>,
-        title: String,
-        image: String,
-        font: Font = .caption2,
-        textColor: Color = Color(.label),
-        strokeWidth: CGFloat = 1,
-        strokeStandartColor: Color = Color(.gray),
-        strokeSelectedColor: Color = Color(.label),
-        strokeErrorColor: Color = Color(.red),
-        cornerRadius: CGFloat = 10,
-        offsetX: CGFloat = 10,
-        offsetY: CGFloat = -8,
-        backgroundColor: Color = Color(.systemBackground)
-    ) {
-        _borderStyle = borderStyle
-        _showLabel = showLabel
-        self.title = title
-        self.image = image
-        self.font = font
-        self.textColor = textColor
-        self.strokeWidth = strokeWidth
-        self.strokeStandartColor = strokeStandartColor
-        self.strokeSelectedColor = strokeSelectedColor
-        self.strokeErrorColor = strokeErrorColor
-        self.cornerRadius = cornerRadius
-        self.offsetX = offsetX
-        self.offsetY = offsetY
-        self.backgroundColor = backgroundColor
-    }
 }

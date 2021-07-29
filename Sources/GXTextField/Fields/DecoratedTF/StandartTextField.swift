@@ -28,12 +28,39 @@ public struct StandartTextField: View, CustomTFProtocol {
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
-    public init(
+    public var body: some View {
+        let components = CustomTFComponents(
+            inputType: inputType,
+            textColor: textColor,
+            isEditing: $isEditing,
+            placeholder: placeholder,
+            width: width,
+            height: height,
+            keyboardType: keyboardType,
+            isShowSecureField: isShowSecureField,
+            onlyNumbers: onlyNumbers,
+            validSymbolsAmount: validSymbolsAmount,
+            textFormat: textFormat,
+            alwaysShowFractions: alwaysShowFractions,
+            commit: commit,
+            onTap: onTap,
+            onChangeOfText: onChangeOfText,
+            onChangeOfIsEditing: onChangeOfIsEditing,
+            hideKeyboard: hideKeyboard)
+        
+        CustomTF(components: components)
+            .frame(width: width, height: height, alignment: .center)
+    }
+}
+
+// MARK: - Init
+public extension StandartTextField {
+    init(
         text: Binding<String>,
         textColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
+        width: CGFloat = .infinity,
         height: CGFloat = 60,
         keyboardType: UIKeyboardType = .default,
         isShowSecureField: Bool = false,
@@ -66,28 +93,5 @@ public struct StandartTextField: View, CustomTFProtocol {
         self.onChangeOfText = onChangeOfText
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
-    }
-    
-    public var body: some View {
-        let components = CustomTFComponents(
-            inputType: inputType,
-            textColor: textColor,
-            isEditing: $isEditing,
-            placeholder: placeholder,
-            width: width,
-            height: height,
-            keyboardType: keyboardType,
-            isShowSecureField: isShowSecureField,
-            onlyNumbers: onlyNumbers,
-            validSymbolsAmount: validSymbolsAmount,
-            textFormat: textFormat,
-            alwaysShowFractions: alwaysShowFractions,
-            commit: commit,
-            onTap: onTap,
-            onChangeOfText: onChangeOfText,
-            onChangeOfIsEditing: onChangeOfIsEditing,
-            hideKeyboard: hideKeyboard)
-        
-        CustomTF(components: components)
     }
 }
