@@ -100,13 +100,14 @@ public extension TextFieldSampleView {
 
 // MARK: - NumbersTextField
 public extension TextFieldSampleView {
-    let bindingTotalInput = Binding<Double?>(
-        get: { self.dollarPrice.optIntToOptDouble() },
-        set: { self.dollarPrice = $0.optDoubleToOptInt() }
-    )
-    
     var currencyTextField: some View {
-        CurrencyTextField(
+        
+        let bindingTotalInput = Binding<Double?>(
+            get: { self.dollarPrice.optIntToOptDouble() },
+            set: { self.dollarPrice = $0.optDoubleToOptInt() }
+        )
+         
+        return CurrencyTextField(
             totalInput: bindingTotalInput,
             currencySymbol: "$",
             textColor: Color(.label),
