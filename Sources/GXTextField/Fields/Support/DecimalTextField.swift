@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 // https://github.com/youjinp/SwiftUIKit/blob/master/Sources/SwiftUIKit/views/CurrencyTextField.swift
 public struct DecimalTextField: UIViewRepresentable {

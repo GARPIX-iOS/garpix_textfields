@@ -1,0 +1,9 @@
+author: Anton Vlezko
+output: public
+swift_build_tool: xcodebuild
+build_tool_arguments:
+  - -scheme
+  - GXTextField
+  - -sdk
+  - iphoneos
+  - -destination,platform=iOS Simulator,OS=latest,name=iPhone 11 Pro

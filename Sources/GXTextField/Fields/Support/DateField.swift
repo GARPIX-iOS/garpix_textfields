@@ -5,9 +5,8 @@
 //  Created by Anton Vlezko on 21.07.2021.
 //
 
-import Foundation
-import SwiftUI
 import UIKit
+import SwiftUI
 
 struct DateField: UIViewRepresentable {
     // MARK: - Public properties
