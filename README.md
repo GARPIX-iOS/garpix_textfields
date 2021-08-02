@@ -18,7 +18,7 @@
 
 ## 🔷 Документация 
 
-Документация находится по ссылке https://github.com/Drogonov/GXTextField/blob/gh-pages/index.html.
+Документация находится по ссылке https://drogonov.github.io.GXTextField.index.html.
 Сгенерирована с помощью Jazzy
 
 ## 🔷 Контрибьют и Merge Requests
