@@ -6,14 +6,22 @@
 //
 
 import SwiftUI
+import GXUtilz
 
 // MARK:- Enum
 
 /// This enum helps to format text in CustomTF in onChangeText block
 public enum CustomTFFormat {
     case formatPhone
-    case formatGosNumber(mask: String, letterSymbol: String.Element, numberSymbol: String.Element)
-    case formatText(mask: String, symbol: String.Element)
+    case formatTextAndNumber(mask: String,
+                             letterSymbol: String.Element,
+                             numberSymbol: String.Element,
+                             formatLanguage: FormatWithLanguage?,
+                             addSpecialSymbols: Bool)
+    case formatText(mask: String,
+                    symbol: String.Element,
+                    formatLanguage: FormatWithLanguage?,
+                    addSpecialSymbols: Bool)
 }
 
 // MARK:- Protocol
@@ -65,7 +73,8 @@ extension CustomTFProtocol {
         return text.formatText(with: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
                                                     symbol: symbol),
                                symbol: symbol,
-                               onlyNumbers: onlyNumbers)
+                               onlyNumbers: onlyNumbers,
+                               formatLanguage: .eng)
     }
 
     private func symbolsLimiter(validSymbolsAmount: Int?, symbol: String.Element) -> String {
@@ -98,10 +107,23 @@ extension CustomTFProtocol {
         switch format {
         case .formatPhone:
             return text.formatPhone()
-        case .formatGosNumber(mask: let mask, letterSymbol: let letterSymbol, numberSymbol: let numberSymbol):
-            return text.formatGovNumber(with: mask, letterSymbol: letterSymbol, numberSymbol: numberSymbol)
-        case .formatText(mask: let mask, symbol: let symbol):
-            return text.formatText(with: mask, symbol: symbol, onlyNumbers: onlyNumbers)
+        case .formatTextAndNumber(mask: let mask,
+                                  letterSymbol: let letterSymbol,
+                                  numberSymbol: let numberSymbol,
+                                  formatLanguage: let formatLanguage,
+                                  addSpecialSymbols: let addSpecialSymbols):
+            return text.formatTextAndNumbers(with: mask,
+                                             letterSymbol: letterSymbol,
+                                             numberSymbol: numberSymbol,
+                                             formatLanguage: formatLanguage)
+        case .formatText(mask: let mask,
+                         symbol: let symbol,
+                         formatLanguage: let formatLanguage,
+                         addSpecialSymbols: let addSpecialSymbols):
+            return text.formatText(with: mask,
+                                   symbol: symbol,
+                                   onlyNumbers: onlyNumbers,
+                                   formatLanguage: formatLanguage)
         }
     }
 }

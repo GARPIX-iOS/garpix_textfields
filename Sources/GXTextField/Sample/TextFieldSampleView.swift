@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GXUtilz
 
 public struct TextFieldSampleView: View {
     @State private var text: String = ""
@@ -77,7 +78,6 @@ public extension TextFieldSampleView {
             isEditing: $cardNumberIsEditing,
             placeholder: placeholder,
             onlyNumbers: true,
-            textFormat: .formatText(mask: "XXXX XXXX XXXX XXXX", symbol: "X"),
             onChangeOfIsEditing: { value in
                 cardNumberBorderStyle = value ? .selected : .standart
             },
