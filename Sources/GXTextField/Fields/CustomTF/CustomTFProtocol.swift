@@ -14,20 +14,19 @@ import GXUtilz
 public enum CustomTFFormat {
     case formatPhone
     case formatTextAndNumber(mask: String,
-                             letterSymbol: String.Element,
-                             numberSymbol: String.Element,
-                             formatLanguage: FormatWithLanguage?,
-                             addSpecialSymbols: Bool)
+                             firstSymbol: String.Element,
+                             secondSymbol: String.Element,
+                             firstSymbolType: StringInputType?,
+                             secondSymbolType: StringInputType?)
     case formatText(mask: String,
                     symbol: String.Element,
-                    formatLanguage: FormatWithLanguage?,
-                    addSpecialSymbols: Bool)
+                    inputType: StringInputType?)
 }
 
 // MARK:- Protocol
 
 /// This protocol takes all variables wich need to init TF
-protocol CustomTFProtocol: CustomTFInputProtocol {
+protocol CustomTFProtocol: CustomTFInputProtocol, CustomTFFormatProtocol {
     var textColor: Color { get set }
     var isEditing: Bool { get set }
     var placeholder: String { get set }
@@ -38,20 +37,10 @@ protocol CustomTFProtocol: CustomTFInputProtocol {
     /// This variable used only for StandartTextField if you whant to make this field secured for password
     var isShowSecureField: Bool { get set }
     
-    /// This variable should be turned to true if you would like to use string with only numbers in formatText extension replacing occurancies will be switched to numbers and keyboard type in CustomTFAction will be switched to .numpad
-    var onlyNumbers: Bool { get set }
-    
-    /// This variable will limit number of string symbols works only with StandartTextField
-    var validSymbolsAmount: Int? { get set }
-    
-    /// This variable will format text in CustomTF onChangeText block works only with StandartTextField
-    var textFormat: CustomTFFormat? { get set }
-    
     /// This variable will always show fractions in NumbersTextField
     var alwaysShowFractions: Bool { get set }
     
     var onTap: () -> Void { get set }
-    var onChangeOfText: (String) -> Void { get set }
     var onChangeOfIsEditing: (Bool) -> Void { get set }
     var commit: () -> Void { get set }
     var hideKeyboard: () -> Void { get set }
@@ -67,14 +56,13 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: symbols amount added by user
     ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
     /// - Returns: formatted text
-    func limitTextLength(text: String, validSymbolsAmount: Int?, onlyNumbers: Bool) -> String {
+    func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
         let symbol: String.Element = "X"
         guard validSymbolsAmount != nil else { return text }
-        return text.formatText(with: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
+        return text.formatText(mask: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
                                                     symbol: symbol),
                                symbol: symbol,
-                               onlyNumbers: onlyNumbers,
-                               formatLanguage: .eng)
+                               inputType: inputType)
     }
 
     private func symbolsLimiter(validSymbolsAmount: Int?, symbol: String.Element) -> String {
@@ -99,31 +87,30 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: symbols amount added by user
     ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
     /// - Returns: formatted text
-    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, onlyNumbers: Bool) -> String {
+    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
         guard let format = textFormat else {
-            return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, onlyNumbers: onlyNumbers)
+            return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, inputType: inputType)
         }
         
         switch format {
         case .formatPhone:
             return text.formatPhone()
         case .formatTextAndNumber(mask: let mask,
-                                  letterSymbol: let letterSymbol,
-                                  numberSymbol: let numberSymbol,
-                                  formatLanguage: let formatLanguage,
-                                  addSpecialSymbols: let addSpecialSymbols):
-            return text.formatTextAndNumbers(with: mask,
-                                             letterSymbol: letterSymbol,
-                                             numberSymbol: numberSymbol,
-                                             formatLanguage: formatLanguage)
+                                  firstSymbol: let firstSymbol,
+                                  secondSymbol: let secondSymbol,
+                                  firstSymbolType: let firstSymbolType,
+                                  secondSymbolType: let secondSymbolType):
+            return text.formatTextAndNumbers(mask: mask,
+                                             firstSymbol: firstSymbol,
+                                             secondSymbol: secondSymbol,
+                                             firstSymbolType: firstSymbolType,
+                                             secondSymbolType: secondSymbolType)
         case .formatText(mask: let mask,
                          symbol: let symbol,
-                         formatLanguage: let formatLanguage,
-                         addSpecialSymbols: let addSpecialSymbols):
-            return text.formatText(with: mask,
+                         inputType: let inputType):
+            return text.formatText(mask: mask,
                                    symbol: symbol,
-                                   onlyNumbers: onlyNumbers,
-                                   formatLanguage: formatLanguage)
+                                   inputType: inputType)
         }
     }
 }

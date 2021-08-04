@@ -20,14 +20,11 @@ public struct CustomTFComponents: CustomTFProtocol {
     var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
-    var onlyNumbers: Bool
-    var validSymbolsAmount: Int?
-    var textFormat: CustomTFFormat?
     var alwaysShowFractions: Bool
     
+    var formatType: CustomTFFormatType?
     var commit: () -> Void
     var onTap: () -> Void
-    var onChangeOfText: (String) -> Void
     var onChangeOfIsEditing: (Bool) -> Void
     var hideKeyboard: () -> Void
 }

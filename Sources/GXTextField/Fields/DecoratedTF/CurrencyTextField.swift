@@ -23,14 +23,13 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     var isShowSecureField: Bool
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
-    var textFormat: CustomTFFormat?
     
     /// This variable will always show fractions in NumbersTextField
     var alwaysShowFractions: Bool
     
+    var formatType: CustomTFFormatType?
     var onTap: () -> Void
     var onChangeOfIsEditing: (Bool) -> Void
-    var onChangeOfText: (String) -> Void
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
@@ -62,12 +61,11 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         self.isShowSecureField = false
         self.onlyNumbers = true
         self.validSymbolsAmount = nil
-        self.textFormat = nil
         self.alwaysShowFractions = alwaysShowFractions
 
         self.commit = {}
         self.onTap = onTap
-        self.onChangeOfText = {_ in}
+        self.formatType = nil
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
     }
@@ -83,13 +81,10 @@ public struct CurrencyTextField: View, CustomTFProtocol {
             height: height,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
-            onlyNumbers: onlyNumbers,
-            validSymbolsAmount: validSymbolsAmount,
-            textFormat: textFormat,
             alwaysShowFractions: alwaysShowFractions,
+            formatType: formatType,
             commit: commit,
             onTap: onTap,
-            onChangeOfText: onChangeOfText,
             onChangeOfIsEditing: onChangeOfIsEditing,
             hideKeyboard: hideKeyboard)
         

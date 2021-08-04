@@ -57,7 +57,28 @@ public extension TextFieldSampleView {
         StandartTextField(
             text: $text,
             placeholder: placeholder,
-            validSymbolsAmount: 10
+            formatType: CustomTFFormatType(
+                onChangeOfText: { value in
+                    text = value.formatTextAndNumbers(
+                        with: "111 XXX",
+                        letterSymbol: "X",
+                        numberSymbol: "1",
+                        formatLanguage: .rus,
+                        addSpecialSymbols: false
+                    )
+                }
+            )
+            //            textFormat: .formatText(mask: <#T##String#>,
+            //                                    symbol: <#T##String.Element#>,
+            //                                    formatLanguage: <#T##FormatWithLanguage?#>,
+            //                                    addSpecialSymbols: <#T##Bool#>)
+            //            onChangeOfText: { value in
+            //                text = value.formatTextAndNumbers(with: "111 XXX",
+            //                                                  letterSymbol: "X",
+            //                                                  numberSymbol: "1",
+            //                                                  formatLanguage: .rus,
+            //                                                  addSpecialSymbols: false)
+            //            }
         )
         .underlinedTFStyle(color: .red)
         .customTFContent(width: UIScreen.main.bounds.width * 0.9,
@@ -67,7 +88,7 @@ public extension TextFieldSampleView {
                             leadingButtons
                          },
                          trailingContent: {
-                            trailingButtons
+                            clearTextButton
                          })
     }
     
@@ -106,7 +127,7 @@ public extension TextFieldSampleView {
             get: { self.dollarPrice.optIntToOptDouble() },
             set: { self.dollarPrice = $0.optDoubleToOptInt() }
         )
-         
+        
         return CurrencyTextField(
             totalInput: bindingTotalInput,
             currencySymbol: "$",
@@ -190,6 +211,10 @@ public extension TextFieldSampleView {
     
     var clearCardNumberButton: some View {
         ClearTextButton(clearingText: $cardNumber)
+    }
+    
+    var clearTextButton: some View {
+        ClearTextButton(clearingText: $text)
     }
     
     var clearNumberButton: some View {

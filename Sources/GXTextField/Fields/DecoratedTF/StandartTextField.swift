@@ -27,13 +27,11 @@ public struct StandartTextField: View, CustomTFProtocol {
     var onlyNumbers: Bool
     /// This variable will limit number of string symbols works only with StandartTextField
     var validSymbolsAmount: Int?
-    /// This variable will format text in CustomTF onChangeText block works only with StandartTextField
-    var textFormat: CustomTFFormat?
     var alwaysShowFractions: Bool
     
+    var formatType: CustomTFFormatType?
     var onTap: () -> Void
     var onChangeOfIsEditing: (Bool) -> Void
-    var onChangeOfText: (String) -> Void
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
@@ -49,11 +47,10 @@ public struct StandartTextField: View, CustomTFProtocol {
         isShowSecureField: Bool = false,
         onlyNumbers: Bool = false,
         validSymbolsAmount: Int? = nil,
-        textFormat: CustomTFFormat? = nil,
 
+        formatType: CustomTFFormatType? = nil,
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
-        onChangeOfText: @escaping (String) -> Void = {_ in},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
         hideKeyboard: @escaping () -> Void = {}
     ) {
@@ -68,12 +65,11 @@ public struct StandartTextField: View, CustomTFProtocol {
         self.isShowSecureField = isShowSecureField
         self.onlyNumbers = onlyNumbers
         self.validSymbolsAmount = validSymbolsAmount
-        self.textFormat = textFormat
         self.alwaysShowFractions = false
 
+        self.formatType = formatType
         self.commit = commit
         self.onTap = onTap
-        self.onChangeOfText = onChangeOfText
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
     }
@@ -89,13 +85,10 @@ public struct StandartTextField: View, CustomTFProtocol {
             height: height,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
-            onlyNumbers: onlyNumbers,
-            validSymbolsAmount: validSymbolsAmount,
-            textFormat: textFormat,
             alwaysShowFractions: alwaysShowFractions,
+            formatType: formatType,
             commit: commit,
             onTap: onTap,
-            onChangeOfText: onChangeOfText,
             onChangeOfIsEditing: onChangeOfIsEditing,
             hideKeyboard: hideKeyboard)
         

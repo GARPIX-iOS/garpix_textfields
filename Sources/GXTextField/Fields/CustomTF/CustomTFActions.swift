@@ -42,10 +42,10 @@ struct CustomTFActions: ViewModifier {
             case .standart(text: let text):
                 content
                     .onChangeOfText(text: text, textfield: textfield)
-                    .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
+                    .keyboardType(textfield.keyboardType)
             case .decimal(totalInput: _, currencySymbol: _):
                 content
-                    .keyboardType(textfield.onlyNumbers ? .numberPad : textfield.keyboardType)
+                    .keyboardType(textfield.keyboardType)
             case .date(date: _, formatter: _):
                 content
             }
@@ -63,10 +63,11 @@ struct OnChangeOfText: ViewModifier {
         content
             .onChange(of: text, perform: { value in
                 text = textfield.formatText(text: text,
-                                            textFormat: textfield.textFormat,
-                                            validSymbolsAmount: textfield.validSymbolsAmount,
-                                            onlyNumbers: textfield.onlyNumbers)
-                textfield.onChangeOfText(value)
+                                            textFormat: textfield.formatType?.textFormat,
+                                            validSymbolsAmount: textfield.formatType?.validSymbolsAmount,
+                                            inputType: textfield.formatType?.inputType)
+                
+                textfield.formatType?.onChangeOfText(value)
             })
     }
 }

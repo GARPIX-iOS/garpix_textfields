@@ -23,12 +23,11 @@ public struct DateTextField: View, CustomTFProtocol {
     var isShowSecureField: Bool
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
-    var textFormat: CustomTFFormat?
     var alwaysShowFractions: Bool
     
+    var formatType: CustomTFFormatType?
     var onTap: () -> Void
     var onChangeOfIsEditing: (Bool) -> Void
-    var onChangeOfText: (String) -> Void
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
@@ -58,12 +57,11 @@ public struct DateTextField: View, CustomTFProtocol {
         self.isShowSecureField = false
         self.onlyNumbers = false
         self.validSymbolsAmount = nil
-        self.textFormat = nil
         self.alwaysShowFractions = false
         
+        self.formatType = nil
         self.commit = {}
         self.onTap = onTap
-        self.onChangeOfText = {_ in}
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
     }
@@ -79,13 +77,10 @@ public struct DateTextField: View, CustomTFProtocol {
             height: height,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
-            onlyNumbers: onlyNumbers,
-            validSymbolsAmount: validSymbolsAmount,
-            textFormat: textFormat,
             alwaysShowFractions: alwaysShowFractions,
+            formatType: formatType,
             commit: commit,
             onTap: onTap,
-            onChangeOfText: onChangeOfText,
             onChangeOfIsEditing: onChangeOfIsEditing,
             hideKeyboard: hideKeyboard)
         
