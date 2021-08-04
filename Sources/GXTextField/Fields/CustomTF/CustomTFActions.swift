@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - Struct
 
-/// Эти ViewModifier предоставляют функции для отслеживания изменений ввода, добавленного в текстовое поле, и передачи его обратно в блок завершения для работы с ними из конструктора
+/// Эти ViewModifier предоставляют функции для отслеживания изменений значений, добавленных в текстовое поле, и передачи их наверх по стеку для передачи данных в замыкания в конструкторе
 struct CustomTFActions: ViewModifier {
     var textfield: CustomTFComponents
     
@@ -34,7 +34,7 @@ struct CustomTFActions: ViewModifier {
             })
     }
     
-    /// Сервисная функция работает с разными типами ввода. В основном необходимо, чтобы отслеживать изменения текста и передавать их обратно. Я оставил другие типы ввода, потому что мы добавим к ним некоторые функции позже, я думаю
+    /// Сервисная функция работает с разными входящими значениями. В основном необходима, чтобы отслеживать изменения текста и передавать их обратно. Я оставил другие инпуты, потому что мы добавим к ним некоторые функции позже, я думаю
     func textFieldView(content: Content) -> some View {
         Group {
             switch textfield.inputType {
@@ -53,7 +53,7 @@ struct CustomTFActions: ViewModifier {
 }
 
 
-/// Те ViewModifier, необходимые для отслеживания изменения текста при выборе StandartTextField с вводом String
+/// ViewModifier, необходимый для отслеживания изменения текста при выборе StandartTextField с вводом String
 struct OnChangeOfText: ViewModifier {
     @Binding var text: String
     var textfield: CustomTFComponents
@@ -74,7 +74,7 @@ struct OnChangeOfText: ViewModifier {
 // MARK: - View extension for onHideKeyboard
 
 public extension View {
-    /// Этот метод обеспечивает аналогичную функциональность, как метод hideKeyboard (), который ему нужен, когда вы хотите выполнить что-то в завершении после того, как клавиатура скрывается
+    /// Этот метод обеспечивает аналогичную функциональность методу hideKeyboard(), который нужен, когда вы хотите выполнить что-то в замыкании после того, как клавиатура скрывается
     func onHideKeyboard(_ completion: @escaping () -> Void) -> some View {
         self
             .gesture(DragGesture().onChanged { _ in

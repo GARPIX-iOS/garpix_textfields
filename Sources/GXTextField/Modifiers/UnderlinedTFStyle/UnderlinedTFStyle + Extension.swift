@@ -11,7 +11,7 @@ import SwiftUI
 public extension View {
     /// Этот метод необходим для применения изменений стиля к TF.
     /// - Parameter color: передайте сюда свой собственный цвет
-    /// - Returns: просмотр с примененным стилем
+    /// - Returns: View с примененным стилем
     func underlinedTFStyle(color: Color) -> some View {
         self
             .padding(.vertical, 10)

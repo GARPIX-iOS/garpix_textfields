@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK:- Struct
 
-/// Эти ViewModifier предоставляют функциональные возможности для добавления к отдельным представлениям из CustomTFContentProtocol
+/// Этот ViewModifier реализует переменные и методы CustomTFContentProtocol необходимые для добавления View с разных сторон текстфилда
 public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: ViewModifier, CustomTFContentProtocol {
     public var width: CGFloat?
     public var height: CGFloat?
@@ -47,7 +47,7 @@ public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: View
 // MARK:- View extension for customTFContent
 
 public extension View {
-    /// Используйте эту функцию для добавления содержимого с обеих сторон textField
+    /// Используйте эту функцию для добавления содержимого с обеих сторон TF
     func customTFContent<LeadingContent: View, TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
@@ -69,7 +69,7 @@ public extension View {
         )
     }
 
-    /// Используйте эту функцию для добавления содержимого в начало текстового поля
+    /// Используйте эту функцию для добавления содержимого в начало TF
     func customTFContent<LeadingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
@@ -91,7 +91,7 @@ public extension View {
         )
     }
     
-    /// Используйте эту функцию, чтобы добавить контент в конце textField
+    /// Используйте эту функцию, чтобы добавить контент в конце TF
     func customTFContent<TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,

@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK:- Struct
 
-/// Эта структура используется для уменьшения объема кода, когда CustomTF является init
+/// Эта структура используется для уменьшения объема кода, при init CustomTF
 public struct CustomTFComponents: CustomTFProtocol {
     var inputType: CustomTFType
 

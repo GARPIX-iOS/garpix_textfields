@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - Struct
 
-/// Эта View  принимает в качестве переменных CustomTFComponents и предоставляет основной функционал текстового поля.
+/// Эта View принимает в качестве переменных CustomTFComponents и предоставляет основной функционал для TF
 struct CustomTF: View {
     var components: CustomTFComponents
         
@@ -43,7 +43,7 @@ extension CustomTF {
 
 // MARK: - CustomTF View Functions
 extension CustomTF {
-    /// Эта функция создает базовую функциональность для textField с вводом текста, она заменяет поле Placeholder над полем, показывает SecureField, если вы его выберете, и отправляет данные onEdit в конструктор
+    /// Эта функция создает базовую функциональность для TF с вводом текста, она заменяет поле Placeholder над полем, показывает SecureField, если вы его выберете, и отправляет данные onEdit в конструктор
     /// - Parameter text: input text
     /// - Returns: TextField
     func standartField(text: Binding<String>) -> some View {
@@ -68,10 +68,10 @@ extension CustomTF {
         }
     }
     
-    /// Эта функция создает базовую функциональность для textField с десятичным вводом, она помещает заполнитель над полем, отправляет данные onEdit в конструктор и настраивает DecimalTextField со свойствами компонентов
+    /// Эта функция создает базовую функциональность для textField с Double, она помещает заполнитель над полем, отправляет данные onEdit в конструктор и настраивает DecimalTextField со свойствами компонентов
     /// - Parameters:
-    ///   - totalInput: входные числа
-    ///   - currencySymbol: символ валюты, предоставленный клиентом, если вы передадите nil, в поле не будет символа. Да, если вы думаете, что этот символ находится не на той стороне, пожалуйста, проверьте свой регион
+    ///   - totalInput: вводные числа
+    ///   - currencySymbol: символ валюты, предоставленный пользователем, если вы передадите nil, в поле не будет символа. Да и есле так вышло, что этот символ находится не на той стороне, пожалуйста, проверьте locale
     /// - Returns: TextField
     func decimalField(totalInput: Binding<Double?>, currencySymbol: String?) -> some View {
         ZStack(alignment: .leading) {
@@ -89,7 +89,7 @@ extension CustomTF {
     }
     /// Эта функция создает базовую функциональность для textField с вводом даты, она заменяет поле Placeholder над полем, отправляет данные onEdit в конструктор и настраивает DateField со свойствами компонентов
     /// - Parameters:
-    ///   - date: если вы пропустите необязательную дату, вы увидите просто заполнитель
+    ///   - date: если вы введете опциональную дату, вы увидите просто заполнитель
     ///   - formatter: мы предоставляем разные стили форматировщика, но вы можете использовать свои собственные
     /// - Returns: TextField
     func dateField(date: Binding<Date?>, formatter: DateFormatter?) -> some View {
@@ -110,7 +110,7 @@ extension CustomTF {
 
 // MARK: - CustomTF Helper Functions
 extension CustomTF {
-    /// Эта функция устанавливает для isEditing значение false, если isEdit имеет значение false с анимацией
+    /// Эта функция устанавливает для isEditing значение false, с анимацией
     /// - Parameter isEdit: переменная типа Bool из текстового поля onEditingChanged
     func onEditingChanged(isEdit: Bool) {
         if !isEdit {

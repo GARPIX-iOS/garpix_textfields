@@ -48,7 +48,7 @@ extension CustomTFProtocol {
     /// - Parameters:
     ///   - text: ввод текста
     ///   - validSymbolsAmount: количество символов, добавленных пользователем
-    ///   - inputType: <#inputType description#>
+    ///   - inputType: необходим для задания пользователем характеристик форматируемого текста, может быть опциональным
     /// - Returns: форматированный текст
     func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         let symbol: String.Element = "X"
@@ -59,11 +59,11 @@ extension CustomTFProtocol {
                                inputType: inputType)
     }
 
-    /// <#Description#>
+    /// Данная функция создает строку из символов переданных пользователем
     /// - Parameters:
-    ///   - validSymbolsAmount: <#validSymbolsAmount description#>
-    ///   - symbol: <#symbol description#>
-    /// - Returns: <#description#>
+    ///   - validSymbolsAmount: количество символов, добавленных пользователем
+    ///   - symbol: символ
+    /// - Returns: Строка из символов
     private func symbolsLimiter(validSymbolsAmount: Int?, symbol: String.Element) -> String {
         var result = ""
         guard let symbolsLimit = validSymbolsAmount else { return result }
@@ -79,12 +79,12 @@ extension CustomTFProtocol {
 // MARK: - CustomTFProtocol Text Formatter
 
 extension CustomTFProtocol {
-    /// Эта функция форматирует текст с помощью предоставленных масок
+    /// Эта функция форматирует текст с помощью введенных масок
     /// - Parameters:
     ///   - text: ввод текста
     ///   - textFormat: выберите formatText, если вы хотите предоставить свою собственную маску, просто сделайте это своими собственными методами, добавив их в onChangeOfText
     ///   - validSymbolsAmount: количество символов, добавленных пользователем
-    ///   - inputType: <#inputType description#>
+    ///   - inputType: необходим для задания пользователем характеристик форматируемого текста, может быть опциональным
     /// - Returns: форматированный текст
     func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         guard let format = textFormat else {

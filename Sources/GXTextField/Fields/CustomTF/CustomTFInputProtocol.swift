@@ -10,7 +10,7 @@ import GXUtilz
 
 // MARK:- Enum
 
-/// Это перечисление сообщает, что тип CustomTF помогает управлять входными данными в DecoratedTF
+/// Это перечисление необходимо для передачи в CustomTF входных данных из DecoratedTF
 enum CustomTFType {
     case standart(text: Binding<String>)
     case decimal(totalInput: Binding<Double?>, currencySymbol: String?)

@@ -10,7 +10,7 @@ import UIKit
 
 // MARK:- Enum
 
-/// Это перечисление предоставляет три разных стиля для границы
+/// Это перечисление предоставляет три разных стиля для бордера
 public enum BorderStyles {
     case standart
     case selected
@@ -23,11 +23,11 @@ public enum BorderStyles {
 protocol BorderTFStyleProtocol {
     var borderStyle: BorderStyles { get set }
     
-    /// Эта переменная помогает вам показать метку, которую вы можете передать сюда $ isEditing из TF, и смотрит, как идет магия
+    /// Эта переменная помогает вам показать лейбл, при изменении какого-то параметра к примеру сюда можно передать $isEditing из TF
     var showLabel: Bool { get set }
     
-    /// Название метки
-    var title: String { get set }
+    /// Текст бордера
+    var text: String { get set }
     
     /// Вы можете передать сюда стандартное имя из SFSymbols, позже мы добавим функциональность для передачи View, как в TFContent
     var image: String { get set }
@@ -39,7 +39,7 @@ protocol BorderTFStyleProtocol {
     var strokeErrorColor: Color { get set }
     var cornerRadius: CGFloat { get set }
     
-    /// Смещение этикетки относительно ее изображения
+    /// Смещение лейбла относительно ее изображения
     var offsetX: CGFloat { get set }
     var offsetY: CGFloat { get set }
     var backgroundColor: Color { get set }
@@ -47,8 +47,8 @@ protocol BorderTFStyleProtocol {
 
 // MARK: - BorderTFStyleProtocol Helper Functions
 extension BorderTFStyleProtocol {
-    /// Эта функция вычисляет цвет обводки в соответствии с текущим стилем границы
-    /// - Returns: цвет границы
+    /// Эта функция вычисляет цвет бордера в соответствии с текущим стилем
+    /// - Returns: цвет бордера
     func strokeColorCalculator() -> Color {
         switch borderStyle {
         case .standart: return strokeStandartColor

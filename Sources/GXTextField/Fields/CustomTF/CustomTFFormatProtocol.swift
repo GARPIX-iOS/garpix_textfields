@@ -7,14 +7,21 @@
 
 import SwiftUI
 
+/// Данный протокол реализует функционал по добавлению переменных либо замыканий для форматирования текста
 protocol CustomTFFormatProtocol {
     var formatType: CustomTFFormatType? { get set }
 }
 
+/// Данная структура необходима для передачи в нее данных по форматированию текста
 public struct CustomTFFormatType {
+    
+    /// Указывая количество символов в данной переменной вы ограничиваете число символов которые может ввести пользователь в TF
     var validSymbolsAmount: Int?
+    /// inputType для текста введенного через validSymbolsAmount можете указать там только спецсимволы к примеру или язык для ввода
     var inputType: StringInputType?
+    /// Выберете тут один из кейсов перечиления для того, чтобы отформатировать текст по предоставленному нами способу
     var textFormat: CustomTFFormat?
+    /// Используйте если хотите провести какие-то кастомные операции с текстом
     var onChangeOfText: (String) -> Void
     
     public init(

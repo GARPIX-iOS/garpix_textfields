@@ -23,10 +23,7 @@ public struct StandartTextField: View, CustomTFProtocol {
     
     /// Эта переменная используется только для стандартного текстового поля, если вы хотите защитить это поле от пароля
     var isShowSecureField: Bool
-    /// Для этой переменной следует установить значение true, если вы хотите использовать строку только с числами в формате. Расширение текста, заменяющее символы, будет переключено на числа, а тип клавиатуры в CustomTFAction будет переключен на .numpad
-    var onlyNumbers: Bool
-    /// Эта переменная ограничивает количество строковых символов работает только со StandartTextField
-    var validSymbolsAmount: Int?
+    
     var alwaysShowFractions: Bool
     
     var formatType: CustomTFFormatType?
@@ -63,8 +60,6 @@ public struct StandartTextField: View, CustomTFProtocol {
         self.height = height
         self.keyboardType = keyboardType
         self.isShowSecureField = isShowSecureField
-        self.onlyNumbers = onlyNumbers
-        self.validSymbolsAmount = validSymbolsAmount
         self.alwaysShowFractions = false
 
         self.formatType = formatType

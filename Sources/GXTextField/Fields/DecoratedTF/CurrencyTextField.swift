@@ -21,8 +21,6 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
-    var onlyNumbers: Bool
-    var validSymbolsAmount: Int?
     
     /// Эта переменная всегда будет показывать дроби в NumbersTextField
     var alwaysShowFractions: Bool
@@ -59,8 +57,6 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         self.height = height
         self.keyboardType = .numberPad
         self.isShowSecureField = false
-        self.onlyNumbers = true
-        self.validSymbolsAmount = nil
         self.alwaysShowFractions = alwaysShowFractions
 
         self.commit = {}

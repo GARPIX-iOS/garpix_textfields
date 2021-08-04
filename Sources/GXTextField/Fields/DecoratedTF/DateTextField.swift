@@ -21,8 +21,6 @@ public struct DateTextField: View, CustomTFProtocol {
     var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
-    var onlyNumbers: Bool
-    var validSymbolsAmount: Int?
     var alwaysShowFractions: Bool
     
     var formatType: CustomTFFormatType?
@@ -55,8 +53,6 @@ public struct DateTextField: View, CustomTFProtocol {
         self.height = height
         self.keyboardType = .default
         self.isShowSecureField = false
-        self.onlyNumbers = false
-        self.validSymbolsAmount = nil
         self.alwaysShowFractions = false
         
         self.formatType = nil

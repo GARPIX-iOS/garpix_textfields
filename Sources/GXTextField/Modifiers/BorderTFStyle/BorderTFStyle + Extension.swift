@@ -31,7 +31,7 @@ public extension View {
         let components = BorderTFStyleComponents(
             borderStyle: borderStyle,
             showLabel: showLabel,
-            title: title,
+            text: title,
             image: image,
             font: font,
             textColor: textColor,
