@@ -10,7 +10,7 @@ import SwiftUI
 
 // MARK: - Struct
 
-/// This View takes as variable CustomTFComponents and provide mostly all functionality to textfield.
+/// Эта View  принимает в качестве переменных CustomTFComponents и предоставляет основной функционал текстового поля.
 struct CustomTF: View {
     var components: CustomTFComponents
         
@@ -22,8 +22,7 @@ struct CustomTF: View {
 
 // MARK: - CustomTF Views
 extension CustomTF {
-    
-    /// That view manages wich view function we should apply depending on inputType
+    /// Эта View  определяет, какую функцию представления мы должны применять в зависимости от inputType
     var textfield: some View {
         Group {
             switch components.inputType {
@@ -44,8 +43,7 @@ extension CustomTF {
 
 // MARK: - CustomTF View Functions
 extension CustomTF {
-    
-    /// This function builds core functionality for textField with text input, it place Placeholder above field, show SecureField if you choose it and send onEdit data up to constructor
+    /// Эта функция создает базовую функциональность для textField с вводом текста, она заменяет поле Placeholder над полем, показывает SecureField, если вы его выберете, и отправляет данные onEdit в конструктор
     /// - Parameter text: input text
     /// - Returns: TextField
     func standartField(text: Binding<String>) -> some View {
@@ -70,10 +68,10 @@ extension CustomTF {
         }
     }
     
-    /// This function builds core functionality for textField with decimal input, it place Placeholder above field, send onEdit data up to constructor and configure DecimalTextField with components properties
+    /// Эта функция создает базовую функциональность для textField с десятичным вводом, она помещает заполнитель над полем, отправляет данные onEdit в конструктор и настраивает DecimalTextField со свойствами компонентов
     /// - Parameters:
-    ///   - totalInput: input numbers
-    ///   - currencySymbol: currency symbol provided by client if you pass nil there will be no symbol in the field. Yep if you think that symbol is at the wrong side pls check your locale
+    ///   - totalInput: входные числа
+    ///   - currencySymbol: символ валюты, предоставленный клиентом, если вы передадите nil, в поле не будет символа. Да, если вы думаете, что этот символ находится не на той стороне, пожалуйста, проверьте свой регион
     /// - Returns: TextField
     func decimalField(totalInput: Binding<Double?>, currencySymbol: String?) -> some View {
         ZStack(alignment: .leading) {
@@ -89,11 +87,10 @@ extension CustomTF {
                              })
         }
     }
-    
-    /// This function builds core functionality for textField with date input, it place Placeholder above field, send onEdit data up to constructor and configure DateField with components properties
+    /// Эта функция создает базовую функциональность для textField с вводом даты, она заменяет поле Placeholder над полем, отправляет данные onEdit в конструктор и настраивает DateField со свойствами компонентов
     /// - Parameters:
-    ///   - date: if you pass optional date you will see just placeholder
-    ///   - formatter: We provide different styles of formatter but you can use your own
+    ///   - date: если вы пропустите необязательную дату, вы увидите просто заполнитель
+    ///   - formatter: мы предоставляем разные стили форматировщика, но вы можете использовать свои собственные
     /// - Returns: TextField
     func dateField(date: Binding<Date?>, formatter: DateFormatter?) -> some View {
         VStack {
@@ -113,9 +110,8 @@ extension CustomTF {
 
 // MARK: - CustomTF Helper Functions
 extension CustomTF {
-    
-    /// This function sets isEditing to false if isEdit is false with animation
-    /// - Parameter isEdit: Bool variable from textfield onEditingChanged
+    /// Эта функция устанавливает для isEditing значение false, если isEdit имеет значение false с анимацией
+    /// - Parameter isEdit: переменная типа Bool из текстового поля onEditingChanged
     func onEditingChanged(isEdit: Bool) {
         if !isEdit {
             withAnimation(.spring()) {

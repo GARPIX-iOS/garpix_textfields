@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-/// This textfield is used to input date with custom keyboard picker for more check TextFieldSample file
+/// Это текстовое поле используется для ввода даты с помощью настраиваемого средства выбора клавиатуры для дополнительной проверки файла TextFieldSample
 public struct DateTextField: View, CustomTFProtocol {
     // MARK: - Properties
     
-    /// This value helps CustomTF recognize what input type you whant to pass
+    /// Это значение помогает CustomERS распознать, какой тип ввода вы хотите передать
     var inputType: CustomTFType
     
     var textColor: Color

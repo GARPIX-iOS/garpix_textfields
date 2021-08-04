@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-/// This textfield is used to input string values. You can easily use mask in onChangeOfText completion or use our values in textFormat, moreover if you will add validSymbolsAmount you will get field with that amount of symbols for more check TextFieldSample file
+/// Это текстовое поле используется для ввода строковых значений. Вы можете легко использовать маску в завершении onChangeOfText или использовать наши значения в textFormat, более того, если вы добавите validSymbolsAmount, вы получите поле с таким количеством символов для дополнительной проверки файла TextFieldSample
 public struct StandartTextField: View, CustomTFProtocol {
     // MARK: - Properties
     
-    /// This value helps CustomTF recognize what input type you whant to pass
+    /// Это значение помогает CustomERS распознать, какой тип ввода вы хотите передать
     var inputType: CustomTFType
     
     var textColor: Color
@@ -21,11 +21,11 @@ public struct StandartTextField: View, CustomTFProtocol {
     var height: CGFloat
     var keyboardType: UIKeyboardType
     
-    /// This variable used only for StandartTextField if you whant to make this field secured for password
+    /// Эта переменная используется только для стандартного текстового поля, если вы хотите защитить это поле от пароля
     var isShowSecureField: Bool
-    /// This variable should be turned to true if you would like to use string with only numbers in formatText extension replacing occurancies will be switched to numbers and keyboard type in CustomTFAction will be switched to .numpad
+    /// Для этой переменной следует установить значение true, если вы хотите использовать строку только с числами в формате. Расширение текста, заменяющее символы, будет переключено на числа, а тип клавиатуры в CustomTFAction будет переключен на .numpad
     var onlyNumbers: Bool
-    /// This variable will limit number of string symbols works only with StandartTextField
+    /// Эта переменная ограничивает количество строковых символов работает только со StandartTextField
     var validSymbolsAmount: Int?
     var alwaysShowFractions: Bool
     

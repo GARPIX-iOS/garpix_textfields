@@ -10,7 +10,7 @@ import GXUtilz
 
 // MARK:- Enum
 
-/// This enum tells the type of CustomTF helps to manage input data in DecoratedTF
+/// Это перечисление сообщает, что тип CustomTF помогает управлять входными данными в DecoratedTF
 enum CustomTFType {
     case standart(text: Binding<String>)
     case decimal(totalInput: Binding<Double?>, currencySymbol: String?)
@@ -19,59 +19,12 @@ enum CustomTFType {
 
 // MARK:- Protocol
 
-/// This protocol is used to add inputType values to CustomTF
+/// Этот протокол используется для добавления значений inputType в CustomTF
 protocol CustomTFInputProtocol {
     var inputType: CustomTFType { get set }
 }
 
-protocol CustomTFFormatProtocol {
-    var formatType: CustomTFFormatType? { get set }
-}
-
-public struct CustomTFFormatType {
-    var validSymbolsAmount: Int?
-    var inputType: StringInputType?
-    var textFormat: CustomTFFormat?
-    var onChangeOfText: (String) -> Void
-    
-    public init(
-        validSymbolsAmount: Int
-    ) {
-        self.validSymbolsAmount = validSymbolsAmount
-        self.inputType = nil
-        self.textFormat = nil
-        self.onChangeOfText = { _ in }
-    }
-    
-    public init(
-        validSymbolsAmount: Int,
-        inputType: StringInputType?
-    ) {
-        self.validSymbolsAmount = validSymbolsAmount
-        self.inputType = inputType
-        self.textFormat = nil
-        self.onChangeOfText = { _ in }
-    }
-    
-    public init(
-        textFormat: CustomTFFormat
-    ) {
-        self.validSymbolsAmount = nil
-        self.inputType = nil
-        self.textFormat = textFormat
-        self.onChangeOfText = { _ in }
-    }
-    
-    public init(
-        onChangeOfText: @escaping (String) -> Void
-    ) {
-        self.validSymbolsAmount = nil
-        self.inputType = nil
-        self.textFormat = nil
-        self.onChangeOfText = onChangeOfText
-    }
-}
-
+// MARK:- Struct
 public struct StringInputType: StringInputTypeProtocol {
     public var formatLanguage: FormatWithLanguage = .eng
     public var containsText: Bool

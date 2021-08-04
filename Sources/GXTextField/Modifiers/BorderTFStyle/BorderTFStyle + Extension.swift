@@ -10,9 +10,8 @@ import SwiftUI
 // MARK: - View extension for borderTFStyle
 
 public extension View {
-    
-    /// This method is needed to apply style changes to TF. I preset some of variables but you are feel fre to change them
-    /// - Returns: View with applied Style
+    /// Этот метод необходим для применения изменений стиля к TF. Я предварительно установил некоторые переменные, но вы можете их изменить
+    /// - Returns: View с примененным стилем
     func borderTFStyle(
         borderStyle: Binding<BorderStyles>,
         showLabel: Binding<Bool>,

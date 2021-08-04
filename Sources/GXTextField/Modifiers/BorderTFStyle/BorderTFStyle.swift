@@ -10,14 +10,12 @@ import SwiftUI
 
 // MARK: - Struct
 
-/// This View takes as variable BorderTFStyleComponents and provide adding new style to TF according components data
+/// Это представление принимает в качестве переменной BorderTFStyleComponents и обеспечивает добавление нового стиля в TF в соответствии с данными компонентов
 public struct BorderTFStyle: ViewModifier {
     var components: BorderTFStyleComponents
-    
-    
-    /// This function apply changes to TF with passed components
+    /// Эта функция применяет изменения к TF с переданными компонентами
     /// - Parameter content: TF
-    /// - Returns: TF with new View
+    /// - Returns: TF с новым просмотром
     public func body(content: Content) -> some View {
         content
             .overlay(
@@ -48,8 +46,8 @@ public struct BorderTFStyle: ViewModifier {
 
 // MARK: - BorderTFStyle Helper Functions
 extension BorderTFStyle {
-    /// It is service helper function fix the bug when in standart style stroke has small point of padding with background color
-    /// - Returns: fixed padding
+    /// Это служебная вспомогательная функция, исправляющая ошибку, когда в стандартном стиле штрих имеет небольшую точку заполнения с цветом фона
+    /// - Returns: фиксированное заполнение
     func paddingCalc() -> CGFloat {
         withAnimation(.easeOut(duration: 0.3)) {
             components.showLabel ? 2 : 0

@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK:- Protocol
 
-/// This protocol provides variables will help of witch you can add content at leading or trailing by horizontal axis on both sides of textfield
+/// Этот протокол предоставляет переменные, которые помогут вам добавить контент в начале или в конце по горизонтальной оси с обеих сторон текстового поля.
 public protocol CustomTFContentProtocol {
     associatedtype LeadingContent: View
     associatedtype TrailingContent: View
@@ -17,7 +17,7 @@ public protocol CustomTFContentProtocol {
     var width: CGFloat? { get set }
     var height: CGFloat? { get set }
     
-    /// Use those variables to hide of show content
+    /// Используйте эти переменные, чтобы скрыть отображение содержимого
     var isShowLeadingContent: Bool { get set }
     var isShowTrailingContent: Bool { get set }
     

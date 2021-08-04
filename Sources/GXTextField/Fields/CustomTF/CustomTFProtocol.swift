@@ -10,7 +10,7 @@ import GXUtilz
 
 // MARK:- Enum
 
-/// This enum helps to format text in CustomTF in onChangeText block
+/// Это перечисление помогает форматировать текст в CustomTF в блоке onChangeText
 public enum CustomTFFormat {
     case formatPhone
     case formatText(mask: String,
@@ -20,7 +20,7 @@ public enum CustomTFFormat {
 
 // MARK:- Protocol
 
-/// This protocol takes all variables wich need to init TF
+/// Этот протокол принимает все переменные, необходимые для инициализации TF
 protocol CustomTFProtocol: CustomTFInputProtocol, CustomTFFormatProtocol {
     var textColor: Color { get set }
     var isEditing: Bool { get set }
@@ -29,10 +29,10 @@ protocol CustomTFProtocol: CustomTFInputProtocol, CustomTFFormatProtocol {
     var height: CGFloat { get set }
     var keyboardType: UIKeyboardType { get set }
 
-    /// This variable used only for StandartTextField if you whant to make this field secured for password
+    /// Эта переменная используется только для стандартного текстового поля, если вы хотите защитить это поле от пароля
     var isShowSecureField: Bool { get set }
     
-    /// This variable will always show fractions in NumbersTextField
+    /// Эта переменная всегда будет показывать дроби в NumbersTextField
     var alwaysShowFractions: Bool { get set }
     
     var onTap: () -> Void { get set }
@@ -44,13 +44,12 @@ protocol CustomTFProtocol: CustomTFInputProtocol, CustomTFFormatProtocol {
 // MARK: - CustomTFProtocol SymbolsLimiter
 
 extension CustomTFProtocol {
-    
-    /// This function limits text length in StandartTextField
+    /// Эта функция ограничивает длину текста в StandartTextField
     /// - Parameters:
-    ///   - text: input text
-    ///   - validSymbolsAmount: symbols amount added by user
-    ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
-    /// - Returns: formatted text
+    ///   - text: ввод текста
+    ///   - validSymbolsAmount: количество символов, добавленных пользователем
+    ///   - inputType: <#inputType description#>
+    /// - Returns: форматированный текст
     func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         let symbol: String.Element = "X"
         guard validSymbolsAmount != nil else { return text }
@@ -60,6 +59,11 @@ extension CustomTFProtocol {
                                inputType: inputType)
     }
 
+    /// <#Description#>
+    /// - Parameters:
+    ///   - validSymbolsAmount: <#validSymbolsAmount description#>
+    ///   - symbol: <#symbol description#>
+    /// - Returns: <#description#>
     private func symbolsLimiter(validSymbolsAmount: Int?, symbol: String.Element) -> String {
         var result = ""
         guard let symbolsLimit = validSymbolsAmount else { return result }
@@ -75,13 +79,13 @@ extension CustomTFProtocol {
 // MARK: - CustomTFProtocol Text Formatter
 
 extension CustomTFProtocol {
-    /// This function formats text by provided masks
+    /// Эта функция форматирует текст с помощью предоставленных масок
     /// - Parameters:
-    ///   - text: input text
-    ///   - textFormat: choose formatText if you whant provide your own mask of just do it in your own methods by adding them to onChangeOfText
-    ///   - validSymbolsAmount: symbols amount added by user
-    ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
-    /// - Returns: formatted text
+    ///   - text: ввод текста
+    ///   - textFormat: выберите formatText, если вы хотите предоставить свою собственную маску, просто сделайте это своими собственными методами, добавив их в onChangeOfText
+    ///   - validSymbolsAmount: количество символов, добавленных пользователем
+    ///   - inputType: <#inputType description#>
+    /// - Returns: форматированный текст
     func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         guard let format = textFormat else {
             return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, inputType: inputType)

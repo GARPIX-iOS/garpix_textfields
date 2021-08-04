@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK:- Struct
 
-/// This struct is used to decrease amount of code when BorderTF is set in modifier
+/// Эта структура используется для уменьшения объема кода, когда BorderTF установлен в модификаторе
 public struct BorderTFStyleComponents: BorderTFStyleProtocol {
     @Binding var borderStyle: BorderStyles
     @Binding var showLabel: Bool

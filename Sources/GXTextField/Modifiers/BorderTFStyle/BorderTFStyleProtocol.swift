@@ -10,7 +10,7 @@ import UIKit
 
 // MARK:- Enum
 
-/// This enum provides three different styles for border
+/// Это перечисление предоставляет три разных стиля для границы
 public enum BorderStyles {
     case standart
     case selected
@@ -19,17 +19,17 @@ public enum BorderStyles {
 
 // MARK:- Protocol
 
-/// This protocol takes all variables wich need to apply style to TF
+/// Этот протокол принимает все переменные, которые необходимы для применения стиля к TF
 protocol BorderTFStyleProtocol {
     var borderStyle: BorderStyles { get set }
     
-    /// This variable helps you to show label you can pass here $isEditing from TF and looks how magic goes
+    /// Эта переменная помогает вам показать метку, которую вы можете передать сюда $ isEditing из TF, и смотрит, как идет магия
     var showLabel: Bool { get set }
     
-    /// Title of the label
+    /// Название метки
     var title: String { get set }
     
-    /// You can pass here standart name from SFSymbols later we will add functionality to pass View like in TFContent
+    /// Вы можете передать сюда стандартное имя из SFSymbols, позже мы добавим функциональность для передачи View, как в TFContent
     var image: String { get set }
     var font: Font { get set }
     var textColor: Color { get set }
@@ -39,7 +39,7 @@ protocol BorderTFStyleProtocol {
     var strokeErrorColor: Color { get set }
     var cornerRadius: CGFloat { get set }
     
-    /// Offset of Label with its Image
+    /// Смещение этикетки относительно ее изображения
     var offsetX: CGFloat { get set }
     var offsetY: CGFloat { get set }
     var backgroundColor: Color { get set }
@@ -47,9 +47,8 @@ protocol BorderTFStyleProtocol {
 
 // MARK: - BorderTFStyleProtocol Helper Functions
 extension BorderTFStyleProtocol {
-    
-    /// This function calculate stroke color according to current border style
-    /// - Returns: color for the border
+    /// Эта функция вычисляет цвет обводки в соответствии с текущим стилем границы
+    /// - Returns: цвет границы
     func strokeColorCalculator() -> Color {
         switch borderStyle {
         case .standart: return strokeStandartColor

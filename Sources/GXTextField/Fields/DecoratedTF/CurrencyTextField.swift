@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-/// This textfield is used to input prices and etc. You can change the currency as string and control other values for more check TextFieldSample file
+/// Это текстовое поле используется для ввода цен и т. Д. Вы можете изменить валюту как строку и управлять другими значениями, чтобы получить дополнительные сведения, проверьте файл TextFieldSample
 public struct CurrencyTextField: View, CustomTFProtocol {
     // MARK: - Properties
     
-    /// This value helps CustomTF recognize what input type you whant to pass
+    /// Это значение помогает CustomERS распознать, какой тип ввода вы хотите передать
     var inputType: CustomTFType
     
     var textColor: Color
@@ -24,7 +24,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     var onlyNumbers: Bool
     var validSymbolsAmount: Int?
     
-    /// This variable will always show fractions in NumbersTextField
+    /// Эта переменная всегда будет показывать дроби в NumbersTextField
     var alwaysShowFractions: Bool
     
     var formatType: CustomTFFormatType?

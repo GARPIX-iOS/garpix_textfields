@@ -9,8 +9,7 @@ import SwiftUI
 
 // MARK: - Struct
 
-
-/// This View is preset clear button which erase text passing to it
+/// В этом представлении есть предустановленная кнопка очистки, которая стирает передаваемый ему текст
 public struct ClearTextButton: View {
     @Binding var clearingText: String
     
