@@ -20,7 +20,7 @@ let package = Package(
         .package(
             name: "GXUtilz",
             url: "https://github.com/GARPIX-iOS/garpix_utils",
-            from: "1.0.0"
+            from: "1.1.1"
          )
     ],
     targets: [

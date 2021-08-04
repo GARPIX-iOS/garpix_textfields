@@ -13,11 +13,6 @@ import GXUtilz
 /// This enum helps to format text in CustomTF in onChangeText block
 public enum CustomTFFormat {
     case formatPhone
-    case formatTextAndNumber(mask: String,
-                             firstSymbol: String.Element,
-                             secondSymbol: String.Element,
-                             firstSymbolType: StringInputType?,
-                             secondSymbolType: StringInputType?)
     case formatText(mask: String,
                     symbol: String.Element,
                     inputType: StringInputType?)
@@ -56,7 +51,7 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: symbols amount added by user
     ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
     /// - Returns: formatted text
-    func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
+    func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         let symbol: String.Element = "X"
         guard validSymbolsAmount != nil else { return text }
         return text.formatText(mask: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
@@ -87,7 +82,7 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: symbols amount added by user
     ///   - onlyNumbers: shows can user add text from .numpad or from chosen keyboard
     /// - Returns: formatted text
-    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
+    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
         guard let format = textFormat else {
             return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, inputType: inputType)
         }
@@ -95,16 +90,6 @@ extension CustomTFProtocol {
         switch format {
         case .formatPhone:
             return text.formatPhone()
-        case .formatTextAndNumber(mask: let mask,
-                                  firstSymbol: let firstSymbol,
-                                  secondSymbol: let secondSymbol,
-                                  firstSymbolType: let firstSymbolType,
-                                  secondSymbolType: let secondSymbolType):
-            return text.formatTextAndNumbers(mask: mask,
-                                             firstSymbol: firstSymbol,
-                                             secondSymbol: secondSymbol,
-                                             firstSymbolType: firstSymbolType,
-                                             secondSymbolType: secondSymbolType)
         case .formatText(mask: let mask,
                          symbol: let symbol,
                          inputType: let inputType):

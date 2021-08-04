@@ -57,28 +57,16 @@ public extension TextFieldSampleView {
         StandartTextField(
             text: $text,
             placeholder: placeholder,
-            formatType: CustomTFFormatType(
-                onChangeOfText: { value in
-                    text = value.formatTextAndNumbers(
-                        with: "111 XXX",
-                        letterSymbol: "X",
-                        numberSymbol: "1",
-                        formatLanguage: .rus,
-                        addSpecialSymbols: false
-                    )
-                }
-            )
-            //            textFormat: .formatText(mask: <#T##String#>,
-            //                                    symbol: <#T##String.Element#>,
-            //                                    formatLanguage: <#T##FormatWithLanguage?#>,
-            //                                    addSpecialSymbols: <#T##Bool#>)
-            //            onChangeOfText: { value in
-            //                text = value.formatTextAndNumbers(with: "111 XXX",
-            //                                                  letterSymbol: "X",
-            //                                                  numberSymbol: "1",
-            //                                                  formatLanguage: .rus,
-            //                                                  addSpecialSymbols: false)
-            //            }
+            formatType: CustomTFFormatType(onChangeOfText: { value in
+                text = value.formatText(mask: "(X - X - X) X",
+                                        symbol: "X",
+                                        inputType: StringInputType(
+                                            formatLanguage: .eng,
+                                            containsText: true,
+                                            containsNumbers: false,
+                                            containsSpecialSymbols: false)
+                )
+            })
         )
         .underlinedTFStyle(color: .red)
         .customTFContent(width: UIScreen.main.bounds.width * 0.9,
