@@ -1,6 +1,7 @@
 author: Anton Vlezko
 output: public
 swift_build_tool: xcodebuild
+theme: jony
 build_tool_arguments:
   - -scheme
   - GXTextField
