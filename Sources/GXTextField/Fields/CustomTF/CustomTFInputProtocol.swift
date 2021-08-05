@@ -23,11 +23,3 @@ enum CustomTFType {
 protocol CustomTFInputProtocol {
     var inputType: CustomTFType { get set }
 }
-
-// MARK:- Struct
-public struct StringInputType: StringInputTypeProtocol {
-    public var formatLanguage: FormatWithLanguage = .eng
-    public var containsText: Bool
-    public var containsNumbers: Bool
-    public var containsSpecialSymbols: Bool
-}

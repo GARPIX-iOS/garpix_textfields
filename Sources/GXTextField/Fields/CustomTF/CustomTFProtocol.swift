@@ -50,7 +50,7 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: количество символов, добавленных пользователем
     ///   - inputType: необходим для задания пользователем характеристик форматируемого текста, может быть опциональным
     /// - Returns: форматированный текст
-    func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
+    func limitTextLength(text: String, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
         let symbol: String.Element = "X"
         guard validSymbolsAmount != nil else { return text }
         return text.formatText(mask: symbolsLimiter(validSymbolsAmount: validSymbolsAmount,
@@ -86,7 +86,7 @@ extension CustomTFProtocol {
     ///   - validSymbolsAmount: количество символов, добавленных пользователем
     ///   - inputType: необходим для задания пользователем характеристик форматируемого текста, может быть опциональным
     /// - Returns: форматированный текст
-    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputTypeProtocol?) -> String {
+    func formatText(text: String, textFormat: CustomTFFormat?, validSymbolsAmount: Int?, inputType: StringInputType?) -> String {
         guard let format = textFormat else {
             return limitTextLength(text: text, validSymbolsAmount: validSymbolsAmount, inputType: inputType)
         }
