@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GXUtilz
 
 /// Данный протокол реализует функционал по добавлению переменных либо замыканий для форматирования текста
 protocol CustomTFFormatProtocol {
