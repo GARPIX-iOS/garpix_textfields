@@ -85,28 +85,28 @@ public extension TextFieldSampleView {
     }
     
     var cardNumberTF: some View {
-                StandartTextField(
-                    text: $cardNumber,
-                    textColor: Color(.label),
-                    isEditing: $cardNumberIsEditing,
-                    placeholder: placeholder,
-                    onChangeOfIsEditing: { value in
-                        cardNumberBorderStyle = value ? .selected : .standart
-                    },
-                    hideKeyboard: {
-                        cardNumberIsEditing = false
-                    }
-                )
-                .borderTFStyle(borderStyle: $cardNumberBorderStyle,
-                               showLabel: $cardNumberIsEditing,
-                               title: label,
-                               image: image,
-                               textColor: .red)
-                .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                                 isShowTrailingContent: .constant(true),
-                                 trailingContent: {
-                                    clearCardNumberButton
-                                 })
+        StandartTextField(
+            text: $cardNumber,
+            textColor: Color(.label),
+            isEditing: $cardNumberIsEditing,
+            placeholder: placeholder,
+            onChangeOfIsEditing: { value in
+                cardNumberBorderStyle = value ? .selected : .standart
+            },
+            hideKeyboard: {
+                cardNumberIsEditing = false
+            }
+        )
+        .borderTFStyle(borderStyle: $cardNumberBorderStyle,
+                       showLabel: $cardNumberIsEditing,
+                       title: label,
+                       image: image,
+                       textColor: .red)
+        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
+                         isShowTrailingContent: .constant(true),
+                         trailingContent: {
+                            clearCardNumberButton
+                         })
     }
 }
 

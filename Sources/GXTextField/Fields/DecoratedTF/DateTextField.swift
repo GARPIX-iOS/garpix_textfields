@@ -8,6 +8,55 @@
 import SwiftUI
 
 /// Это текстовое поле используется для ввода даты с помощью настраиваемого средства выбора клавиатуры для дополнительной проверки файла TextFieldSample
+///
+/// Стандартная версия с минимумом кастомных значений, но использующая кастомный binding
+/// ```
+/// @State private var dateString: String? = nil
+///
+/// var body: some View {
+///     // создаем bindingDate который конвертирует опциональную строку в формат опциональной даты которую может принимать наш TF
+///
+///     let timeDateFormat: DateFormats = .dayMonthDigitsYear
+///     let bindingDate = Binding<Date?>(
+///         get: { self.dateString?.stringToDate(dateFormat: timeDateFormat) },
+///         set: { self.dateString = $0?.dateToString(dateFormat: timeDateFormat)
+///     )
+///
+///     DateTextField(
+///         date: bindingDate,
+///         formatter: .ddMMyyyy,
+///     ) // output -> стандартный TF с минимум значений
+/// }
+/// ```
+/// Расширенная версия
+/// ```
+/// @State private var date: Date? = nil
+/// @State private var dateBorderStyle: BorderStyles = BorderStyles.standart
+/// @State private var dateIsEditing: Bool = false
+///
+/// var body: some View {
+///     DateTextField(
+///         date: date,
+///         formatter: .ddMMyyyy,
+///         textColor: .red,
+///         isEditing: $dateIsEditing,
+///         placeholder: placeholder,
+///         width: UIScreen.main.bounds.width * 0.9,
+///         height: 60,
+///         onTap: {
+///             // вводим методы которые должны сработать после нажатия на TF
+///         },
+///         onChangeOfIsEditing: { value in
+///             dateBorderStyle = value ? .selected : .standart
+///             // вводим методы которые должны сработать после изменения dateIsEditing к примеру изменения dateBorderStyle для передачи его в модификатор стиля
+///         },
+///         hideKeyboard: {
+///             dateIsEditing = false
+///             // вводим методы которые должны сработать после того как будет скрыта клавиатура TF
+///         }
+///     )
+/// }
+/// ```
 public struct DateTextField: View, CustomTFProtocol {
     // MARK: - Properties
     
@@ -32,7 +81,7 @@ public struct DateTextField: View, CustomTFProtocol {
     // MARK: - Init
     public init(
         date: Binding<Date?>,
-        formatter: DateFormatter?,
+        formatter: DateFormatter? = nil,
         textColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
