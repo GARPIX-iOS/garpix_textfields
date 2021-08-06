@@ -48,6 +48,24 @@ public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: View
 
 public extension View {
     /// Используйте эту функцию для добавления содержимого с обеих сторон TF
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFContent(
+    ///         width: UIScreen.main.bounds.width * 0.9,
+    ///
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowLeadingContent: .constant(true),
+    ///         isShowTrailingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         leadingContent: {
+    ///             Text("Text") // View
+    ///         },
+    ///         trailingContent: {
+    ///             ClearTextButton(clearingText: $text)
+    ///         }
+    ///     )
+    /// ```
     func customTFContent<LeadingContent: View, TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
@@ -70,6 +88,20 @@ public extension View {
     }
 
     /// Используйте эту функцию для добавления содержимого в начало TF
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFContent(
+    ///         width: UIScreen.main.bounds.width * 0.9,
+    ///
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowLeadingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         leadingContent: {
+    ///             Text("Text") // View
+    ///         }
+    ///     )
+    /// ```
     func customTFContent<LeadingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,
@@ -92,6 +124,20 @@ public extension View {
     }
     
     /// Используйте эту функцию, чтобы добавить контент в конце TF
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFContent(
+    ///         width: UIScreen.main.bounds.width * 0.9,
+    ///
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowTrailingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         trailingContent: {
+    ///             ClearTextButton(clearingText: $text)
+    ///         }
+    ///     )
+    /// ```
     func customTFContent<TrailingContent: View>(
         width: CGFloat? = nil,
         height: CGFloat? = nil,

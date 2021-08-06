@@ -11,6 +11,27 @@ import SwiftUI
 
 public extension View {
     /// Этот метод необходим для применения изменений стиля к TF. Я предварительно установил некоторые переменные, но вы можете их изменить
+    /// Этот метод необходим для применения изменений стиля к TF.
+    /// ```
+    /// @State private var text: String = ""
+    /// @State private var textBorderStyle: BorderStyles = BorderStyles.standart
+    /// @State private var textIsEditing: Bool = false
+    ///
+    /// var body: some View {
+    ///     StandartTextField(
+    ///         text: $text,
+    ///         isEditing: $textIsEditing,
+    ///         placeholder: placeholder
+    ///     )
+    ///     .borderTFStyle(
+    ///           borderStyle: $cardNumberBorderStyle,
+    ///           showLabel: $textIsEditing,
+    ///           title: placeholder,
+    ///           image: "chevron.left",
+    ///           textColor: .red
+    ///     ) // output -> View с примененным на нем стилем
+    /// }
+    /// ```
     /// - Returns: View с примененным стилем
     func borderTFStyle(
         borderStyle: Binding<BorderStyles>,

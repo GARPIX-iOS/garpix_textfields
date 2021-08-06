@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 import UIKit
 
+// MARK: - class
+
+/// Класс позволяющий отображать пикер даты вместо клавиатуры
 class KeyboardWithDatePicker: UITextField {
     @Binding var date: Date?
     @Binding var isEdit: Bool

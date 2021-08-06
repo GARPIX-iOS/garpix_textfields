@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-// MARK: - Struct
+// MARK: - View
 
-/// В этом представлении есть предустановленная кнопка очистки, которая стирает передаваемый ему текст
+/// В этом View есть кнопка очистки, которая стирает передаваемый в него текст
+/// ```
+/// ClearTextButton(clearingText: $text)
+/// ```
 public struct ClearTextButton: View {
     @Binding var clearingText: String
     

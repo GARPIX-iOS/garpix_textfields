@@ -10,6 +10,10 @@ import SwiftUI
 // MARK: - View extension for underlinedTFStyle
 public extension View {
     /// Этот метод необходим для применения изменений стиля к TF.
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .underlinedTFStyle(color: .red) // output -> View с примененным на нем стилем
+    /// ```
     /// - Parameter color: передайте сюда свой собственный цвет
     /// - Returns: View с примененным стилем
     func underlinedTFStyle(color: Color) -> some View {
