@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 import UIKit
 
-// https://github.com/youjinp/SwiftUIKit/blob/master/Sources/SwiftUIKit/views/CurrencyTextField.swift
+// MARK: - UIViewRepresentable
+
+/// Текстфилд позволяющий добавлять currency символы перед или после текста
+/// source: https://github.com/youjinp/SwiftUIKit/blob/master/Sources/SwiftUIKit/views/CurrencyTextField.swift
 public struct DecimalTextField: UIViewRepresentable {
     @Binding var value: Double?
     private var isResponder: Binding<Bool>?

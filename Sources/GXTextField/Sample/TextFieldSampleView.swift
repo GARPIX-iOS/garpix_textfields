@@ -8,6 +8,9 @@
 import SwiftUI
 import GXUtilz
 
+// MARK: - View
+
+/// Тестовая View для того чтобы посмотреть на разные варианты применения текстфилдов
 public struct TextFieldSampleView: View {
     @State private var text: String = ""
     @State private var textBorderStyle: BorderStyles = BorderStyles.standart
@@ -43,7 +46,8 @@ public struct TextFieldSampleView: View {
     }
 }
 
-// MARK: - StandartTextField
+// MARK: - TextFieldSampleView - StandartTextField realization
+
 public extension TextFieldSampleView {
     var standartTextField: some View {
         VStack(spacing: 20) {
@@ -81,33 +85,32 @@ public extension TextFieldSampleView {
     }
     
     var cardNumberTF: some View {
-        StandartTextField(
-            text: $cardNumber,
-            textColor: Color(.label),
-            isEditing: $cardNumberIsEditing,
-            placeholder: placeholder,
-            onlyNumbers: true,
-            onChangeOfIsEditing: { value in
-                cardNumberBorderStyle = value ? .selected : .standart
-            },
-            hideKeyboard: {
-                cardNumberIsEditing = false
-            }
-        )
-        .borderTFStyle(borderStyle: $cardNumberBorderStyle,
-                       showLabel: $cardNumberIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearCardNumberButton
-                         })
+                StandartTextField(
+                    text: $cardNumber,
+                    textColor: Color(.label),
+                    isEditing: $cardNumberIsEditing,
+                    placeholder: placeholder,
+                    onChangeOfIsEditing: { value in
+                        cardNumberBorderStyle = value ? .selected : .standart
+                    },
+                    hideKeyboard: {
+                        cardNumberIsEditing = false
+                    }
+                )
+                .borderTFStyle(borderStyle: $cardNumberBorderStyle,
+                               showLabel: $cardNumberIsEditing,
+                               title: label,
+                               image: image,
+                               textColor: .red)
+                .customTFContent(width: UIScreen.main.bounds.width * 0.9,
+                                 isShowTrailingContent: .constant(true),
+                                 trailingContent: {
+                                    clearCardNumberButton
+                                 })
     }
 }
 
-// MARK: - NumbersTextField
+// MARK: - TextFieldSampleView - NumbersTextField realization
 public extension TextFieldSampleView {
     var currencyTextField: some View {
         
@@ -143,7 +146,7 @@ public extension TextFieldSampleView {
     }
 }
 
-// MARK: - DateTextField
+// MARK: - TextFieldSampleView - DateTextField realization
 public extension TextFieldSampleView {
     var dateTextField: some View {
         let timeDateFormat: DateFormats = .timeWithDigits
@@ -180,8 +183,7 @@ public extension TextFieldSampleView {
 }
 
 
-
-// MARK: - Buttons
+// MARK: - TextFieldSampleView - Buttons realization
 public extension TextFieldSampleView {
     var leadingButtons: some View {
         Image(systemName: "gamecontroller")

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: - Struct
+// MARK: - ViewModifier
 
 /// Этот ViewModifier принимает в качестве переменной BorderTFStyleComponents и обеспечивает добавление нового стиля в TF в соответствии с данными компонентов
 public struct BorderTFStyle: ViewModifier {

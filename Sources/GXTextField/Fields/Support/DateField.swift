@@ -8,6 +8,9 @@
 import UIKit
 import SwiftUI
 
+// MARK: - UIViewRepresentable
+
+/// Текстфилд необходимый для обертки UIKit кода в SwiftUI
 struct DateField: UIViewRepresentable {
     // MARK: - Public properties
 
@@ -47,7 +50,7 @@ struct DateField: UIViewRepresentable {
         textField = KeyboardWithDatePicker(date: date, isEdit: isEdit, color: color, minAge: minAge, minDate: minDate, maxDate: maxDate)
     }
 
-    // MARK: - Public methods
+    // MARK: - UIViewRepresentable methods
 
     func makeUIView(context _: UIViewRepresentableContext<DateField>) -> UITextField {
         if let unwrappedDate = date {
