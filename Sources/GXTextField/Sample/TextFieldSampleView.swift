@@ -72,16 +72,24 @@ public extension TextFieldSampleView {
                 )
             })
         )
-        .underlinedTFStyle(color: .red)
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowLeadingContent: .constant(true),
-                         isShowTrailingContent: .constant(true),
-                         leadingContent: {
-                            leadingButtons
-                         },
-                         trailingContent: {
-                            clearTextButton
-                         })
+            .underlinedTFStyle(color: .red)
+            .customTFHorizontalContent(
+                width: UIScreen.main.bounds.width * 0.9,
+                isShowLeadingContent: .constant(true),
+                isShowTrailingContent: .constant(true),
+                leadingContent: {
+                    leadingButtons
+                },
+                trailingContent: {
+                    clearTextButton
+                }
+            )
+            .customTFVerticalContent(
+                isShowBottomContent: .constant(true),
+                bottomContent: {
+                    Text("Sample Text")
+                }
+            )
     }
     
     var cardNumberTF: some View {
@@ -97,16 +105,20 @@ public extension TextFieldSampleView {
                 cardNumberIsEditing = false
             }
         )
-        .borderTFStyle(borderStyle: $cardNumberBorderStyle,
-                       showLabel: $cardNumberIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearCardNumberButton
-                         })
+            .borderTFStyle(
+                borderStyle: $cardNumberBorderStyle,
+                showLabel: $cardNumberIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .customTFHorizontalContent(
+                width: UIScreen.main.bounds.width * 0.9,
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearCardNumberButton
+                }
+            )
     }
 }
 
@@ -132,17 +144,21 @@ public extension TextFieldSampleView {
                 dollarPriceIsEditing = false
             }
         )
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearNumberButton
-                         })
-        .borderTFStyle(borderStyle: $dollarPriceBorderStyle,
-                       showLabel: $dollarPriceIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .padding(.bottom, 20)
+            .customTFHorizontalContent(
+                width: UIScreen.main.bounds.width * 0.9,
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearNumberButton
+                }
+            )
+            .borderTFStyle(
+                borderStyle: $dollarPriceBorderStyle,
+                showLabel: $dollarPriceIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .padding(.bottom, 20)
     }
 }
 
@@ -165,20 +181,24 @@ public extension TextFieldSampleView {
                 dateBorderStyle = value ? .selected : .standart
             }
         )
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearDateButton
-                         })
-        .borderTFStyle(borderStyle: $dateBorderStyle,
-                       showLabel: $dateIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .onHideKeyboard {
-            dateIsEditing = false
-        }
-        .padding(.bottom, 20)
+            .customTFHorizontalContent(
+                width: UIScreen.main.bounds.width * 0.9,
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearDateButton
+                }
+            )
+            .borderTFStyle(
+                borderStyle: $dateBorderStyle,
+                showLabel: $dateIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .onHideKeyboard {
+                dateIsEditing = false
+            }
+            .padding(.bottom, 20)
     }
 }
 
