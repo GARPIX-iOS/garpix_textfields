@@ -66,8 +66,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     var textColor: Color
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
+    var placeholderColor: Color
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     
@@ -86,10 +85,9 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         totalInput: Binding<Double?>,
         currencySymbol: String?,
         textColor: Color = .primary,
+        placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
         alwaysShowFractions: Bool = false,
 
         onTap: @escaping () -> Void = {},
@@ -102,8 +100,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         self.textColor = textColor
         _isEditing = isEditing
         self.placeholder = placeholder
-        self.width = width
-        self.height = height
+        self.placeholderColor = placeholderColor
         self.keyboardType = .numberPad
         self.isShowSecureField = false
         self.alwaysShowFractions = alwaysShowFractions
@@ -122,8 +119,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
             textColor: textColor,
             isEditing: $isEditing,
             placeholder: placeholder,
-            width: width,
-            height: height,
+            placeholderColor: placeholderColor,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
@@ -134,6 +130,5 @@ public struct CurrencyTextField: View, CustomTFProtocol {
             hideKeyboard: hideKeyboard)
         
         CustomTF(components: components)
-            .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }

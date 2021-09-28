@@ -89,10 +89,9 @@ public struct StandartTextField: View, CustomTFProtocol {
     var inputType: CustomTFType
     
     var textColor: Color
+    var placeholderColor: Color
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
     var keyboardType: UIKeyboardType
     
     /// Эта переменная используется только для стандартного текстового поля, если вы хотите защитить это поле от пароля
@@ -110,13 +109,12 @@ public struct StandartTextField: View, CustomTFProtocol {
     public init(
         text: Binding<String>,
         textColor: Color = .primary,
+        placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
         keyboardType: UIKeyboardType = .default,
         isShowSecureField: Bool = false,
-
+        
         formatType: CustomTFFormatType? = nil,
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
@@ -124,16 +122,15 @@ public struct StandartTextField: View, CustomTFProtocol {
         hideKeyboard: @escaping () -> Void = {}
     ) {
         self.inputType = .standart(text: text)
-
+        
         self.textColor = textColor
+        self.placeholderColor = placeholderColor
         _isEditing = isEditing
         self.placeholder = placeholder
-        self.width = width
-        self.height = height
         self.keyboardType = keyboardType
         self.isShowSecureField = isShowSecureField
         self.alwaysShowFractions = false
-
+        
         self.formatType = formatType
         self.commit = commit
         self.onTap = onTap
@@ -148,8 +145,7 @@ public struct StandartTextField: View, CustomTFProtocol {
             textColor: textColor,
             isEditing: $isEditing,
             placeholder: placeholder,
-            width: width,
-            height: height,
+            placeholderColor: placeholderColor,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
@@ -160,6 +156,5 @@ public struct StandartTextField: View, CustomTFProtocol {
             hideKeyboard: hideKeyboard)
         
         CustomTF(components: components)
-            .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }

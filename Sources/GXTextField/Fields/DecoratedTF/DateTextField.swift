@@ -58,16 +58,16 @@ import SwiftUI
 /// }
 /// ```
 public struct DateTextField: View, CustomTFProtocol {
+    
     // MARK: - Properties
     
     /// Это значение помогает CustomERS распознать, какой тип ввода вы хотите передать
     var inputType: CustomTFType
     
     var textColor: Color
+    var placeholderColor: Color
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool
@@ -83,10 +83,9 @@ public struct DateTextField: View, CustomTFProtocol {
         date: Binding<Date?>,
         formatter: DateFormatter? = nil,
         textColor: Color = .primary,
+        placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
         onTap: @escaping () -> Void = {},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
         hideKeyboard: @escaping () -> Void = {}
@@ -98,8 +97,7 @@ public struct DateTextField: View, CustomTFProtocol {
         self.textColor = textColor
         _isEditing = isEditing
         self.placeholder = placeholder
-        self.width = width
-        self.height = height
+        self.placeholderColor = placeholderColor
         self.keyboardType = .default
         self.isShowSecureField = false
         self.alwaysShowFractions = false
@@ -118,8 +116,7 @@ public struct DateTextField: View, CustomTFProtocol {
             textColor: textColor,
             isEditing: $isEditing,
             placeholder: placeholder,
-            width: width,
-            height: height,
+            placeholderColor: placeholderColor,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
@@ -130,6 +127,5 @@ public struct DateTextField: View, CustomTFProtocol {
             hideKeyboard: hideKeyboard)
         
             CustomTF(components: components)
-                .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }

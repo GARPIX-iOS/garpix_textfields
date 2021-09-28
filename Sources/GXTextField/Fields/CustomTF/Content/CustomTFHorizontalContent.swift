@@ -11,8 +11,6 @@ import SwiftUI
 
 /// Этот ViewModifier реализует переменные и методы CustomTFHorizontalContentProtocol необходимые для добавления View с разных сторон текстфилда
 public struct CustomTFHorizontalContent<LeadingContent: View, TrailingContent: View>: ViewModifier, CustomTFHorizontalContentProtocol {
-    public var width: CGFloat?
-    public var height: CGFloat?
     @Binding public var isShowLeadingContent: Bool
     @Binding public var isShowTrailingContent: Bool
     public var leadingContent: () -> LeadingContent?
@@ -24,7 +22,6 @@ public struct CustomTFHorizontalContent<LeadingContent: View, TrailingContent: V
             content
             trailingButtonsView
         }
-        .frame(width: width ?? .infinity, height: height ?? 60, alignment: .center)
     }
     
     @ViewBuilder
@@ -67,8 +64,6 @@ public extension View {
     ///     )
     /// ```
     func customTFHorizontalContent<LeadingContent: View, TrailingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowLeadingContent: Binding<Bool>,
         isShowTrailingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?,
@@ -77,8 +72,6 @@ public extension View {
         
         modifier(
             CustomTFHorizontalContent(
-                width: width,
-                height: height,
                 isShowLeadingContent: isShowLeadingContent,
                 isShowTrailingContent: isShowTrailingContent,
                 leadingContent: leadingContent,
@@ -103,16 +96,12 @@ public extension View {
     ///     )
     /// ```
     func customTFHorizontalContent<LeadingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowLeadingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?
     ) -> some View  {
         
         modifier(
             CustomTFHorizontalContent(
-                width: width,
-                height: height,
                 isShowLeadingContent: isShowLeadingContent,
                 isShowTrailingContent: .constant(false),
                 leadingContent: leadingContent,
@@ -139,16 +128,12 @@ public extension View {
     ///     )
     /// ```
     func customTFHorizontalContent<TrailingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowTrailingContent: Binding<Bool>,
         trailingContent: @escaping () -> TrailingContent?
     ) -> some View {
         
         modifier(
             CustomTFHorizontalContent(
-                width: width,
-                height: height,
                 isShowLeadingContent: .constant(false),
                 isShowTrailingContent: isShowTrailingContent,
                 leadingContent: {

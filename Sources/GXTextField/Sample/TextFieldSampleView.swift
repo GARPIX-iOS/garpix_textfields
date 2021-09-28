@@ -13,6 +13,9 @@ import GXUtilz
 /// Тестовая View для того чтобы посмотреть на разные варианты применения текстфилдов
 public struct TextFieldSampleView: View {
     @State private var text: String = ""
+    @State private var isValidText: Bool = false
+    @State private var showBottomError: Bool = false
+    @State private var lineColor: Color = .black
     @State private var textBorderStyle: BorderStyles = BorderStyles.standart
     @State private var textIsEditing: Bool = false
     
@@ -39,8 +42,8 @@ public struct TextFieldSampleView: View {
     public var body: some View {
         ScrollView {
             standartTextField
-            currencyTextField
-            dateTextField
+            //            currencyTextField
+            //            dateTextField
         }
         .padding(.vertical, 30)
     }
@@ -51,10 +54,64 @@ public struct TextFieldSampleView: View {
 public extension TextFieldSampleView {
     var standartTextField: some View {
         VStack(spacing: 20) {
-            tenSymbolsLimitTF
-            cardNumberTF
+            materialTF
+            //            tenSymbolsLimitTF
+            //            cardNumberTF
         }
         .padding(.bottom, 20)
+    }
+    
+    var materialTF: some View {
+        StandartTextField(
+            text: $text,
+            placeholderColor: .gray,
+            placeholder: "Введите текст",
+            formatType: .init(onChangeOfText: { value in
+                withAnimation {
+                    statusCalculator(text: value)
+                }
+            })
+        )
+            .underlinedTFStyle(
+                color: lineColor,
+                height: 1
+            )
+            .customTFVerticalContent(
+                isShowTopContent: .constant(true),
+                isShowBottomContent: $showBottomError,
+                topContent: {
+                    HStack {
+                        Text("Ключевые слова")
+                            .padding(.leading, 12)
+                        Spacer()
+                    }
+                },
+                bottomContent: {
+                    HStack {
+                        Text("Кажется ты не ввел 10 символов, как мы договаривались, так что и я в благородство играть не буду")
+                            .padding(.leading, 12)
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+            )
+            .frame(width: UIScreen.main.bounds.width * 0.9)
+    }
+    
+    func statusCalculator(text: String) {
+        if text.count <= 10 {
+            if text.isEmpty {
+                showBottomError = false
+                isValidText = false
+            } else {
+                showBottomError = true
+                isValidText = false
+            }
+        } else {
+            showBottomError = false
+            isValidText = false
+        }
+        showBottomError ? (lineColor = .red) : (lineColor = .gray)
     }
     
     var tenSymbolsLimitTF: some View {
@@ -74,7 +131,6 @@ public extension TextFieldSampleView {
         )
             .underlinedTFStyle(color: .red)
             .customTFHorizontalContent(
-                width: UIScreen.main.bounds.width * 0.9,
                 isShowLeadingContent: .constant(true),
                 isShowTrailingContent: .constant(true),
                 leadingContent: {
@@ -82,12 +138,6 @@ public extension TextFieldSampleView {
                 },
                 trailingContent: {
                     clearTextButton
-                }
-            )
-            .customTFVerticalContent(
-                isShowBottomContent: .constant(true),
-                bottomContent: {
-                    Text("Sample Text")
                 }
             )
     }
@@ -113,7 +163,6 @@ public extension TextFieldSampleView {
                 textColor: .red
             )
             .customTFHorizontalContent(
-                width: UIScreen.main.bounds.width * 0.9,
                 isShowTrailingContent: .constant(true),
                 trailingContent: {
                     clearCardNumberButton
@@ -145,7 +194,6 @@ public extension TextFieldSampleView {
             }
         )
             .customTFHorizontalContent(
-                width: UIScreen.main.bounds.width * 0.9,
                 isShowTrailingContent: .constant(true),
                 trailingContent: {
                     clearNumberButton
@@ -182,7 +230,6 @@ public extension TextFieldSampleView {
             }
         )
             .customTFHorizontalContent(
-                width: UIScreen.main.bounds.width * 0.9,
                 isShowTrailingContent: .constant(true),
                 trailingContent: {
                     clearDateButton

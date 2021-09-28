@@ -13,9 +13,6 @@ import SwiftUI
 public protocol CustomTFHorizontalContentProtocol {
     associatedtype LeadingContent: View
     associatedtype TrailingContent: View
-
-    var width: CGFloat? { get set }
-    var height: CGFloat? { get set }
     
     /// Используйте эти переменные, чтобы скрыть отображение содержимого
     var isShowLeadingContent: Bool { get set }
@@ -29,9 +26,6 @@ public protocol CustomTFHorizontalContentProtocol {
 public protocol CustomTFVerticalContentProtocol {
     associatedtype TopContent: View
     associatedtype BottomContent: View
-
-    var width: CGFloat? { get set }
-    var height: CGFloat? { get set }
     
     /// Используйте эти переменные, чтобы скрыть отображение содержимого
     var isShowTopContent: Bool { get set }

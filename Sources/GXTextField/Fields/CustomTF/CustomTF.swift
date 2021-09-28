@@ -50,6 +50,7 @@ extension CustomTF {
         ZStack(alignment: .leading) {
             if text.wrappedValue.isEmpty {
                 Text(components.placeholder)
+                    .foregroundColor(components.placeholderColor)
             }
             
             if components.isShowSecureField {

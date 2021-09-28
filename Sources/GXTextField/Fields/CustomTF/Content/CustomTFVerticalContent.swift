@@ -11,8 +11,6 @@ import SwiftUI
 
 /// Этот ViewModifier реализует переменные и методы CustomTFVerticalContentProtocol необходимые для добавления View с разных сторон текстфилда
 public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: ViewModifier, CustomTFVerticalContentProtocol {
-    public var width: CGFloat?
-    public var height: CGFloat?
     @Binding public var isShowTopContent: Bool
     @Binding public var isShowBottomContent: Bool
     public var topContent: () -> TopContent?
@@ -25,14 +23,13 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
             content
             bottomButtonsView
         }
-        .frame(width: width ?? .infinity, height: height ?? 60, alignment: .center)
     }
     
     @ViewBuilder
     var topButtonsView: some View {
         if isShowTopContent {
             topContent()
-                .padding(.leading, 16)
+//                .padding(.leading, 16)
         }
     }
     
@@ -40,7 +37,7 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
     var bottomButtonsView: some View {
         if isShowBottomContent {
             bottomContent()
-                .padding(.trailing, 16)
+//                .padding(.trailing, 16)
         }
     }
 }
@@ -68,8 +65,6 @@ public extension View {
     ///     )
     /// ```
     func customTFVerticalContent<TopContent: View, BottomContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowTopContent: Binding<Bool>,
         isShowBottomContent: Binding<Bool>,
         topContent: @escaping () -> TopContent?,
@@ -78,8 +73,6 @@ public extension View {
         
         modifier(
             CustomTFVerticalContent(
-                width: width,
-                height: height,
                 isShowTopContent: isShowTopContent,
                 isShowBottomContent: isShowBottomContent,
                 topContent: topContent,
@@ -104,16 +97,12 @@ public extension View {
     ///     )
     /// ```
     func customTFVerticalContent<TopContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowTopContent: Binding<Bool>,
         topContent: @escaping () -> TopContent?
     ) -> some View  {
         
         modifier(
             CustomTFVerticalContent(
-                width: width,
-                height: height,
                 isShowTopContent: isShowTopContent,
                 isShowBottomContent: .constant(false),
                 topContent: topContent,
@@ -140,16 +129,12 @@ public extension View {
     ///     )
     /// ```
     func customTFVerticalContent<BottomContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
         isShowBottomContent: Binding<Bool>,
         bottomContent: @escaping () -> BottomContent?
     ) -> some View {
         
         modifier(
             CustomTFVerticalContent(
-                width: width,
-                height: height,
                 isShowTopContent: .constant(false),
                 isShowBottomContent: isShowBottomContent,
                 topContent: {
