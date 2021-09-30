@@ -12,6 +12,7 @@ import GXUtilz
 
 /// Тестовая View для того чтобы посмотреть на разные варианты применения текстфилдов
 public struct TextFieldSampleView: View {
+    @State private var materialText: String = ""
     @State private var text: String = ""
     @State private var isValidText: Bool = false
     @State private var showBottomError: Bool = false
@@ -63,7 +64,7 @@ public extension TextFieldSampleView {
     
     var materialTF: some View {
         StandartTextField(
-            text: $text,
+            text: $materialText,
             placeholderColor: .gray,
             placeholder: "Введите текст",
             formatType: .init(onChangeOfText: { value in
