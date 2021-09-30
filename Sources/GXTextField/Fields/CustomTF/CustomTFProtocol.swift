@@ -23,7 +23,7 @@ public enum CustomTFFormat {
 /// Этот протокол принимает все переменные, необходимые для инициализации TF
 protocol CustomTFProtocol: CustomTFInputProtocol, CustomTFFormatProtocol {
     var textColor: Color { get set }
-    var placeholderColor: Color { get set }
+    var placeholderColor: Color? { get set }
     var isEditing: Bool { get set }
     var placeholder: String { get set }
 //    var width: CGFloat? { get set }

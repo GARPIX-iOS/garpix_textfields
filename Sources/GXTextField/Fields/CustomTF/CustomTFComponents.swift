@@ -17,7 +17,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var textColor: Color
     @Binding var isEditing: Bool
     var placeholder: String
-    var placeholderColor: Color
+    var placeholderColor: Color?
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool

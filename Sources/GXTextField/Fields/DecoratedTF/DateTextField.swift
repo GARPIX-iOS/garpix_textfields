@@ -65,7 +65,7 @@ public struct DateTextField: View, CustomTFProtocol {
     var inputType: CustomTFType
     
     var textColor: Color
-    var placeholderColor: Color
+    var placeholderColor: Color?
     @Binding var isEditing: Bool
     var placeholder: String
     var keyboardType: UIKeyboardType

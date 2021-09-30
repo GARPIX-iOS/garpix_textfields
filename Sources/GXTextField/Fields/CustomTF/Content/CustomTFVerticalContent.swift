@@ -16,9 +16,8 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
     public var topContent: () -> TopContent?
     public var bottomContent: () -> BottomContent?
     
-    
     public func body(content: Content) -> some View {
-        VStack(spacing: 10) {
+        VStack {
             topButtonsView
             content
             bottomButtonsView
@@ -29,7 +28,6 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
     var topButtonsView: some View {
         if isShowTopContent {
             topContent()
-//                .padding(.leading, 16)
         }
     }
     
@@ -37,7 +35,6 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
     var bottomButtonsView: some View {
         if isShowBottomContent {
             bottomContent()
-//                .padding(.trailing, 16)
         }
     }
 }
@@ -49,8 +46,6 @@ public extension View {
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFVerticalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowTopContent: .constant(true),
     ///         isShowBottomContent: .constant(true),
@@ -81,12 +76,10 @@ public extension View {
         )
     }
     
-    /// Используйте эту функцию для добавления содержимого в начало TF
+    /// Используйте эту функцию для добавления содержимого сверху TF
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFVerticalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowTopContent: .constant(true),
     ///
@@ -113,12 +106,10 @@ public extension View {
         )
     }
     
-    /// Используйте эту функцию, чтобы добавить контент в конце TF
+    /// Используйте эту функцию, чтобы добавить контент снизу TF
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFVerticalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowBottomContent: .constant(true),
     ///

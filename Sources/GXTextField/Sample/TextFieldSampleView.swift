@@ -43,7 +43,7 @@ public struct TextFieldSampleView: View {
         ScrollView {
             standartTextField
             //            currencyTextField
-            //            dateTextField
+                        dateTextField
         }
         .padding(.vertical, 30)
     }
@@ -223,6 +223,7 @@ public extension TextFieldSampleView {
             date: bindingDate,
             formatter: .ddMMyyyy,
             textColor: .orange,
+            placeholderColor: .gray,
             isEditing: $dateIsEditing,
             placeholder: placeholder,
             onChangeOfIsEditing: { value in

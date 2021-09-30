@@ -17,7 +17,7 @@ public struct CustomTFHorizontalContent<LeadingContent: View, TrailingContent: V
     public var trailingContent: () -> TrailingContent?
     
     public func body(content: Content) -> some View {
-        HStack(spacing: 10) {
+        HStack {
             leadingButtonsView
             content
             trailingButtonsView
@@ -48,8 +48,6 @@ public extension View {
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFHorizontalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowLeadingContent: .constant(true),
     ///         isShowTrailingContent: .constant(true),
@@ -84,8 +82,6 @@ public extension View {
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFHorizontalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowLeadingContent: .constant(true),
     ///
@@ -116,8 +112,6 @@ public extension View {
     /// ```
     /// StandartTextField(text: $text)
     ///     .customTFHorizontalContent(
-    ///         width: UIScreen.main.bounds.width * 0.9,
-    ///
     ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
     ///         isShowTrailingContent: .constant(true),
     ///

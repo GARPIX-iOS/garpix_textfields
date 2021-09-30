@@ -13,14 +13,17 @@ public struct UnderlinedTFStyle: ViewModifier {
     public var height: CGFloat
     public var spacing: CGFloat
     public var paddingLeading: CGFloat
+    @Binding var showLine: Bool
 
     public func body(content: Content) -> some View {
         VStack(spacing: spacing) {
             content
-            Rectangle()
-                .frame(height: height)
-                .foregroundColor(color)
-                .padding(.leading, paddingLeading)
+            if showLine {
+                Rectangle()
+                    .frame(height: height)
+                    .foregroundColor(color)
+                    .padding(.leading, paddingLeading)
+            }
         }
     }
 }
@@ -37,14 +40,16 @@ public extension View {
         color: Color,
         height: CGFloat? = nil,
         spacing: CGFloat? = nil,
-        paddingLeading: CGFloat? = nil
+        paddingLeading: CGFloat? = nil,
+        showLine: Binding<Bool> = .constant(true)
     ) -> some View {
         modifier(
             UnderlinedTFStyle(
                 color: color,
                 height: height ?? 2,
                 spacing: spacing ?? 0,
-                paddingLeading: paddingLeading ?? 12
+                paddingLeading: paddingLeading ?? 12,
+                showLine: showLine
             )
         )
     }
