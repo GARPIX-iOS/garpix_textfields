@@ -42,8 +42,8 @@ public struct TextFieldSampleView: View {
     public var body: some View {
         ScrollView {
             standartTextField
-            //            currencyTextField
-                        dateTextField
+            currencyTextField
+            dateTextField
         }
         .padding(.vertical, 30)
     }
@@ -55,8 +55,8 @@ public extension TextFieldSampleView {
     var standartTextField: some View {
         VStack(spacing: 20) {
             materialTF
-            //            tenSymbolsLimitTF
-            //            cardNumberTF
+            tenSymbolsLimitTF
+            cardNumberTF
         }
         .padding(.bottom, 20)
     }
