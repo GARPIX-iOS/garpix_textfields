@@ -11,7 +11,7 @@ import UIKit
 // MARK:- Enum
 
 /// Это перечисление предоставляет три разных стиля для бордера
-public enum BorderStyles {
+public enum BorderStyles: String {
     case standart
     case selected
     case error

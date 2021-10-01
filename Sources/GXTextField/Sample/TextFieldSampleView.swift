@@ -8,8 +8,15 @@
 import SwiftUI
 import GXUtilz
 
+// MARK: - View
+
+/// Тестовая View для того чтобы посмотреть на разные варианты применения текстфилдов
 public struct TextFieldSampleView: View {
+    @State private var materialText: String = ""
     @State private var text: String = ""
+    @State private var isValidText: Bool = false
+    @State private var showBottomError: Bool = false
+    @State private var lineColor: Color = .black
     @State private var textBorderStyle: BorderStyles = BorderStyles.standart
     @State private var textIsEditing: Bool = false
     
@@ -43,14 +50,69 @@ public struct TextFieldSampleView: View {
     }
 }
 
-// MARK: - StandartTextField
+// MARK: - TextFieldSampleView - StandartTextField realization
+
 public extension TextFieldSampleView {
     var standartTextField: some View {
         VStack(spacing: 20) {
+            materialTF
             tenSymbolsLimitTF
             cardNumberTF
         }
         .padding(.bottom, 20)
+    }
+    
+    var materialTF: some View {
+        StandartTextField(
+            text: $materialText,
+            placeholderColor: .gray,
+            placeholder: "Введите текст",
+            formatType: .init(onChangeOfText: { value in
+                withAnimation {
+                    statusCalculator(text: value)
+                }
+            })
+        )
+            .underlinedTFStyle(
+                color: lineColor,
+                height: 1
+            )
+            .customTFVerticalContent(
+                isShowTopContent: .constant(true),
+                isShowBottomContent: $showBottomError,
+                topContent: {
+                    HStack {
+                        Text("Ключевые слова")
+                            .padding(.leading, 12)
+                        Spacer()
+                    }
+                },
+                bottomContent: {
+                    HStack {
+                        Text("Кажется ты не ввел 10 символов, как мы договаривались, так что и я в благородство играть не буду")
+                            .padding(.leading, 12)
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                }
+            )
+            .frame(width: UIScreen.main.bounds.width * 0.9)
+    }
+    
+    func statusCalculator(text: String) {
+        if text.count <= 10 {
+            if text.isEmpty {
+                showBottomError = false
+                isValidText = false
+            } else {
+                showBottomError = true
+                isValidText = false
+            }
+        } else {
+            showBottomError = false
+            isValidText = false
+        }
+        showBottomError ? (lineColor = .red) : (lineColor = .gray)
     }
     
     var tenSymbolsLimitTF: some View {
@@ -68,16 +130,17 @@ public extension TextFieldSampleView {
                 )
             })
         )
-        .underlinedTFStyle(color: .red)
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowLeadingContent: .constant(true),
-                         isShowTrailingContent: .constant(true),
-                         leadingContent: {
-                            leadingButtons
-                         },
-                         trailingContent: {
-                            clearTextButton
-                         })
+            .underlinedTFStyle(color: .red)
+            .customTFHorizontalContent(
+                isShowLeadingContent: .constant(true),
+                isShowTrailingContent: .constant(true),
+                leadingContent: {
+                    leadingButtons
+                },
+                trailingContent: {
+                    clearTextButton
+                }
+            )
     }
     
     var cardNumberTF: some View {
@@ -86,7 +149,6 @@ public extension TextFieldSampleView {
             textColor: Color(.label),
             isEditing: $cardNumberIsEditing,
             placeholder: placeholder,
-            onlyNumbers: true,
             onChangeOfIsEditing: { value in
                 cardNumberBorderStyle = value ? .selected : .standart
             },
@@ -94,20 +156,23 @@ public extension TextFieldSampleView {
                 cardNumberIsEditing = false
             }
         )
-        .borderTFStyle(borderStyle: $cardNumberBorderStyle,
-                       showLabel: $cardNumberIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearCardNumberButton
-                         })
+            .borderTFStyle(
+                borderStyle: $cardNumberBorderStyle,
+                showLabel: $cardNumberIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .customTFHorizontalContent(
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearCardNumberButton
+                }
+            )
     }
 }
 
-// MARK: - NumbersTextField
+// MARK: - TextFieldSampleView - NumbersTextField realization
 public extension TextFieldSampleView {
     var currencyTextField: some View {
         
@@ -129,21 +194,24 @@ public extension TextFieldSampleView {
                 dollarPriceIsEditing = false
             }
         )
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearNumberButton
-                         })
-        .borderTFStyle(borderStyle: $dollarPriceBorderStyle,
-                       showLabel: $dollarPriceIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .padding(.bottom, 20)
+            .customTFHorizontalContent(
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearNumberButton
+                }
+            )
+            .borderTFStyle(
+                borderStyle: $dollarPriceBorderStyle,
+                showLabel: $dollarPriceIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .padding(.bottom, 20)
     }
 }
 
-// MARK: - DateTextField
+// MARK: - TextFieldSampleView - DateTextField realization
 public extension TextFieldSampleView {
     var dateTextField: some View {
         let timeDateFormat: DateFormats = .timeWithDigits
@@ -156,32 +224,35 @@ public extension TextFieldSampleView {
             date: bindingDate,
             formatter: .ddMMyyyy,
             textColor: .orange,
+            placeholderColor: .gray,
             isEditing: $dateIsEditing,
             placeholder: placeholder,
             onChangeOfIsEditing: { value in
                 dateBorderStyle = value ? .selected : .standart
             }
         )
-        .customTFContent(width: UIScreen.main.bounds.width * 0.9,
-                         isShowTrailingContent: .constant(true),
-                         trailingContent: {
-                            clearDateButton
-                         })
-        .borderTFStyle(borderStyle: $dateBorderStyle,
-                       showLabel: $dateIsEditing,
-                       title: label,
-                       image: image,
-                       textColor: .red)
-        .onHideKeyboard {
-            dateIsEditing = false
-        }
-        .padding(.bottom, 20)
+            .customTFHorizontalContent(
+                isShowTrailingContent: .constant(true),
+                trailingContent: {
+                    clearDateButton
+                }
+            )
+            .borderTFStyle(
+                borderStyle: $dateBorderStyle,
+                showLabel: $dateIsEditing,
+                title: label,
+                image: image,
+                textColor: .red
+            )
+            .onHideKeyboard {
+                dateIsEditing = false
+            }
+            .padding(.bottom, 20)
     }
 }
 
 
-
-// MARK: - Buttons
+// MARK: - TextFieldSampleView - Buttons realization
 public extension TextFieldSampleView {
     var leadingButtons: some View {
         Image(systemName: "gamecontroller")

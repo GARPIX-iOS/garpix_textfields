@@ -1,5 +1,5 @@
 //
-//  CustomTFContent.swift
+//  CustomTFHorizontalContent.swift
 //  
 //
 //  Created by Anton Vlezko on 29.07.2021.
@@ -9,22 +9,19 @@ import SwiftUI
 
 // MARK:- Struct
 
-/// Этот ViewModifier реализует переменные и методы CustomTFContentProtocol необходимые для добавления View с разных сторон текстфилда
-public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: ViewModifier, CustomTFContentProtocol {
-    public var width: CGFloat?
-    public var height: CGFloat?
+/// Этот ViewModifier реализует переменные и методы CustomTFHorizontalContentProtocol необходимые для добавления View с разных сторон текстфилда
+public struct CustomTFHorizontalContent<LeadingContent: View, TrailingContent: View>: ViewModifier, CustomTFHorizontalContentProtocol {
     @Binding public var isShowLeadingContent: Bool
     @Binding public var isShowTrailingContent: Bool
     public var leadingContent: () -> LeadingContent?
     public var trailingContent: () -> TrailingContent?
     
     public func body(content: Content) -> some View {
-        HStack(spacing: 10) {
+        HStack {
             leadingButtonsView
             content
             trailingButtonsView
         }
-        .frame(width: width ?? .infinity, height: height ?? 60, alignment: .center)
     }
     
     @ViewBuilder
@@ -48,9 +45,23 @@ public struct CustomTFContent<LeadingContent: View, TrailingContent: View>: View
 
 public extension View {
     /// Используйте эту функцию для добавления содержимого с обеих сторон TF
-    func customTFContent<LeadingContent: View, TrailingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFHorizontalContent(
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowLeadingContent: .constant(true),
+    ///         isShowTrailingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         leadingContent: {
+    ///             Text("Text") // View
+    ///         },
+    ///         trailingContent: {
+    ///             ClearTextButton(clearingText: $text)
+    ///         }
+    ///     )
+    /// ```
+    func customTFHorizontalContent<LeadingContent: View, TrailingContent: View>(
         isShowLeadingContent: Binding<Bool>,
         isShowTrailingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?,
@@ -58,9 +69,7 @@ public extension View {
     ) -> some View  {
         
         modifier(
-            CustomTFContent(
-                width: width,
-                height: height,
+            CustomTFHorizontalContent(
                 isShowLeadingContent: isShowLeadingContent,
                 isShowTrailingContent: isShowTrailingContent,
                 leadingContent: leadingContent,
@@ -68,19 +77,27 @@ public extension View {
             )
         )
     }
-
+    
     /// Используйте эту функцию для добавления содержимого в начало TF
-    func customTFContent<LeadingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFHorizontalContent(
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowLeadingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         leadingContent: {
+    ///             Text("Text") // View
+    ///         }
+    ///     )
+    /// ```
+    func customTFHorizontalContent<LeadingContent: View>(
         isShowLeadingContent: Binding<Bool>,
         leadingContent: @escaping () -> LeadingContent?
     ) -> some View  {
         
         modifier(
-            CustomTFContent(
-                width: width,
-                height: height,
+            CustomTFHorizontalContent(
                 isShowLeadingContent: isShowLeadingContent,
                 isShowTrailingContent: .constant(false),
                 leadingContent: leadingContent,
@@ -92,17 +109,25 @@ public extension View {
     }
     
     /// Используйте эту функцию, чтобы добавить контент в конце TF
-    func customTFContent<TrailingContent: View>(
-        width: CGFloat? = nil,
-        height: CGFloat? = nil,
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .customTFHorizontalContent(
+    ///         // Вы можете передать сюда binding и по своему условию скрывать или показывать контент
+    ///         isShowTrailingContent: .constant(true),
+    ///
+    ///         // Вы можете передать сюда View различных типов
+    ///         trailingContent: {
+    ///             ClearTextButton(clearingText: $text)
+    ///         }
+    ///     )
+    /// ```
+    func customTFHorizontalContent<TrailingContent: View>(
         isShowTrailingContent: Binding<Bool>,
         trailingContent: @escaping () -> TrailingContent?
     ) -> some View {
         
         modifier(
-            CustomTFContent(
-                width: width,
-                height: height,
+            CustomTFHorizontalContent(
                 isShowLeadingContent: .constant(false),
                 isShowTrailingContent: isShowTrailingContent,
                 leadingContent: {

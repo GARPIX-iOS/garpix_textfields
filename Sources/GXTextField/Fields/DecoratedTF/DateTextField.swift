@@ -8,17 +8,66 @@
 import SwiftUI
 
 /// Это текстовое поле используется для ввода даты с помощью настраиваемого средства выбора клавиатуры для дополнительной проверки файла TextFieldSample
+///
+/// Стандартная версия с минимумом кастомных значений, но использующая кастомный binding
+/// ```
+/// @State private var dateString: String? = nil
+///
+/// var body: some View {
+///     // создаем bindingDate который конвертирует опциональную строку в формат опциональной даты которую может принимать наш TF
+///
+///     let timeDateFormat: DateFormats = .dayMonthDigitsYear
+///     let bindingDate = Binding<Date?>(
+///         get: { self.dateString?.stringToDate(dateFormat: timeDateFormat) },
+///         set: { self.dateString = $0?.dateToString(dateFormat: timeDateFormat)
+///     )
+///
+///     DateTextField(
+///         date: bindingDate,
+///         formatter: .ddMMyyyy,
+///     ) // output -> стандартный TF с минимум значений
+/// }
+/// ```
+/// Расширенная версия
+/// ```
+/// @State private var date: Date? = nil
+/// @State private var dateBorderStyle: BorderStyles = BorderStyles.standart
+/// @State private var dateIsEditing: Bool = false
+///
+/// var body: some View {
+///     DateTextField(
+///         date: date,
+///         formatter: .ddMMyyyy,
+///         textColor: .red,
+///         isEditing: $dateIsEditing,
+///         placeholder: placeholder,
+///         width: UIScreen.main.bounds.width * 0.9,
+///         height: 60,
+///         onTap: {
+///             // вводим методы которые должны сработать после нажатия на TF
+///         },
+///         onChangeOfIsEditing: { value in
+///             dateBorderStyle = value ? .selected : .standart
+///             // вводим методы которые должны сработать после изменения dateIsEditing к примеру изменения dateBorderStyle для передачи его в модификатор стиля
+///         },
+///         hideKeyboard: {
+///             dateIsEditing = false
+///             // вводим методы которые должны сработать после того как будет скрыта клавиатура TF
+///         }
+///     )
+/// }
+/// ```
 public struct DateTextField: View, CustomTFProtocol {
+    
     // MARK: - Properties
     
     /// Это значение помогает CustomERS распознать, какой тип ввода вы хотите передать
     var inputType: CustomTFType
     
     var textColor: Color
+    var placeholderColor: Color?
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool
@@ -32,12 +81,11 @@ public struct DateTextField: View, CustomTFProtocol {
     // MARK: - Init
     public init(
         date: Binding<Date?>,
-        formatter: DateFormatter?,
+        formatter: DateFormatter? = nil,
         textColor: Color = .primary,
+        placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
         onTap: @escaping () -> Void = {},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
         hideKeyboard: @escaping () -> Void = {}
@@ -49,8 +97,7 @@ public struct DateTextField: View, CustomTFProtocol {
         self.textColor = textColor
         _isEditing = isEditing
         self.placeholder = placeholder
-        self.width = width
-        self.height = height
+        self.placeholderColor = placeholderColor
         self.keyboardType = .default
         self.isShowSecureField = false
         self.alwaysShowFractions = false
@@ -69,8 +116,7 @@ public struct DateTextField: View, CustomTFProtocol {
             textColor: textColor,
             isEditing: $isEditing,
             placeholder: placeholder,
-            width: width,
-            height: height,
+            placeholderColor: placeholderColor,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
@@ -81,6 +127,5 @@ public struct DateTextField: View, CustomTFProtocol {
             hideKeyboard: hideKeyboard)
         
             CustomTF(components: components)
-                .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }

@@ -11,13 +11,13 @@ import SwiftUI
 
 /// Эта структура используется для уменьшения объема кода, при init CustomTF
 public struct CustomTFComponents: CustomTFProtocol {
+    
     var inputType: CustomTFType
 
     var textColor: Color
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
+    var placeholderColor: Color?
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool

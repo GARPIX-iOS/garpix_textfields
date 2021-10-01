@@ -8,17 +8,61 @@
 import SwiftUI
 
 // MARK: - View extension for underlinedTFStyle
+public struct UnderlinedTFStyle: ViewModifier {
+    public var color: Color
+    public var height: CGFloat
+    public var spacing: CGFloat
+    public var paddingLeading: CGFloat
+    @Binding var showLine: Bool
+
+    public func body(content: Content) -> some View {
+        VStack(spacing: spacing) {
+            content
+            if showLine {
+                Rectangle()
+                    .frame(height: height)
+                    .foregroundColor(color)
+                    .padding(.leading, paddingLeading)
+            }
+        }
+    }
+}
+
 public extension View {
     /// Этот метод необходим для применения изменений стиля к TF.
+    /// ```
+    /// StandartTextField(text: $text)
+    ///     .underlinedTFStyle(color: .red) // output -> View с примененным на нем стилем
+    /// ```
     /// - Parameter color: передайте сюда свой собственный цвет
     /// - Returns: View с примененным стилем
-    func underlinedTFStyle(color: Color) -> some View {
+    func underlinedTFStyle(
+        color: Color,
+        height: CGFloat? = nil,
+        spacing: CGFloat? = nil,
+        paddingLeading: CGFloat? = nil,
+        showLine: Binding<Bool> = .constant(true)
+    ) -> some View {
+        modifier(
+            UnderlinedTFStyle(
+                color: color,
+                height: height ?? 2,
+                spacing: spacing ?? 0,
+                paddingLeading: paddingLeading ?? 12,
+                showLine: showLine
+            )
+        )
+    }
+    
+    func underlinedTFStyleOverlaying(
+        color: Color,
+        height: CGFloat? = 2,
+        paddingTop: CGFloat? = 35
+    ) -> some View {
         self
-            .padding(.vertical, 10)
             .overlay(Rectangle()
-                        .frame(height: 2)
-                        .padding(.top, 35)
+                        .frame(height: height)
+                        .padding(.top, paddingTop)
                         .foregroundColor(color))
-            .padding(10)
     }
 }

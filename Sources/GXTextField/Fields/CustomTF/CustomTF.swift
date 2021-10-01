@@ -50,6 +50,7 @@ extension CustomTF {
         ZStack(alignment: .leading) {
             if text.wrappedValue.isEmpty {
                 Text(components.placeholder)
+                    .foregroundColor(components.placeholderColor)
             }
             
             if components.isShowSecureField {
@@ -77,6 +78,7 @@ extension CustomTF {
         ZStack(alignment: .leading) {
             if totalInput.wrappedValue.isNil {
                 Text(components.placeholder)
+                    .foregroundColor(components.placeholderColor)
             }
             DecimalTextField("",
                              value: totalInput,
@@ -102,7 +104,8 @@ extension CustomTF {
                 isEdit: components.$isEditing,
                 formatter: format,
                 minAge: 0,
-                color: UIColor(components.textColor)
+                color: UIColor(components.textColor),
+                placeholderColor: UIColor(components.placeholderColor ?? components.textColor)
             )
         }
     }

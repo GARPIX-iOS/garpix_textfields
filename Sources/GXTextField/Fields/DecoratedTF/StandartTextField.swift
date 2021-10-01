@@ -7,7 +7,81 @@
 
 import SwiftUI
 
+// MARK: - View
+
 /// Это текстовое поле используется для ввода строковых значений. Вы можете легко использовать маску в завершении onChangeOfText или использовать наши значения в textFormat, более того, если вы добавите validSymbolsAmount, вы получите поле с таким количеством символов для дополнительной проверки файла TextFieldSample
+///
+/// Стандартная  версия
+/// ```
+/// @State private var text: String = ""
+///
+/// var body: some View {
+///     StandartTextField(
+///         text: $text
+///     ) // output -> стандартный TF с минимум значений
+/// }
+/// ```
+/// Расширенная версия
+/// ```
+/// @State private var text: String = ""
+/// @State private var textBorderStyle: BorderStyles = BorderStyles.standart
+/// @State private var textIsEditing: Bool = false
+///
+/// var body: some View {
+///     StandartTextField(
+///         text: $text,
+///         textColor: .blue,
+///         isEditing: $textIsEditing,
+///         placeholder: placeholder,
+///         width: UIScreen.main.bounds.width * 0.9,
+///         height: 60,
+///         keyboardType: .decimalPad,
+///         isShowSecureField: false,
+/// ```
+///  Реализация formatType через onChangeOfText для того, чтобы получить доступ напрямую к тексту и его изменениям
+/// ```
+///         formatType: .init(
+///             onChangeOfText: { value in
+///                 text = value.formatText(...)
+///             }
+///         ),
+/// ```
+///  Реализация formatType через textFormat так вы можете выбрать из предложенных нами вариантов форматирования
+/// ```
+///         formatType: .init(textFormat: .formatPhone),
+/// ```
+///  Реализация formatType через validSymbolsAmount так вы можете ограничить число вводимых пользователем символов
+/// ```
+///         formatType: .init(validSymbolsAmount: 10),
+/// ```
+///  Реализация formatType через validSymbolsAmount, а также inputType так вы можете ограничить число вводимых пользователем символов, а также внести ограничения для вводимых исволов например выбрать определенный язык, содержание только текста и тд
+/// ```
+///         formatType: .init(
+///             validSymbolsAmount: 10,
+///             inputType: .init(
+///                 formatLanguage: .rus,
+///                 containsText: true,
+///                 containsNumbers: false,
+///                 containsSpecialSymbols: true
+///             )
+///         ),
+///         commit: {
+///             // вводим методы которые должны сработать после commit в TF
+///         },
+///         onTap: {
+///             // вводим методы которые должны сработать после нажатия на TF
+///         },
+///         onChangeOfIsEditing: { value in
+///             textBorderStyle = value ? .selected : .standart
+///             // вводим методы которые должны сработать после изменения textIsEditing к примеру изменения textBorderStyle для передачи его в модификатор стиля
+///         },
+///         hideKeyboard: {
+///             textIsEditing = false
+///             // вводим методы которые должны сработать после того как будет скрыта клавиатура TF
+///         }
+///     )
+/// }
+/// ```
 public struct StandartTextField: View, CustomTFProtocol {
     // MARK: - Properties
     
@@ -15,10 +89,9 @@ public struct StandartTextField: View, CustomTFProtocol {
     var inputType: CustomTFType
     
     var textColor: Color
+    var placeholderColor: Color?
     @Binding var isEditing: Bool
     var placeholder: String
-    var width: CGFloat
-    var height: CGFloat
     var keyboardType: UIKeyboardType
     
     /// Эта переменная используется только для стандартного текстового поля, если вы хотите защитить это поле от пароля
@@ -36,15 +109,12 @@ public struct StandartTextField: View, CustomTFProtocol {
     public init(
         text: Binding<String>,
         textColor: Color = .primary,
+        placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
-        width: CGFloat = UIScreen.main.bounds.width * 0.9,
-        height: CGFloat = 60,
         keyboardType: UIKeyboardType = .default,
         isShowSecureField: Bool = false,
-        onlyNumbers: Bool = false,
-        validSymbolsAmount: Int? = nil,
-
+        
         formatType: CustomTFFormatType? = nil,
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
@@ -52,16 +122,15 @@ public struct StandartTextField: View, CustomTFProtocol {
         hideKeyboard: @escaping () -> Void = {}
     ) {
         self.inputType = .standart(text: text)
-
+        
         self.textColor = textColor
+        self.placeholderColor = placeholderColor
         _isEditing = isEditing
         self.placeholder = placeholder
-        self.width = width
-        self.height = height
         self.keyboardType = keyboardType
         self.isShowSecureField = isShowSecureField
         self.alwaysShowFractions = false
-
+        
         self.formatType = formatType
         self.commit = commit
         self.onTap = onTap
@@ -76,8 +145,7 @@ public struct StandartTextField: View, CustomTFProtocol {
             textColor: textColor,
             isEditing: $isEditing,
             placeholder: placeholder,
-            width: width,
-            height: height,
+            placeholderColor: placeholderColor,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
@@ -88,6 +156,5 @@ public struct StandartTextField: View, CustomTFProtocol {
             hideKeyboard: hideKeyboard)
         
         CustomTF(components: components)
-            .frame(minWidth: 0, maxWidth: width, minHeight: 0, maxHeight: height, alignment: .center)
     }
 }
