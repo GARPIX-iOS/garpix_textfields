@@ -114,7 +114,6 @@ public struct StandartTextField: View, CustomTFProtocol {
         placeholder: String = "",
         keyboardType: UIKeyboardType = .default,
         isShowSecureField: Bool = false,
-        
         formatType: CustomTFFormatType? = nil,
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
