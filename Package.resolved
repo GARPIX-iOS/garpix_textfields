@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GXUtilz",
+        "repositoryURL": "https://github.com/GARPIX-iOS/garpix_utils",
+        "state": {
+          "branch": null,
+          "revision": "4a52821720c2636e4d8a5056cec583d7d308bf1b",
+          "version": "1.4.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -17,7 +17,7 @@ public struct CustomTFVerticalContent<TopContent: View, BottomContent: View>: Vi
     public var bottomContent: () -> BottomContent?
     
     public func body(content: Content) -> some View {
-        VStack {
+        VStack(spacing: 0) {
             topButtonsView
             content
             bottomButtonsView
