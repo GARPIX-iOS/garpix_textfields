@@ -23,8 +23,9 @@ struct CustomTF: View {
 // MARK: - CustomTF Views
 extension CustomTF {
     /// Эта View  определяет, какую функцию представления мы должны применять в зависимости от inputType
+    
+    @ViewBuilder
     var textfield: some View {
-        Group {
             switch components.inputType {
             case .standart(text: let text):
                 standartField(text: text)
@@ -37,7 +38,6 @@ extension CustomTF {
                 dateField(date: date,
                           formatter: formatter)
             }
-        }
     }
 }
 
