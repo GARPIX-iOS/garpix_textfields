@@ -21,13 +21,10 @@ struct CustomTFActions: ViewModifier {
                     textfield.onTap()
                 }
             }
-            .font(.callout)
+            .font(textfield.font)
             .onChange(of: textfield.isEditing, perform: { value in
                 textfield.onChangeOfIsEditing(value)
             })
-            .padding(.vertical)
-            .padding(.trailing)
-            .padding(.leading, 12)
             .foregroundColor(textfield.textColor)
             .gesture(DragGesture().onChanged { _ in
                 textfield.hideKeyboard()

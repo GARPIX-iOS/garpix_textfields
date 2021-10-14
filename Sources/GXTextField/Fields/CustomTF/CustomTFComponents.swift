@@ -21,6 +21,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool
+    var font: Font = .callout
     
     var formatType: CustomTFFormatType?
     var commit: () -> Void
