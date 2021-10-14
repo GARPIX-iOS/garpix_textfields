@@ -15,8 +15,11 @@ struct CustomTF: View {
     var components: CustomTFComponents
         
     var body: some View {
-        textfield
-            .customTFActions(textfield: components)
+        VStack(alignment: .leading, spacing: 0) {
+            textfield
+                .customTFActions(textfield: components)
+        }
+
     }
 }
 
