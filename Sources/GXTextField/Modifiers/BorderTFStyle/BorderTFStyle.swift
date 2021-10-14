@@ -18,26 +18,29 @@ public struct BorderTFStyle: ViewModifier {
     /// - Returns: TF с новым стилем
     public func body(content: Content) -> some View {
         content
+            .padding(.vertical)
+            .padding(.trailing)
+            .padding(.leading, 12)
             .overlay(
                 ZStack(alignment: .topLeading) {
                     Group {
                         RoundedRectangle(cornerRadius: components.cornerRadius)
                             .stroke(components.strokeColorCalculator(),
                                     lineWidth: components.strokeWidth)
-                            HStack {
-                                if components.showLabel {
-                                    Text(components.text)
-                                        .font(components.font)
-                                    if !components.image.isEmpty {
-                                        Image(systemName: components.image)
-                                    }
+                        HStack {
+                            if components.showLabel {
+                                Text(components.text)
+                                    .font(components.font)
+                                if !components.image.isEmpty {
+                                    Image(systemName: components.image)
                                 }
                             }
-                            .font(components.font)
-                            .foregroundColor(components.textColor)
-                            .padding(paddingCalc())
-                            .background(components.backgroundColor)
-                            .offset(x: components.offsetX, y: components.offsetY)
+                        }
+                        .font(components.font)
+                        .foregroundColor(components.textColor)
+                        .padding(paddingCalc())
+                        .background(components.backgroundColor)
+                        .offset(x: components.offsetX, y: components.offsetY)
                     }
                 }
             )
@@ -47,7 +50,7 @@ public struct BorderTFStyle: ViewModifier {
 // MARK: - BorderTFStyle Helper Functions
 extension BorderTFStyle {
     /// Это служебная вспомогательная функция, исправляющая ошибку, когда в стандартном стиле у бордера отображается точка цветом бэкграунда
-    /// - Returns: исправленная величина padding 
+    /// - Returns: исправленная величина padding
     func paddingCalc() -> CGFloat {
         withAnimation(.easeOut(duration: 0.3)) {
             components.showLabel ? 2 : 0
