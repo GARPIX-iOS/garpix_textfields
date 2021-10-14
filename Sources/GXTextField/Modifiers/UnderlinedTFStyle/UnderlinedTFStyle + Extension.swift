@@ -16,7 +16,7 @@ public struct UnderlinedTFStyle: ViewModifier {
     @Binding var showLine: Bool
 
     public func body(content: Content) -> some View {
-        VStack(spacing: 0, alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             content
             if showLine {
                 Rectangle()
