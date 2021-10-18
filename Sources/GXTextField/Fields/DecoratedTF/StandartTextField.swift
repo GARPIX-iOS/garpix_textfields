@@ -89,7 +89,6 @@ public struct StandartTextField: View, CustomTFProtocol {
     var inputType: CustomTFType
     
     var textColor: Color
-    var backgroundColor: Color
     var placeholderColor: Color?
     var placeholderFont: Font = .callout
     @Binding var isEditing: Bool
