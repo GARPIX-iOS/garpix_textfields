@@ -53,6 +53,7 @@ extension CustomTF {
         ZStack(alignment: .leading) {
             if text.wrappedValue.isEmpty {
                 Text(components.placeholder)
+                    .font(components.placeholderFont)
                     .foregroundColor(components.placeholderColor)
             }
             
