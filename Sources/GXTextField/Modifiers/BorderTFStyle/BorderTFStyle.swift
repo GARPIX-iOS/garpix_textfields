@@ -18,7 +18,6 @@ public struct BorderTFStyle: ViewModifier {
     /// - Returns: TF с новым стилем
     public func body(content: Content) -> some View {
         content
-            .padding(.horizontal)
             .overlay(
                 ZStack(alignment: .topLeading) {
                     Group {
