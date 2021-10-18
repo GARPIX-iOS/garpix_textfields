@@ -89,6 +89,7 @@ public struct StandartTextField: View, CustomTFProtocol {
     var inputType: CustomTFType
     
     var textColor: Color
+    var textFont: Font = .callout
     var placeholderColor: Color?
     var placeholderFont: Font = .callout
     @Binding var isEditing: Bool
@@ -110,6 +111,7 @@ public struct StandartTextField: View, CustomTFProtocol {
     public init(
         text: Binding<String>,
         textColor: Color = .primary,
+        textFont: Font = .callout,
         placeholderColor: Color = .primary,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
@@ -152,6 +154,7 @@ public struct StandartTextField: View, CustomTFProtocol {
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
+            font: textFont,
             formatType: formatType,
             commit: commit,
             onTap: onTap,
