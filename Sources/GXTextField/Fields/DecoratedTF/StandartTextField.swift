@@ -127,6 +127,7 @@ public struct StandartTextField: View, CustomTFProtocol {
         self.inputType = .standart(text: text)
         
         self.textColor = textColor
+        self.textFont = textFont
         self.placeholderColor = placeholderColor
         self.placeholderFont = placeholderFont
         _isEditing = isEditing
