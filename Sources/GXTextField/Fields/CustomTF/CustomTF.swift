@@ -44,6 +44,19 @@ extension CustomTF {
     }
 }
 
+
+extension CustomTF {
+    func createStandartToolBar(by textfield: UITextField) {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textfield.frame.size.width, height: 44))
+        let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(textfield.doneButtonTapped(button:)))
+        doneButton.tintColor = .systemBlue
+        toolBar.items = [flexButton, doneButton]
+        toolBar.setItems([flexButton, doneButton], animated: true)
+        textfield.inputAccessoryView = toolBar
+    }
+}
+
 // MARK: - CustomTF View Functions
 extension CustomTF {
     /// Эта функция создает базовую функциональность для TF с вводом текста, она заменяет поле Placeholder над полем, показывает SecureField, если вы его выберете, и отправляет данные onEdit в конструктор
@@ -61,6 +74,15 @@ extension CustomTF {
                 SecureField("",
                             text: text,
                             onCommit: components.commit)
+                    .introspectTextField(customize: { tf in
+                        guard components.isShowToolbar else { return }
+                        if components.toolBarViewCallback != nil {
+                            components.toolBarViewCallback!(tf)
+                        } else {
+                            createStandartToolBar(by: tf)
+                        }
+
+                    })
                 
             } else {
                 TextField("",
@@ -69,6 +91,15 @@ extension CustomTF {
                             onEditingChanged(isEdit: isEdit)
                           },
                           onCommit: components.commit)
+                    .introspectTextField(customize: { tf in
+                        guard components.isShowToolbar else { return }
+                        if components.toolBarViewCallback != nil {
+                            components.toolBarViewCallback!(tf)
+                        } else {
+                            createStandartToolBar(by: tf)
+                        }
+
+                    })
             }
         }
     }

@@ -14,17 +14,6 @@ extension UITextField {
     }
 }
 
-extension CustomTFActions {
-    func createStandartToolBar(by textfield: UITextField) {
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textfield.frame.size.width, height: 44))
-        let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(textfield.doneButtonTapped(button:)))
-        doneButton.tintColor = .systemBlue
-        toolBar.items = [flexButton, doneButton]
-        toolBar.setItems([flexButton, doneButton], animated: true)
-        textfield.inputAccessoryView = toolBar
-    }
-}
 
 // MARK: - Struct
 
@@ -48,16 +37,6 @@ struct CustomTFActions: ViewModifier {
             .gesture(DragGesture().onChanged { _ in
                 textfield.hideKeyboard()
             })
-            .introspectTextField(customize: { tf in
-                guard textfield.isShowToolbar else { return }
-                if textfield.toolBarViewCallback != nil {
-                    textfield.toolBarViewCallback!(tf)
-                } else {
-                    createStandartToolBar(by: tf)
-                }
-
-            })
-
     }
     
     /// Сервисная функция работает с разными входящими значениями. В основном необходима, чтобы отслеживать изменения текста и передавать их обратно. Я оставил другие инпуты, потому что мы добавим к ним некоторые функции позже, я думаю
