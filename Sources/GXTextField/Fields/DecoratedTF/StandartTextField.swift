@@ -169,7 +169,9 @@ public struct StandartTextField: View, CustomTFProtocol {
             commit: commit,
             onTap: onTap,
             onChangeOfIsEditing: onChangeOfIsEditing,
-            hideKeyboard: hideKeyboard)
+            hideKeyboard: hideKeyboard,
+            isShowToolbar: isShowToolbar,
+            toolBarViewCallback: toolBarViewCallback)
         
         CustomTF(components: components)
     }
