@@ -71,7 +71,8 @@ public extension TextFieldSampleView {
                 withAnimation {
                     statusCalculator(text: value)
                 }
-            })
+            }),
+            isShowToolbar: true
         )
             .underlinedTFStyle(
                 color: lineColor,

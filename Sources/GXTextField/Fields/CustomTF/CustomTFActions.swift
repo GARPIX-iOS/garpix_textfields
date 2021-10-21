@@ -14,6 +14,18 @@ extension UITextField {
     }
 }
 
+extension CustomTFActions {
+    func createStandartToolBar(by textfield: UITextField) {
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textfield.frame.size.width, height: 44))
+        let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(textfield.doneButtonTapped(button:)))
+        doneButton.tintColor = .systemBlue
+        toolBar.items = [flexButton, doneButton]
+        toolBar.setItems([flexButton, doneButton], animated: true)
+        textfield.inputAccessoryView = toolBar
+    }
+}
+
 // MARK: - Struct
 
 /// Эти ViewModifier предоставляют функции для отслеживания изменений значений, добавленных в текстовое поле, и передачи их наверх по стеку для передачи данных в замыкания в конструкторе
@@ -36,14 +48,14 @@ struct CustomTFActions: ViewModifier {
             .gesture(DragGesture().onChanged { _ in
                 textfield.hideKeyboard()
             })
-            .introspectTextField(customize: { textField in
-                let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
-                let flexButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-                let doneButton = UIBarButtonItem(title: "Ok", style: .done, target: self, action: #selector(textField.doneButtonTapped(button:)))
-                doneButton.tintColor = .systemBlue
-                toolBar.items = [flexButton, doneButton]
-                toolBar.setItems([flexButton, doneButton], animated: true)
-                textField.inputAccessoryView = toolBar
+            .introspectTextField(customize: { tf in
+                guard textfield.isShowToolbar else { return }
+                if textfield.toolBarViewCallback != nil {
+                    textfield.toolBarViewCallback!(tf)
+                } else {
+                    createStandartToolBar(by: tf)
+                }
+
             })
 
     }

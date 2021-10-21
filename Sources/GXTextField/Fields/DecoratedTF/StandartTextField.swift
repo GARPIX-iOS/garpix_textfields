@@ -108,6 +108,9 @@ public struct StandartTextField: View, CustomTFProtocol {
     var commit: () -> Void
     var hideKeyboard: () -> Void
     
+    var isShowToolbar: Bool = false
+    var toolBarViewCallback: ((UITextField) -> Void)?
+    
     // MARK: - Init
     public init(
         text: Binding<String>,
@@ -123,7 +126,9 @@ public struct StandartTextField: View, CustomTFProtocol {
         commit: @escaping () -> Void = {},
         onTap: @escaping () -> Void = {},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
-        hideKeyboard: @escaping () -> Void = {}
+        hideKeyboard: @escaping () -> Void = {},
+        isShowToolbar: Bool = false,
+        toolBarViewCallback: ((UITextField) -> Void)? = nil
     ) {
         self.inputType = .standart(text: text)
         
@@ -142,6 +147,9 @@ public struct StandartTextField: View, CustomTFProtocol {
         self.onTap = onTap
         self.onChangeOfIsEditing = onChangeOfIsEditing
         self.hideKeyboard = hideKeyboard
+        
+        self.isShowToolbar = isShowToolbar
+        self.toolBarViewCallback = toolBarViewCallback
     }
     
     // MARK: - View

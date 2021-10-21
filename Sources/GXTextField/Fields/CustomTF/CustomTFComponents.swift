@@ -29,4 +29,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var onTap: () -> Void
     var onChangeOfIsEditing: (Bool) -> Void
     var hideKeyboard: () -> Void
+    
+    var isShowToolbar: Bool = false
+    var toolBarViewCallback: ((UITextField) -> Void)?
 }
