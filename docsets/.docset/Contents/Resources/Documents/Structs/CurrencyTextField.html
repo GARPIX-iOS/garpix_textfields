@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CurrencyTextField Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/CurrencyTextField" class="dashAnchor"></a>
+    <a title="CurrencyTextField Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html"> Docs</a>
+          <span class="no-mobile"> (49% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html"> Reference</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+          </span>
+          CurrencyTextField Structure Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>CurrencyTextField</h1>
+                <div class="declaration">
+                  <div class="language">
+                    
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CurrencyTextField</span> <span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">CustomTFProtocol</span></code></pre>
+
+                  </div>
+                </div>
+              <p>Это текстовое поле используется для ввода цен и т. Д. Вы можете изменить валюту как строку и управлять другими значениями, чтобы получить дополнительные сведения, проверьте файл TextFieldSample</p>
+
+<p>Стандартная  версия</p>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">dollarPrice</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="c1">// создаем bindingTotalInput который конвертирует Int? в формат Double? которую может принимать наш TF</span>
+
+    <span class="k">let</span> <span class="nv">bindingTotalInput</span> <span class="o">=</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Double</span><span class="p">?</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="nv">get</span><span class="p">:</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">dollarPrice</span><span class="o">.</span><span class="nf">optIntToOptDouble</span><span class="p">()</span> <span class="p">},</span>
+        <span class="nv">set</span><span class="p">:</span> <span class="p">{</span> <span class="k">self</span><span class="o">.</span><span class="n">dollarPrice</span> <span class="o">=</span> <span class="nv">$0</span><span class="o">.</span><span class="nf">optDoubleToOptInt</span><span class="p">()</span> <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="kt">CurrencyTextField</span><span class="p">(</span>
+        <span class="nv">totalInput</span><span class="p">:</span> <span class="n">bindingTotalInput</span><span class="p">,</span>
+        <span class="nv">currencySymbol</span><span class="p">:</span> <span class="s">"$"</span>
+    <span class="p">)</span> <span class="c1">// output -&gt; стандартный TF с минимумом значений</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Расширенная версия</p>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">dollarPrice</span><span class="p">:</span> <span class="kt">Double</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">dollarPriceBorderStyle</span><span class="p">:</span> <span class="kt">BorderStyles</span> <span class="o">=</span> <span class="kt">BorderStyles</span><span class="o">.</span><span class="n">standart</span>
+<span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">dollarPriceIsEditing</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">CurrencyTextField</span><span class="p">(</span>
+        <span class="nv">totalInput</span><span class="p">:</span> <span class="n">dollarPrice</span><span class="p">,</span>
+        <span class="nv">currencySymbol</span><span class="p">:</span> <span class="s">"$"</span><span class="p">,</span>
+        <span class="nv">textColor</span><span class="p">:</span> <span class="o">.</span><span class="n">red</span><span class="p">,</span>
+        <span class="nv">isEditing</span><span class="p">:</span> <span class="n">dollarPriceIsEditing</span><span class="p">,</span>
+        <span class="nv">placeholder</span><span class="p">:</span> <span class="n">placeholder</span><span class="p">,</span>
+        <span class="nv">width</span><span class="p">:</span> <span class="kt">UIScreen</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="mf">0.9</span><span class="p">,</span>
+        <span class="nv">height</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="nv">alwaysShowFractions</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nv">onTap</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1">// вводим методы которые должны сработать после нажатия на TF</span>
+        <span class="p">},</span>
+        <span class="nv">onChangeOfIsEditing</span><span class="p">:</span> <span class="p">{</span> <span class="n">value</span> <span class="k">in</span>
+            <span class="n">dollarPriceBorderStyle</span> <span class="o">=</span> <span class="n">value</span> <span class="p">?</span> <span class="o">.</span><span class="nv">selected</span> <span class="p">:</span> <span class="o">.</span><span class="n">standart</span>
+            <span class="c1">// вводим методы которые должны сработать после изменения dollarPriceIsEditing к примеру изменения dollarPriceBorderStyle для передачи его в модификатор стиля</span>
+        <span class="p">},</span>
+        <span class="nv">hideKeyboard</span><span class="p">:</span> <span class="p">{</span>
+            <span class="n">dollarPriceIsEditing</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="c1">// вводим методы которые должны сработать после того как будет скрыта клавиатура TF</span>
+        <span class="p">}</span>
+    <span class="p">)</span> <span class="c1">// output -&gt; стандартный TF с минимумом значений</span>
+<span class="p">}</span>
+</code></pre>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Init"></a>
+                  <a name="//apple_ref/swift/Section/Init" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Init"></a>
+                    <h3 class="section-name"><span>Init</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11GXTextField012CurrencyTextB0V10totalInput14currencySymbol9textColor011placeholderJ00K4Font9isEditing0K019alwaysShowFractions02uiL05onTap0s10ChangeOfIsN012hideKeyboardAC7SwiftUI7BindingVySdSgG_SSSgAP0J0VAwP0L0VARySbGSSSbSo6UIFontCSgyycySbcyyctcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(totalInput:currencySymbol:textColor:placeholderColor:placeholderFont:isEditing:placeholder:alwaysShowFractions:uiFont:onTap:onChangeOfIsEditing:hideKeyboard:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11GXTextField012CurrencyTextB0V10totalInput14currencySymbol9textColor011placeholderJ00K4Font9isEditing0K019alwaysShowFractions02uiL05onTap0s10ChangeOfIsN012hideKeyboardAC7SwiftUI7BindingVySdSgG_SSSgAP0J0VAwP0L0VARySbGSSSbSo6UIFontCSgyycySbcyyctcfc">init(totalInput:<wbr>currencySymbol:<wbr>textColor:<wbr>placeholderColor:<wbr>placeholderFont:<wbr>isEditing:<wbr>placeholder:<wbr>alwaysShowFractions:<wbr>uiFont:<wbr>onTap:<wbr>onChangeOfIsEditing:<wbr>hideKeyboard:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="nv">totalInput</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Double</span><span class="p">?</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">currencySymbol</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+    <span class="nv">textColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="o">.</span><span class="n">primary</span><span class="p">,</span>
+    <span class="nv">placeholderColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="o">.</span><span class="n">primary</span><span class="p">,</span>
+    <span class="nv">placeholderFont</span><span class="p">:</span> <span class="kt">Font</span><span class="p">,</span>
+    <span class="nv">isEditing</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
+    <span class="nv">placeholder</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span>
+    <span class="nv">alwaysShowFractions</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nv">uiFont</span><span class="p">:</span> <span class="kt">UIFont</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+
+    <span class="nv">onTap</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="nv">onChangeOfIsEditing</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{</span><span class="n">_</span> <span class="k">in</span><span class="p">},</span>
+    <span class="nv">hideKeyboard</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/View"></a>
+                  <a name="//apple_ref/swift/Section/View" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/View"></a>
+                    <h3 class="section-name"><span>View</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP4body4BodyQzvp"></a>
+                      <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP4body4BodyQzvp">body</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/BorderStyles.html">BorderStyles</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/CustomTFFormat.html">CustomTFFormat</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/View.html">View</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/CustomTFHorizontalContentProtocol.html">CustomTFHorizontalContentProtocol</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/CustomTFVerticalContentProtocol.html">CustomTFVerticalContentProtocol</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Structs/BorderTFStyle.html">BorderTFStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs.html#/s:11GXTextField23BorderTFStyleComponentsV">BorderTFStyleComponents</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearTextButton.html">ClearTextButton</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CurrencyTextField.html">CurrencyTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs.html#/s:11GXTextField18CustomTFComponentsV">CustomTFComponents</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFFormatType.html">CustomTFFormatType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFHorizontalContent.html">CustomTFHorizontalContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFVerticalContent.html">CustomTFVerticalContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTextField.html">DateTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DecimalTextField.html">DecimalTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DecimalTextField/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StandartTextField.html">StandartTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TextFieldSampleView.html">TextFieldSampleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UnderlinedTFStyle.html">UnderlinedTFStyle</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external noopener">Anton Vlezko</a>. All rights reserved. (Last updated: 2021-11-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

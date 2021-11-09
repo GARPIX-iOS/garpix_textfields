@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>View Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/View" class="dashAnchor"></a>
+    <a title="View Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html"> Docs</a>
+          <span class="no-mobile"> (49% documented)</span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html"> Reference</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+          </span>
+          View Extension Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>View</h1>
+                <div class="declaration">
+                  <div class="language">
+                    
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">View</span></code></pre>
+
+                  </div>
+                </div>
+              
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent013isShowLeadingH00ij8TrailingH007leadingH008trailingH0QrAA7BindingVySbG_ALqd__Sgycqd_0_SgyctAaBRd__AaBRd_0_r0_lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFHorizontalContent(isShowLeadingContent:isShowTrailingContent:leadingContent:trailingContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent013isShowLeadingH00ij8TrailingH007leadingH008trailingH0QrAA7BindingVySbG_ALqd__Sgycqd_0_SgyctAaBRd__AaBRd_0_r0_lF">customTFHorizontalContent(isShowLeadingContent:<wbr>isShowTrailingContent:<wbr>leadingContent:<wbr>trailingContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию для добавления содержимого с обеих сторон TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFHorizontalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowLeadingContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+        <span class="nv">isShowTrailingContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">leadingContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"Text"</span><span class="p">)</span> <span class="c1">// View</span>
+        <span class="p">},</span>
+        <span class="nv">trailingContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">ClearTextButton</span><span class="p">(</span><span class="nv">clearingText</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFHorizontalContent</span><span class="o">&lt;</span><span class="kt">LeadingContent</span><span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">TrailingContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowLeadingContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">isShowTrailingContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">leadingContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">LeadingContent</span><span class="p">?,</span>
+    <span class="nv">trailingContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TrailingContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent013isShowLeadingH007leadingH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFHorizontalContent(isShowLeadingContent:leadingContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent013isShowLeadingH007leadingH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF">customTFHorizontalContent(isShowLeadingContent:<wbr>leadingContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию для добавления содержимого в начало TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFHorizontalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowLeadingContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">leadingContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"Text"</span><span class="p">)</span> <span class="c1">// View</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFHorizontalContent</span><span class="o">&lt;</span><span class="kt">LeadingContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowLeadingContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">leadingContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">LeadingContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent014isShowTrailingH008trailingH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFHorizontalContent(isShowTrailingContent:trailingContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE25customTFHorizontalContent014isShowTrailingH008trailingH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF">customTFHorizontalContent(isShowTrailingContent:<wbr>trailingContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию, чтобы добавить контент в конце TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFHorizontalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowTrailingContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">trailingContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">ClearTextButton</span><span class="p">(</span><span class="nv">clearingText</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFHorizontalContent</span><span class="o">&lt;</span><span class="kt">TrailingContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowTrailingContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">trailingContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TrailingContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent09isShowTopH00ij6BottomH003topH006bottomH0QrAA7BindingVySbG_ALqd__Sgycqd_0_SgyctAaBRd__AaBRd_0_r0_lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFVerticalContent(isShowTopContent:isShowBottomContent:topContent:bottomContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent09isShowTopH00ij6BottomH003topH006bottomH0QrAA7BindingVySbG_ALqd__Sgycqd_0_SgyctAaBRd__AaBRd_0_r0_lF">customTFVerticalContent(isShowTopContent:<wbr>isShowBottomContent:<wbr>topContent:<wbr>bottomContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию для добавления содержимого с обеих сторон TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFVerticalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowTopContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+        <span class="nv">isShowBottomContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">topContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"Text"</span><span class="p">)</span> <span class="c1">// View</span>
+        <span class="p">},</span>
+        <span class="nv">bottomContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">ClearTextButton</span><span class="p">(</span><span class="nv">clearingText</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFVerticalContent</span><span class="o">&lt;</span><span class="kt">TopContent</span><span class="p">:</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">BottomContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowTopContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">isShowBottomContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">topContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TopContent</span><span class="p">?,</span>
+    <span class="nv">bottomContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">BottomContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent09isShowTopH003topH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFVerticalContent(isShowTopContent:topContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent09isShowTopH003topH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF">customTFVerticalContent(isShowTopContent:<wbr>topContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию для добавления содержимого сверху TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFVerticalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowTopContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">topContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"Text"</span><span class="p">)</span> <span class="c1">// View</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFVerticalContent</span><span class="o">&lt;</span><span class="kt">TopContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowTopContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">topContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">TopContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent012isShowBottomH006bottomH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF"></a>
+                      <a name="//apple_ref/swift/Method/customTFVerticalContent(isShowBottomContent:bottomContent:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE23customTFVerticalContent012isShowBottomH006bottomH0QrAA7BindingVySbG_qd__SgyctAaBRd__lF">customTFVerticalContent(isShowBottomContent:<wbr>bottomContent:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Используйте эту функцию, чтобы добавить контент снизу TF</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">customTFVerticalContent</span><span class="p">(</span>
+        <span class="c1">// Вы можете передать сюда binding и по своему условию скрывать или показывать контент</span>
+        <span class="nv">isShowBottomContent</span><span class="p">:</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
+
+        <span class="c1">// Вы можете передать сюда View различных типов</span>
+        <span class="nv">bottomContent</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">ClearTextButton</span><span class="p">(</span><span class="nv">clearingText</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">customTFVerticalContent</span><span class="o">&lt;</span><span class="kt">BottomContent</span><span class="p">:</span> <span class="kt">View</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="nv">isShowBottomContent</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">bottomContent</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">BottomContent</span><span class="p">?</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/View%20extension%20for%20onHideKeyboard"></a>
+                  <a name="//apple_ref/swift/Section/View extension for onHideKeyboard" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/View%20extension%20for%20onHideKeyboard"></a>
+                    <h3 class="section-name"><span>View extension for onHideKeyboard</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE14onHideKeyboardyQryycF"></a>
+                      <a name="//apple_ref/swift/Method/onHideKeyboard(_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE14onHideKeyboardyQryycF">onHideKeyboard(_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Этот метод обеспечивает аналогичную функциональность методу hideKeyboard(), который нужен, когда вы хотите выполнить что-то в замыкании после того, как клавиатура скрывается</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onHideKeyboard</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/View%20extension%20for%20borderTFStyle"></a>
+                  <a name="//apple_ref/swift/Section/View extension for borderTFStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/View%20extension%20for%20borderTFStyle"></a>
+                    <h3 class="section-name"><span>View extension for borderTFStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE13borderTFStyle0F5Style9showLabel5title5image4font9textColor11strokeWidth0p8StandartO00p8SelectedO00p5ErrorO012cornerRadius7offsetX0W1Y010backgroundO0QrAA7BindingVyAD12BorderStylesOG_AUySbGS2SAA4FontVAA0O0V12CoreGraphics7CGFloatVA1_A1_A1_A4_A4_A4_A1_tF"></a>
+                      <a name="//apple_ref/swift/Method/borderTFStyle(borderStyle:showLabel:title:image:font:textColor:strokeWidth:strokeStandartColor:strokeSelectedColor:strokeErrorColor:cornerRadius:offsetX:offsetY:backgroundColor:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE13borderTFStyle0F5Style9showLabel5title5image4font9textColor11strokeWidth0p8StandartO00p8SelectedO00p5ErrorO012cornerRadius7offsetX0W1Y010backgroundO0QrAA7BindingVyAD12BorderStylesOG_AUySbGS2SAA4FontVAA0O0V12CoreGraphics7CGFloatVA1_A1_A1_A4_A4_A4_A1_tF">borderTFStyle(borderStyle:<wbr>showLabel:<wbr>title:<wbr>image:<wbr>font:<wbr>textColor:<wbr>strokeWidth:<wbr>strokeStandartColor:<wbr>strokeSelectedColor:<wbr>strokeErrorColor:<wbr>cornerRadius:<wbr>offsetX:<wbr>offsetY:<wbr>backgroundColor:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Этот метод необходим для применения изменений стиля к TF. Я предварительно установил некоторые переменные, но вы можете их изменить
+Этот метод необходим для применения изменений стиля к TF.</p>
+<pre class="highlight swift"><code><span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span>
+<span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">textBorderStyle</span><span class="p">:</span> <span class="kt">BorderStyles</span> <span class="o">=</span> <span class="kt">BorderStyles</span><span class="o">.</span><span class="n">standart</span>
+<span class="kd">@State</span> <span class="kd">private</span> <span class="k">var</span> <span class="nv">textIsEditing</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="kt">StandartTextField</span><span class="p">(</span>
+        <span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">,</span>
+        <span class="nv">isEditing</span><span class="p">:</span> <span class="err">$</span><span class="n">textIsEditing</span><span class="p">,</span>
+        <span class="nv">placeholder</span><span class="p">:</span> <span class="n">placeholder</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="nf">borderTFStyle</span><span class="p">(</span>
+          <span class="nv">borderStyle</span><span class="p">:</span> <span class="err">$</span><span class="n">cardNumberBorderStyle</span><span class="p">,</span>
+          <span class="nv">showLabel</span><span class="p">:</span> <span class="err">$</span><span class="n">textIsEditing</span><span class="p">,</span>
+          <span class="nv">title</span><span class="p">:</span> <span class="n">placeholder</span><span class="p">,</span>
+          <span class="nv">image</span><span class="p">:</span> <span class="s">"chevron.left"</span><span class="p">,</span>
+          <span class="nv">textColor</span><span class="p">:</span> <span class="o">.</span><span class="n">red</span>
+    <span class="p">)</span> <span class="c1">// output -&gt; View с примененным на нем стилем</span>
+<span class="p">}</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">borderTFStyle</span><span class="p">(</span>
+    <span class="nv">borderStyle</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/BorderStyles.html">BorderStyles</a></span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">showLabel</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">image</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">font</span><span class="p">:</span> <span class="kt">Font</span> <span class="o">=</span> <span class="o">.</span><span class="n">caption2</span><span class="p">,</span>
+    <span class="nv">textColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="p">(</span><span class="o">.</span><span class="n">label</span><span class="p">),</span>
+    <span class="nv">strokeWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nv">strokeStandartColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="p">(</span><span class="o">.</span><span class="n">gray</span><span class="p">),</span>
+    <span class="nv">strokeSelectedColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="p">(</span><span class="o">.</span><span class="n">label</span><span class="p">),</span>
+    <span class="nv">strokeErrorColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="p">(</span><span class="o">.</span><span class="n">red</span><span class="p">),</span>
+    <span class="nv">cornerRadius</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nv">offsetX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nv">offsetY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span>
+    <span class="nv">backgroundColor</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="kt">Color</span><span class="p">(</span><span class="o">.</span><span class="n">systemBackground</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>View с примененным стилем</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/View%20extension%20for%20underlinedTFStyle"></a>
+                  <a name="//apple_ref/swift/Section/View extension for underlinedTFStyle" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/View%20extension%20for%20underlinedTFStyle"></a>
+                    <h3 class="section-name"><span>View extension for underlinedTFStyle</span>
+</h3>
+                  </div>
+                </div>
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE17underlinedTFStyle5color6height7spacing14paddingLeading8showLineQrAA5ColorV_12CoreGraphics7CGFloatVSgA2pA7BindingVySbGtF"></a>
+                      <a name="//apple_ref/swift/Method/underlinedTFStyle(color:height:spacing:paddingLeading:showLine:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE17underlinedTFStyle5color6height7spacing14paddingLeading8showLineQrAA5ColorV_12CoreGraphics7CGFloatVSgA2pA7BindingVySbGtF">underlinedTFStyle(color:<wbr>height:<wbr>spacing:<wbr>paddingLeading:<wbr>showLine:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Этот метод необходим для применения изменений стиля к TF.</p>
+<pre class="highlight swift"><code><span class="kt">StandartTextField</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="err">$</span><span class="n">text</span><span class="p">)</span>
+    <span class="o">.</span><span class="nf">underlinedTFStyle</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="o">.</span><span class="n">red</span><span class="p">)</span> <span class="c1">// output -&gt; View с примененным на нем стилем</span>
+</code></pre>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">underlinedTFStyle</span><span class="p">(</span>
+    <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">,</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">spacing</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">paddingLeading</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">showLine</span><span class="p">:</span> <span class="kt">Binding</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">.</span><span class="nf">constant</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>color</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>передайте сюда свой собственный цвет</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>View с примененным стилем</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI4ViewP11GXTextFieldE27underlinedTFStyleOverlaying5color6height10paddingTopQrAA5ColorV_12CoreGraphics7CGFloatVSgANtF"></a>
+                      <a name="//apple_ref/swift/Method/underlinedTFStyleOverlaying(color:height:paddingTop:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI4ViewP11GXTextFieldE27underlinedTFStyleOverlaying5color6height10paddingTopQrAA5ColorV_12CoreGraphics7CGFloatVSgANtF">underlinedTFStyleOverlaying(color:<wbr>height:<wbr>paddingTop:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">underlinedTFStyleOverlaying</span><span class="p">(</span>
+    <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">,</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nv">paddingTop</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">?</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">some</span> <span class="kt">View</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/BorderStyles.html">BorderStyles</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/CustomTFFormat.html">CustomTFFormat</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/View.html">View</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/CustomTFHorizontalContentProtocol.html">CustomTFHorizontalContentProtocol</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Protocols/CustomTFVerticalContentProtocol.html">CustomTFVerticalContentProtocol</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Structs/BorderTFStyle.html">BorderTFStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs.html#/s:11GXTextField23BorderTFStyleComponentsV">BorderTFStyleComponents</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ClearTextButton.html">ClearTextButton</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CurrencyTextField.html">CurrencyTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs.html#/s:11GXTextField18CustomTFComponentsV">CustomTFComponents</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFFormatType.html">CustomTFFormatType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFHorizontalContent.html">CustomTFHorizontalContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/CustomTFVerticalContent.html">CustomTFVerticalContent</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DateTextField.html">DateTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DecimalTextField.html">DecimalTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/DecimalTextField/Coordinator.html">– Coordinator</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/StandartTextField.html">StandartTextField</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/TextFieldSampleView.html">TextFieldSampleView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/UnderlinedTFStyle.html">UnderlinedTFStyle</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external noopener">Anton Vlezko</a>. All rights reserved. (Last updated: 2021-11-09)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
