@@ -187,7 +187,7 @@ public extension TextFieldSampleView {
             currencySymbol: "$",
             textColor: Color(.label),
             isEditing: $dollarPriceIsEditing,
-            placeholder: placeholder,
+            placeholder: placeholder, uiFont: UIFont(name: "Helvetica Neue", size: 16),
             onChangeOfIsEditing: { value in
                 dollarPriceBorderStyle = value ? .selected : .standart
             },

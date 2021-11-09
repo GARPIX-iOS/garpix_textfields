@@ -23,6 +23,7 @@ public struct CustomTFComponents: CustomTFProtocol {
     var isShowSecureField: Bool
     var alwaysShowFractions: Bool
     var font: Font = .callout
+    var uiFont: UIFont? = nil
     
     var formatType: CustomTFFormatType?
     var commit: () -> Void

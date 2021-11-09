@@ -119,6 +119,7 @@ extension CustomTF {
                              value: totalInput,
                              alwaysShowFractions: components.alwaysShowFractions,
                              currencySymbol: currencySymbol,
+                             font: components.uiFont,
                              onEditingChanged: { isEdit in
                                onEditingChanged(isEdit: isEdit)
                              })

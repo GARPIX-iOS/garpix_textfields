@@ -106,7 +106,7 @@ public struct DecimalTextField: UIViewRepresentable {
         // tag
         textField.tag = tag
 
-        setFont(context, textField)
+        textField.font = font
         setAlignment(context, textField)
         setColor(context, textField)
 
@@ -299,34 +299,6 @@ public struct DecimalTextField: UIViewRepresentable {
 // MARK: - setup textfield
 
 extension DecimalTextField {
-    private func setFont(_ context: UIViewRepresentableContext<DecimalTextField>, _ textField: UITextField) {
-        // font
-        if let f = context.environment.font {
-            switch f {
-            case .largeTitle:
-                textField.font = UIFont.preferredFont(forTextStyle: .largeTitle)
-            case .title:
-                textField.font = UIFont.preferredFont(forTextStyle: .title1)
-            case .body:
-                textField.font = UIFont.preferredFont(forTextStyle: .body)
-            case .headline:
-                textField.font = UIFont.preferredFont(forTextStyle: .headline)
-            case .subheadline:
-                textField.font = UIFont.preferredFont(forTextStyle: .subheadline)
-            case .callout:
-                textField.font = UIFont.preferredFont(forTextStyle: .callout)
-            case .footnote:
-                textField.font = UIFont.preferredFont(forTextStyle: .footnote)
-            case .caption:
-                textField.font = UIFont.preferredFont(forTextStyle: .caption1)
-            default:
-                textField.font = font
-            }
-        } else {
-            textField.font = font
-        }
-    }
-
     private func setAlignment(_ context: UIViewRepresentableContext<DecimalTextField>, _ textField: UITextField) {
         // alignment
         var ltr = true

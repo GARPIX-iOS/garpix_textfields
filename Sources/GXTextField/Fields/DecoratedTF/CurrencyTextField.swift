@@ -73,6 +73,8 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     /// Эта переменная всегда будет показывать дроби в NumbersTextField
     var alwaysShowFractions: Bool
     
+    var uiFont: UIFont? = nil
+    
     var formatType: CustomTFFormatType?
     var onTap: () -> Void
     var onChangeOfIsEditing: (Bool) -> Void
@@ -89,6 +91,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
         alwaysShowFractions: Bool = false,
+        uiFont: UIFont? = nil,
 
         onTap: @escaping () -> Void = {},
         onChangeOfIsEditing: @escaping (Bool) -> Void = {_ in},
@@ -104,6 +107,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         self.keyboardType = .numberPad
         self.isShowSecureField = false
         self.alwaysShowFractions = alwaysShowFractions
+        self.uiFont = uiFont
 
         self.commit = {}
         self.onTap = onTap
@@ -123,6 +127,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
+            uiFont: uiFont,
             formatType: formatType,
             commit: commit,
             onTap: onTap,
