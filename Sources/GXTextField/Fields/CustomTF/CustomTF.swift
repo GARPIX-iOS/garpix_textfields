@@ -113,6 +113,7 @@ extension CustomTF {
         ZStack(alignment: .leading) {
             if totalInput.wrappedValue.isNil {
                 Text(components.placeholder)
+                    .font(components.placeholderFont)
                     .foregroundColor(components.placeholderColor)
             }
             DecimalTextField("",

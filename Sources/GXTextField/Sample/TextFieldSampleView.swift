@@ -184,10 +184,12 @@ public extension TextFieldSampleView {
         
         return CurrencyTextField(
             totalInput: bindingTotalInput,
-            currencySymbol: "$",
+            currencySymbol: "P",
             textColor: Color(.label),
+            placeholderFont: .system(size: 22),
             isEditing: $dollarPriceIsEditing,
-            placeholder: placeholder, uiFont: UIFont(name: "Helvetica Neue", size: 16),
+            placeholder: placeholder,
+            uiFont: UIFont(name: "Helvetica Neue", size: 16),
             onChangeOfIsEditing: { value in
                 dollarPriceBorderStyle = value ? .selected : .standart
             },

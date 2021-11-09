@@ -67,6 +67,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
     @Binding var isEditing: Bool
     var placeholder: String
     var placeholderColor: Color?
+    var placeholderFont: Font
     var keyboardType: UIKeyboardType
     var isShowSecureField: Bool
     
@@ -88,6 +89,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         currencySymbol: String?,
         textColor: Color = .primary,
         placeholderColor: Color = .primary,
+        placeholderFont: Font,
         isEditing: Binding<Bool> = .constant(false),
         placeholder: String = "",
         alwaysShowFractions: Bool = false,
@@ -104,6 +106,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
         _isEditing = isEditing
         self.placeholder = placeholder
         self.placeholderColor = placeholderColor
+        self.placeholderFont = placeholderFont
         self.keyboardType = .numberPad
         self.isShowSecureField = false
         self.alwaysShowFractions = alwaysShowFractions
@@ -124,6 +127,7 @@ public struct CurrencyTextField: View, CustomTFProtocol {
             isEditing: $isEditing,
             placeholder: placeholder,
             placeholderColor: placeholderColor,
+            placeholderFont: placeholderFont,
             keyboardType: keyboardType,
             isShowSecureField: isShowSecureField,
             alwaysShowFractions: alwaysShowFractions,
